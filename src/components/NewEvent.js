@@ -17,9 +17,17 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useState } from "react";
 import { Route, Routes, Link, UseParams, useNavigate } from "react-router-dom";
 
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { TimePicker } from "@mui/x-date-pickers/TimePicker";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
+import dayjs from "dayjs";
 import axios from "axios";
 
 function NewEvent() {
+  const navigate = useNavigate();
   const [event, setEvent] = useState("");
   const [date, setDate] = useState("");
   const [startTime, setStartTime] = useState("");
@@ -28,9 +36,15 @@ function NewEvent() {
   const [endTime, setEndTime] = useState("");
   const [attendees, setAttendees] = useState([]);
 
+  const [value, setValue] = useState(dayjs());
+
+  const handleChange = (newValue) => {
+    setValue(newValue);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(event);
+    axios.post(`https://congregate.onrender.com/new/event/`);
   };
   return (
     <div className='App'>
@@ -47,26 +61,35 @@ function NewEvent() {
         <br />
         <Grid container spacing={2}>
           <Grid item xs={6}>
-            <TextField
+            {/* <TextField
               label='Date'
               variant='outlined'
               required
               value={date}
               onChange={(e) => setDate(e.target.value)}
               error={!date}
-            />
+            /> */}
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <MobileDatePicker
+                label='Date mobile'
+                inputFormat='MM/DD/YYYY'
+                value={value}
+                onChange={handleChange}
+                renderInput={(params) => <TextField {...params} />}
+              />
+            </LocalizationProvider>
           </Grid>
-          <Grid item xs={6}>
+          {/* <Grid item xs={6}>
             <TextField
               label='Time'
               variant='outlined'
               value={startTime}
               onChange={(e) => setStartTime(e.target.value)}
             />
-          </Grid>
+          </Grid> */}
         </Grid>
         <br />
-        <Grid>
+        {/* <Grid>
           <Accordion>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
               <Typography>Select Group</Typography>
@@ -78,11 +101,11 @@ function NewEvent() {
             </AccordionDetails>
           </Accordion>
         </Grid>
-        <br />
-        <Stack spacing={4}>
+        <br /> */}
+        {/* <Stack spacing={4}>
           <TextField
             fullWidth
-            label='Enter Address'
+            label='Location'
             value={location}
             onChange={(e) => setLocation(e.target.value)}
           />
@@ -101,7 +124,7 @@ function NewEvent() {
           <Button fullWidth variant='outlined' rows={2}>
             Add Activity to Event +
           </Button>
-        </Stack>
+        </Stack> */}
         <br />
         <Stack>
           <Button type='submit' fullWidth variant='contained'>
@@ -109,6 +132,16 @@ function NewEvent() {
           </Button>
         </Stack>
       </form>
+      <br />
+      <Stack>
+        <Button
+          onClick={() => navigate("/new/option")}
+          fullWidth
+          variant='contained'
+        >
+          Add Activity
+        </Button>
+      </Stack>
       <footer>
         <ButtonGroup fullWidth color='secondary' variant='text'>
           <Button>Calendar</Button>
