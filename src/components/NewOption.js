@@ -15,3 +15,14 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 // Needed for Error on Date entry and we'll use it a lot
 import { useState } from "react";
+import { Route, Routes, Link, UseParams, useNavigate } from "react-router-dom";
+
+console.log("welcome");
+function NewOption() {
+  return (
+    <div>
+      <h1>Add your Activity Bro</h1>
+    </div>
+  );
+}
+export default NewOption;
