@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
-import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
 import jwtDecode from "jwt-decode";
-import ApiCalendar from "react-google-calendar-api";
-
 import axios from "axios";
 
+/*global google*/
 function EventCreation() {
   const [userCredential, setUserCredential] = useState(null);
 
