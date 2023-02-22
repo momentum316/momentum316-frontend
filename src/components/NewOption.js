@@ -15,3 +15,9 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 // Needed for Error on Date entry and we'll use it a lot
 import { useState } from "react";
+
+function NewOption() {
+  <div>
+    <h1>Create Option</h1>
+  </div>;
+}
