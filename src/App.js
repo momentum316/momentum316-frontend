@@ -7,10 +7,12 @@ import { Route, Routes, Link, UseParams, useNavigate } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
+    <div className='App'>
       <Routes>
-        <Route path="/" element={<NewEvent />}></Route>
-        <Route path="/new/activity" element={<NewActivity />}></Route>
+        <Route path='/' element={<NewEvent />}></Route>
+        <Route path='/new/activity' element={<NewActivity />}></Route>
+        <Route path='/event/:eventId' element={<NewActivity />}></Route>
+        <Route path='/group/:groupId' element={<NewActivity />}></Route>
       </Routes>
     </div>
   );

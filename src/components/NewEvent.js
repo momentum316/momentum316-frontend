@@ -40,7 +40,10 @@ function NewEvent() {
   const [createdEvent, setCreatedEvent] = useState("");
 
   const handleChange = (newValue) => {
-    setValue(newValue);
+    var d = new Date(newValue);
+    var date = d.toISOString();
+    setValue(date);
+    console.log(date);
   };
 
   const handleSubmit = (e) => {
@@ -54,13 +57,13 @@ function NewEvent() {
   };
 
   return (
-    <div className="App">
+    <div className='App'>
       <form onSubmit={handleSubmit}>
         <h1>New Event</h1>
         <Grid spacing={4}>
           <TextField
             fullWidth
-            label="Event Name"
+            label='Event Name'
             value={event}
             onChange={(e) => setEvent(e.target.value)}
           />
@@ -78,8 +81,8 @@ function NewEvent() {
             /> */}
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <MobileDatePicker
-                label="Date mobile"
-                inputFormat="MM/DD/YYYY"
+                label='Date mobile'
+                inputFormat='MM/DD/YYYY'
                 value={value}
                 onChange={handleChange}
                 renderInput={(params) => <TextField {...params} />}
@@ -134,7 +137,7 @@ function NewEvent() {
         </Stack> */}
         <br />
         <Stack>
-          <Button type="submit" fullWidth variant="contained">
+          <Button type='submit' fullWidth variant='contained'>
             Submit Event
           </Button>
         </Stack>
@@ -144,13 +147,13 @@ function NewEvent() {
         <Button
           onClick={() => navigate("/new/activity")}
           fullWidth
-          variant="contained"
+          variant='contained'
         >
           Add Activity
         </Button>
       </Stack>
       <footer>
-        <ButtonGroup fullWidth color="secondary" variant="text">
+        <ButtonGroup fullWidth color='secondary' variant='text'>
           <Button>Calendar</Button>
           <Button>Groups</Button>
           <Button>Events</Button>
