@@ -37,6 +37,7 @@ function NewEvent() {
   const [attendees, setAttendees] = useState([]);
 
   const [value, setValue] = useState(dayjs());
+  const [createdEvent, setCreatedEvent] = useState("");
 
   const handleChange = (newValue) => {
     setValue(newValue);
@@ -44,16 +45,22 @@ function NewEvent() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post(`https://congregate.onrender.com/new/event/`);
+    axios
+      .post(`https://congregate.onrender.com/new/event/`, {
+        title: `${event}`,
+        group_id: "1",
+      })
+      .then((res) => console.log(res.data));
   };
+
   return (
-    <div className='App'>
+    <div className="App">
       <form onSubmit={handleSubmit}>
         <h1>New Event</h1>
         <Grid spacing={4}>
           <TextField
             fullWidth
-            label='Event Name'
+            label="Event Name"
             value={event}
             onChange={(e) => setEvent(e.target.value)}
           />
@@ -71,8 +78,8 @@ function NewEvent() {
             /> */}
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <MobileDatePicker
-                label='Date mobile'
-                inputFormat='MM/DD/YYYY'
+                label="Date mobile"
+                inputFormat="MM/DD/YYYY"
                 value={value}
                 onChange={handleChange}
                 renderInput={(params) => <TextField {...params} />}
@@ -127,7 +134,7 @@ function NewEvent() {
         </Stack> */}
         <br />
         <Stack>
-          <Button type='submit' fullWidth variant='contained'>
+          <Button type="submit" fullWidth variant="contained">
             Submit Event
           </Button>
         </Stack>
@@ -135,15 +142,15 @@ function NewEvent() {
       <br />
       <Stack>
         <Button
-          onClick={() => navigate("/new/option")}
+          onClick={() => navigate("/new/activity")}
           fullWidth
-          variant='contained'
+          variant="contained"
         >
           Add Activity
         </Button>
       </Stack>
       <footer>
-        <ButtonGroup fullWidth color='secondary' variant='text'>
+        <ButtonGroup fullWidth color="secondary" variant="text">
           <Button>Calendar</Button>
           <Button>Groups</Button>
           <Button>Events</Button>
