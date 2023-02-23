@@ -11,6 +11,7 @@ import { useState } from "react";
 import { Route, Routes, Link, UseParams, useNavigate } from "react-router-dom";
 import NewEvent from "./NewEvent";
 import dayjs from "dayjs";
+import FooterObject from "./Footer";
 
 function NewActivity() {
   const navigate = useNavigate();
@@ -92,13 +93,7 @@ function NewActivity() {
             Post to Event
           </Button>
         </Stack>
-        <footer>
-          <ButtonGroup fullWidth color="secondary" variant="text">
-            <Button>Calendar</Button>
-            <Button>Groups</Button>
-            <Button>Events</Button>
-          </ButtonGroup>
-        </footer>
+        <FooterObject />
       </Container>
     </div>
   );
