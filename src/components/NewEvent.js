@@ -37,6 +37,7 @@ function NewEvent() {
   const [attendees, setAttendees] = useState([]);
 
   const [value, setValue] = useState(dayjs());
+  const [createdEvent, setCreatedEvent] = useState("");
 
   const handleChange = (newValue) => {
     setValue(newValue);
@@ -44,8 +45,14 @@ function NewEvent() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post(`https://congregate.onrender.com/new/event/`);
+    axios
+      .post(`https://congregate.onrender.com/new/event/`, {
+        title: `${event}`,
+        group_id: "1",
+      })
+      .then((res) => console.log(res.data));
   };
+
   return (
     <div className="App">
       <form onSubmit={handleSubmit}>
@@ -135,7 +142,7 @@ function NewEvent() {
       <br />
       <Stack>
         <Button
-          onClick={() => navigate("/new/option")}
+          onClick={() => navigate("/new/activity")}
           fullWidth
           variant="contained"
         >
