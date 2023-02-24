@@ -28,6 +28,7 @@ import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import dayjs from "dayjs";
 import axios from "axios";
 import FooterObject from "./Footer";
+import { ArrowForward } from "@mui/icons-material";
 
 export default function NewEvent() {
   const navigate = useNavigate();
@@ -145,6 +146,7 @@ export default function NewEvent() {
             type="submit"
             fullWidth
             variant="contained"
+            endDecorator={<ArrowForward />}
             onClick={() => navigate("/event/:eventId")}
           >
             Submit Event
