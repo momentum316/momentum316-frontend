@@ -6,7 +6,12 @@ export default function FooterObject() {
   return (
     <div className="footer-wrapper">
       <footer>
-        <ButtonGroup fullWidth color="secondary" variant="text">
+        <ButtonGroup
+          fullWidth
+          size="large"
+          color="secondary"
+          variant="contained"
+        >
           <Button>Functions</Button>
           <Button onClick={() => navigate("/group")}>Groups</Button>
           <Button onClick={() => navigate("/")}>Events</Button>
