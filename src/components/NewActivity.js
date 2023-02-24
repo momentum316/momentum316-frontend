@@ -12,66 +12,77 @@ import { Route, Routes, Link, UseParams, useNavigate } from "react-router-dom";
 import NewEvent from "./NewEvent";
 import dayjs from "dayjs";
 import FooterObject from "./Footer";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 export default function NewActivity() {
   const navigate = useNavigate();
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
-  const [startTime, setStartTime] = useState("");
-  const [value, setValue] = useState(dayjs());
-  const handleChange = (newValue) => {
-    setValue(newValue);
+  const [startValue, setStartValue] = useState(null);
+  const [endValue, setEndValue] = useState(null);
+  const handleStart = (newValue) => {
+    var d = new Date(newValue);
+    var date = d.toISOString();
+    setStartValue(date);
+  };
+  const handleEnd = (newValue) => {
+    var d = new Date(newValue);
+    var date = d.toISOString();
+    setEndValue(date);
   };
   return (
-    <div className="App">
+    <div className='App'>
       <Container>
         <Container
-          variant="h4"
+          variant='h4'
           sx={{ my: 4, textAlign: "left", color: "primary.main" }}
         >
           New Activity
         </Container>
-        <Typography variant="h6" textAlign="left">
+        <Typography variant='h6' textAlign='left'>
           To NewEvent on '$EventDate'
           <br />
           w/ GroupName
         </Typography>
         <br />
         <Stack>
-          <Typography variant="h8" textAlign="left">
+          <Typography variant='h8' textAlign='left'>
             Activity Details
           </Typography>
           <br />
           {/* Time Field dayjs needs to be finished*/}
-          <TextField
-            alignItems="left"
-            label="Start Time"
-            variant="outlined"
-            value={value}
-            onChange={handleChange}
-          />
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <TimePicker
+              label='Start Time'
+              value={startValue}
+              onChange={handleStart}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </LocalizationProvider>
           <br />
-          <TextField
-            alignItems="Left"
-            label="End Time"
-            variant="outlined"
-            value={value}
-            onChange={handleChange}
-          />
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <TimePicker
+              label='End Time'
+              value={endValue}
+              onChange={handleEnd}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </LocalizationProvider>
         </Stack>
         <br />
         {/* Location (w/google maps?) */}
         <Stack spacing={4}>
           <TextField
             fullWidth
-            label="Location"
+            label='Location'
             value={location}
             onChange={(e) => setLocation(e.target.value)}
           />
           {/* description box */}
           <TextField
-            id="description-box"
-            label="Description"
+            id='description-box'
+            label='Description'
             multiline
             rows={4}
             fullWidth
@@ -82,7 +93,7 @@ export default function NewActivity() {
         {/* CANCEL BUTTON (clear fields or back to event?)*/}
         <br />
         <Stack>
-          <Button onClick={() => navigate("/")} fullWidth variant="contained">
+          <Button onClick={() => navigate("/")} fullWidth variant='contained'>
             Cancel
           </Button>
         </Stack>
@@ -92,7 +103,7 @@ export default function NewActivity() {
           <Button
             onClick={() => navigate("/event/:eventId")}
             fullWidth
-            variant="contained"
+            variant='contained'
           >
             Post to Event
           </Button>
