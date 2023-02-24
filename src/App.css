@@ -8,3 +8,9 @@ footer {
   bottom: 0%;
   width: 100%;
 }
+
+.footer-wrapper {
+  justify-content: center;
+  width: 100%;
+  display: flex;
+}

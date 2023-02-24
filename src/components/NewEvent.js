@@ -1,9 +1,11 @@
 import * as React from "react";
 import "../App.css";
 // General page use
-import { Stack, TextField, Button, Grid } from "@mui/material";
+import { Stack, TextField, Button, Grid, Switch } from "@mui/material";
 // Footer Nav Bar
 import { ButtonGroup } from "@mui/material";
+// For Vote Set Switch
+import { FormControlLabel } from "@mui/material";
 // Group Select dropdown
 import {
   Accordion,
@@ -25,8 +27,9 @@ import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import dayjs from "dayjs";
 import axios from "axios";
+import FooterObject from "./Footer";
 
-function NewEvent() {
+export default function NewEvent() {
   const navigate = useNavigate();
   const [event, setEvent] = useState("");
   const [date, setDate] = useState("");
@@ -38,6 +41,7 @@ function NewEvent() {
 
   const [value, setValue] = useState(dayjs());
   const [createdEvent, setCreatedEvent] = useState("");
+  const [showActivity, setShowActivity] = useState(false);
 
   const handleChange = (newValue) => {
     var d = new Date(newValue);
@@ -137,30 +141,44 @@ function NewEvent() {
         </Stack> */}
         <br />
         <Stack>
-          <Button type="submit" fullWidth variant="contained">
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            onClick={() => navigate("/event/:eventId")}
+          >
             Submit Event
           </Button>
         </Stack>
       </form>
+      {/* Vote Select Switch */}
       <br />
       <Stack>
-        <Button
-          onClick={() => navigate("/new/activity")}
-          fullWidth
-          variant="contained"
-        >
-          Add Activity
-        </Button>
+        <FormControlLabel
+          value="end"
+          control={
+            <Switch
+              color="primary"
+              onClick={() => setShowActivity(!showActivity)}
+            />
+          }
+          label="Set Vote?"
+          labelPlacement="end"
+          // onClick={() => setShowActivity(!showActivity)}
+        />
+        {/* ADD ACTIVITY BUTTON (show only for vote selection) */}
+
+        {showActivity && (
+          <Button
+            onClick={() => navigate("/new/activity")}
+            fullWidth
+            variant="contained"
+          >
+            Add Activity
+          </Button>
+        )}
       </Stack>
-      <footer>
-        <ButtonGroup fullWidth color="secondary" variant="text">
-          <Button>Calendar</Button>
-          <Button onClick={() => navigate("/group")}>Groups</Button>
-          <Button>Events</Button>
-        </ButtonGroup>
-      </footer>
+      <FooterObject />
     </div>
   );
 }
-
-export default NewEvent;
