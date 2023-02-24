@@ -13,7 +13,7 @@ import NewEvent from "./NewEvent";
 import dayjs from "dayjs";
 import FooterObject from "./Footer";
 
-function NewActivity() {
+export default function NewActivity() {
   const navigate = useNavigate();
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
@@ -89,7 +89,11 @@ function NewActivity() {
         {/* POST TO EVENT BUTTON (carry to db)*/}
         <br />
         <Stack>
-          <Button onClick={() => navigate("/")} fullWidth variant="contained">
+          <Button
+            onClick={() => navigate("/event/:eventId")}
+            fullWidth
+            variant="contained"
+          >
             Post to Event
           </Button>
         </Stack>
@@ -98,4 +102,3 @@ function NewActivity() {
     </div>
   );
 }
-export default NewActivity;
