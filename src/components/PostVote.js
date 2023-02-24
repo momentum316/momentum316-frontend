@@ -1,4 +1,6 @@
 import { Route, Routes, Link, useNavigate } from "react-router-dom";
+import { ActivitySlide } from "./Slides";
+
 import {
   Avatar,
   AvatarGroup,
@@ -27,11 +29,7 @@ export default function PostVoteEvent() {
         />
       </IconButton>
       {/* Make this a component */}
-      <Stack>
-        <h4>Event Name</h4>
-        <span>Date</span>
-        <span>Time</span>
-      </Stack>
+      <ActivitySlide />
       <Divider />
       <Stack textAlign="left">
         <h6>Address Line</h6>
