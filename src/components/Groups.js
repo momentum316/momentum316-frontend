@@ -1,55 +1,87 @@
 import { Avatar, AvatarGroup, Grid, Button, ButtonGroup } from "@mui/material";
-import { Route, Routes, Link, UseParams, useNavigate } from "react-router-dom";
+import { Route, Routes, Link, useParams, useNavigate } from "react-router-dom";
 import FooterObject from "./Footer";
+import axios from "axios";
 
-export default function GroupPage() {
+import { useState, useEffect } from "react";
+
+export function GroupPage() {
+  const [groups, setGroups] = useState(null);
+  useEffect(() => {
+    axios
+      // need to change this to dynamic username once login page is ready
+      .get("https://congregate.onrender.com/villeryd/groups")
+      .then((response) => setGroups(response.data));
+  }, []);
+
   const navigate = useNavigate();
   return (
-    <div>
-      <p>Groups Page</p>
+    groups && (
+      <div>
+        <p>Groups Page</p>
 
-      <br />
-      <div className="group-grid">
-        <Grid
-          container
-          direction="columns"
-          spacing={3}
-          columns={{ xs: 12, sm: 8, md: 12 }}
-        >
-          <Grid item xs={4} sm={4} md={4}>
-            <Avatar
-              onClick={() => navigate("/")}
-              alt="Remy Sharp"
-              src="/static/images/avatar/1.jpg"
-            />
+        <br />
+        <div className='group-grid'>
+          <Grid
+            container
+            direction='columns'
+            spacing={3}
+            columns={{ xs: 12, sm: 8, md: 12 }}
+          >
+            {groups.map((g) => (
+              <Grid item xs={4} sm={4} md={4}>
+                <Avatar
+                  key={g.id}
+                  onClick={() => navigate(`/group/${g.id}`)}
+                  alt={g.title}
+                  src='/static/images/avatar/1.jpg'
+                />
+                <p>{g.title}</p>
+              </Grid>
+            ))}
           </Grid>
-          <Grid item xs={4} sm={4} md={4}>
-            <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
-          </Grid>
-          <Grid item xs={4} sm={4} md={4}>
-            <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
-          </Grid>
-          <Grid item xs={4} sm={4} md={4}>
-            <Avatar alt="Agnes Walker" src="/static/images/avatar/4.jpg" />
-          </Grid>
-          <Grid item xs={4} sm={4} md={4}>
-            <Avatar alt="Trevor Henderson" src="/static/images/avatar/5.jpg" />
-          </Grid>
-          <Grid item xs={4} sm={4} md={4}>
-            <Avatar alt="Trevor Henderson" src="/static/images/avatar/5.jpg" />
-          </Grid>
-          <Grid item xs={4} sm={4} md={4}>
-            <Avatar alt="Trevor Henderson" src="/static/images/avatar/5.jpg" />
-          </Grid>
-          <Grid item xs={4} sm={4} md={4}>
-            <Avatar alt="Trevor Henderson" src="/static/images/avatar/5.jpg" />
-          </Grid>
-          <Grid item xs={4} sm={4} md={4}>
-            <Avatar alt="Trevor Henderson" src="/static/images/avatar/5.jpg" />
-          </Grid>
-        </Grid>
+        </div>
+        <FooterObject />
       </div>
-      <FooterObject />
-    </div>
+    )
+  );
+}
+
+export function Group() {
+  let { groupId } = useParams();
+  const [group, setGroup] = useState(null);
+  const navigate = useNavigate();
+  useEffect(() => {
+    axios
+      // need to change this to dynamic username once login page is ready
+      .get(`https://congregate.onrender.com/group/${groupId}`)
+      .then((response) => setGroup(response.data));
+  }, [groupId]);
+  return (
+    group && (
+      <div>
+        <h1>{group.title}</h1>
+        <div className='group-grid'>
+          <Grid
+            container
+            direction='columns'
+            spacing={3}
+            columns={{ xs: 12, sm: 8, md: 12 }}
+          >
+            {group.members.map((g) => (
+              <Grid item xs={4} sm={4} md={4}>
+                <Avatar
+                  key={g}
+                  onClick={() => navigate(`/profile/${g}`)}
+                  alt={g}
+                  src={g}
+                />
+                <p>{g}</p>
+              </Grid>
+            ))}
+          </Grid>
+        </div>
+      </div>
+    )
   );
 }
