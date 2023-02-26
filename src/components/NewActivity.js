@@ -20,7 +20,7 @@ import { useState } from "react";
 import { Route, Routes, Link, UseParams, useNavigate } from "react-router-dom";
 import NewEvent from "./NewEvent";
 import dayjs from "dayjs";
-import FooterObject from "./Footer";
+import { FooterObject } from "./Footer";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
@@ -51,23 +51,8 @@ export default function NewActivity() {
   return (
     <div className="App">
       <Container>
-        <Container
-          variant="h4"
-          sx={{ my: 4, textAlign: "left", color: "primary.main" }}
-        >
-          New Activity
-        </Container>
-        <Typography variant="h6" textAlign="left">
-          To NewEvent on '$EventDate'
-          <br />
-          w/ GroupName
-        </Typography>
         <br />
         <Stack>
-          <Typography variant="h8" textAlign="left">
-            Activity Details
-          </Typography>
-          <br />
           <FormControlLabel
             value="end"
             control={<Switch color="primary" onClick={() => handleTime()} />}
@@ -130,14 +115,13 @@ export default function NewActivity() {
         <br />
         <Stack>
           <Button
-            onClick={() => navigate("/event/:eventId")}
+            onClick={() => navigate("/voting")}
             fullWidth
             variant="contained"
           >
-            Post to Event
+            Add Item to Vote!
           </Button>
         </Stack>
-        <FooterObject />
       </Container>
     </div>
   );

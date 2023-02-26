@@ -14,7 +14,7 @@ import {
   Divider,
   Container,
 } from "@mui/material";
-import FooterObject from "./Footer";
+import { FooterObject } from "./Footer";
 import { bgcolor } from "@mui/system";
 
 export default function PostVoteEvent() {

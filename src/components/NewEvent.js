@@ -27,13 +27,14 @@ import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import dayjs from "dayjs";
 import axios from "axios";
-import FooterObject from "./Footer";
+import { FooterObject } from "./Footer";
 import { ArrowForward, SetMeal } from "@mui/icons-material";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import NewActivity from "./NewActivity";
 
 export default function NewEvent() {
   const navigate = useNavigate();
@@ -77,13 +78,13 @@ export default function NewEvent() {
 
   return (
     choices && (
-      <div className='App'>
+      <div className="App">
         <form onSubmit={handleSubmit}>
           <h1>New Event</h1>
           <Grid spacing={4}>
             <TextField
               fullWidth
-              label='Event Name'
+              label="Event Name"
               value={event}
               required
               onChange={(e) => setEvent(e.target.value)}
@@ -102,8 +103,8 @@ export default function NewEvent() {
             /> */}
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <MobileDatePicker
-                  label='Date'
-                  inputFormat='MM/DD/YYYY'
+                  label="Date"
+                  inputFormat="MM/DD/YYYY"
                   value={date}
                   onChange={handleChange}
                   required
@@ -113,18 +114,18 @@ export default function NewEvent() {
             </Grid>
             <Grid spacing={4}>
               <FormControl sx={{ m: 2, minWidth: 120 }}>
-                <InputLabel id='demo-simple-select-helper-label'>
+                <InputLabel id="demo-simple-select-helper-label">
                   Group
                 </InputLabel>
                 <Select
-                  labelId='demo-simple-select-helper-label'
-                  id='demo-simple-select-helper'
+                  labelId="demo-simple-select-helper-label"
+                  id="demo-simple-select-helper"
                   value={group}
-                  label='Group'
+                  label="Group"
                   required
                   onChange={(e) => setGroup(e.target.value)}
                 >
-                  <MenuItem value=''>
+                  <MenuItem value="">
                     <em>Select a Group</em>
                   </MenuItem>
                   {choices.map((c) => (
@@ -144,19 +145,6 @@ export default function NewEvent() {
           </Grid> */}
           </Grid>
           <br />
-          {/* <Grid>
-          <Accordion>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography>Select Group</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography>Create New +</Typography>
-              <Typography>Placeholder</Typography>
-              <Typography>Placeholder</Typography>
-            </AccordionDetails>
-          </Accordion>
-        </Grid>
-        <br /> */}
           {/* <Stack spacing={4}>
           <TextField
             fullWidth
@@ -183,9 +171,9 @@ export default function NewEvent() {
           <br />
           <Stack>
             <Button
-              type='submit'
+              type="submit"
               fullWidth
-              variant='contained'
+              variant="contained"
               endDecorator={<ArrowForward />}
             >
               Submit Event
@@ -196,22 +184,18 @@ export default function NewEvent() {
         <br />
         <Stack>
           <FormControlLabel
-            value='end'
-            control={<Switch color='primary' onClick={() => setVote(!vote)} />}
-            label='Set Vote?'
-            labelPlacement='end'
+            value="end"
+            control={<Switch color="primary" onClick={() => setVote(!vote)} />}
+            label="Set Vote?"
+            labelPlacement="end"
             // onClick={() => setShowActivity(!showActivity)}
           />
           {/* ADD ACTIVITY BUTTON (show only for vote selection) */}
 
           {vote && (
-            <Button
-              onClick={() => navigate("/new/activity")}
-              fullWidth
-              variant='contained'
-            >
-              Add Activity
-            </Button>
+            <>
+              <NewActivity />
+            </>
           )}
         </Stack>
         <FooterObject />
