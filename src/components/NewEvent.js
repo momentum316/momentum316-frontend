@@ -38,7 +38,7 @@ import Select from "@mui/material/Select";
 export default function NewEvent() {
   const navigate = useNavigate();
   const [event, setEvent] = useState("");
-  const [date, setDate] = useState(dayjs().toISOString());
+  const [date, setDate] = useState(dayjs().format("YYYY-MM-DD"));
   const [group, setGroup] = useState(null);
   const [choices, setChoices] = useState(null);
   const [endTime, setEndTime] = useState(dayjs().add(1, "day").toISOString());
@@ -49,7 +49,7 @@ export default function NewEvent() {
   const handleChange = (newValue) => {
     var d = new Date(newValue);
     var e = new Date(newValue);
-    var date = d.toISOString();
+    var date = dayjs(d).format("YYYY-MM-DD");
     setDate(date);
     let end = dayjs(e);
     setEndTime(end.add(1, "day").toISOString());
@@ -67,10 +67,10 @@ export default function NewEvent() {
     axios
       .post(`https://congregate.onrender.com/new/event/`, {
         title: `${event}`,
-        group_id: `${group}`,
-        voting: `${vote}`,
+        group_id: group,
+        voting: vote,
         date: `${date}`,
-        // vote_closing_time: `${endTime}`,
+        vote_closing_time: `${endTime}`,
       })
       .then((res) => console.log(res.data));
   };

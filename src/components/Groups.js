@@ -81,6 +81,7 @@ export function Group() {
             ))}
           </Grid>
         </div>
+        <FooterObject />
       </div>
     )
   );
