@@ -7,6 +7,7 @@ import {
   Box,
   Container,
   Divider,
+  Typography,
 } from "@mui/material";
 
 export function VoterSlide({ activity, location }) {
@@ -62,6 +63,20 @@ export function ActivitySlide() {
         }}
       >
         <Container>Some Active Dope Shit</Container>
+      </Box>
+    </>
+  );
+}
+
+export function EventSlide() {
+  return (
+    <>
+      <Box>
+        <Stack container sx={{ height: 80, backgroundColor: "primary.light" }}>
+          <Typography fontSize="3vh">Event Name</Typography>
+          <item>Date Decided</item>
+          <item>Location</item>
+        </Stack>
       </Box>
     </>
   );

@@ -1,7 +1,8 @@
-import { ButtonGroup, Button } from "@mui/material";
+import { ButtonGroup, Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
-export default function FooterObject() {
+export function FooterObject() {
   const navigate = useNavigate();
   return (
     <div className="footer-wrapper">
@@ -17,6 +18,14 @@ export default function FooterObject() {
           <Button onClick={() => navigate("/")}>Events</Button>
         </ButtonGroup>
       </footer>
+    </div>
+  );
+}
+
+export function VertList() {
+  return (
+    <div>
+      <MoreVertIcon />
     </div>
   );
 }
