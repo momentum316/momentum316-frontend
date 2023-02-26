@@ -28,7 +28,7 @@ import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import dayjs from "dayjs";
 import axios from "axios";
 import FooterObject from "./Footer";
-import { ArrowForward } from "@mui/icons-material";
+import { ArrowForward, SetMeal } from "@mui/icons-material";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormHelperText from "@mui/material/FormHelperText";
@@ -38,23 +38,21 @@ import Select from "@mui/material/Select";
 export default function NewEvent() {
   const navigate = useNavigate();
   const [event, setEvent] = useState("");
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(dayjs().toISOString());
   const [group, setGroup] = useState(null);
   const [choices, setChoices] = useState(null);
-  const [startTime, setStartTime] = useState("");
-  const [location, setLocation] = useState("");
-  const [description, setDescription] = useState("");
-  const [endTime, setEndTime] = useState("");
-  const [attendees, setAttendees] = useState([]);
+  const [endTime, setEndTime] = useState(dayjs().add(1, "day").toISOString());
 
-  const [value, setValue] = useState(dayjs());
   const [createdEvent, setCreatedEvent] = useState("");
-  const [showActivity, setShowActivity] = useState(false);
+  const [vote, setVote] = useState(false);
 
   const handleChange = (newValue) => {
     var d = new Date(newValue);
+    var e = new Date(newValue);
     var date = d.toISOString();
-    setValue(date);
+    setDate(date);
+    let end = dayjs(e);
+    setEndTime(end.add(1, "day").toISOString());
     console.log(date);
   };
 
@@ -69,7 +67,10 @@ export default function NewEvent() {
     axios
       .post(`https://congregate.onrender.com/new/event/`, {
         title: `${event}`,
-        group_id: "1",
+        group_id: `${group}`,
+        voting: `${vote}`,
+        date: `${date}`,
+        // vote_closing_time: `${endTime}`,
       })
       .then((res) => console.log(res.data));
   };
@@ -101,9 +102,9 @@ export default function NewEvent() {
             /> */}
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <MobileDatePicker
-                  label='Date mobile'
+                  label='Date'
                   inputFormat='MM/DD/YYYY'
-                  value={value}
+                  value={date}
                   onChange={handleChange}
                   required
                   renderInput={(params) => <TextField {...params} />}
@@ -127,7 +128,7 @@ export default function NewEvent() {
                     <em>Select a Group</em>
                   </MenuItem>
                   {choices.map((c) => (
-                    <MenuItem value={c.title}>{c.title}</MenuItem>
+                    <MenuItem value={c.id}>{c.title}</MenuItem>
                   ))}
                 </Select>
               </FormControl>
@@ -196,19 +197,14 @@ export default function NewEvent() {
         <Stack>
           <FormControlLabel
             value='end'
-            control={
-              <Switch
-                color='primary'
-                onClick={() => setShowActivity(!showActivity)}
-              />
-            }
+            control={<Switch color='primary' onClick={() => setVote(!vote)} />}
             label='Set Vote?'
             labelPlacement='end'
             // onClick={() => setShowActivity(!showActivity)}
           />
           {/* ADD ACTIVITY BUTTON (show only for vote selection) */}
 
-          {showActivity && (
+          {vote && (
             <Button
               onClick={() => navigate("/new/activity")}
               fullWidth
