@@ -16,7 +16,7 @@ import {
 // Group select icon
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 // Needed for Error on Date entry and we'll use it a lot
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Route, Routes, Link, UseParams, useNavigate } from "react-router-dom";
 
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -28,55 +28,71 @@ import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import dayjs from "dayjs";
 import axios from "axios";
 import FooterObject from "./Footer";
-import { ArrowForward } from "@mui/icons-material";
+import { ArrowForward, SetMeal } from "@mui/icons-material";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormHelperText from "@mui/material/FormHelperText";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 export default function NewEvent() {
   const navigate = useNavigate();
   const [event, setEvent] = useState("");
-  const [date, setDate] = useState("");
-  const [startTime, setStartTime] = useState("");
-  const [location, setLocation] = useState("");
-  const [description, setDescription] = useState("");
-  const [endTime, setEndTime] = useState("");
-  const [attendees, setAttendees] = useState([]);
+  const [date, setDate] = useState(dayjs().toISOString());
+  const [group, setGroup] = useState(null);
+  const [choices, setChoices] = useState(null);
+  const [endTime, setEndTime] = useState(dayjs().add(1, "day").toISOString());
 
-  const [value, setValue] = useState(dayjs());
   const [createdEvent, setCreatedEvent] = useState("");
-  const [showActivity, setShowActivity] = useState(false);
+  const [vote, setVote] = useState(false);
 
   const handleChange = (newValue) => {
     var d = new Date(newValue);
+    var e = new Date(newValue);
     var date = d.toISOString();
-    setValue(date);
+    setDate(date);
+    let end = dayjs(e);
+    setEndTime(end.add(1, "day").toISOString());
     console.log(date);
   };
+
+  useEffect(() => {
+    axios
+      .get(`https://congregate.onrender.com/villeryd/home`)
+      .then((res) => setChoices(res.data.group_list));
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
       .post(`https://congregate.onrender.com/new/event/`, {
         title: `${event}`,
-        group_id: "1",
+        group_id: `${group}`,
+        voting: `${vote}`,
+        date: `${date}`,
+        // vote_closing_time: `${endTime}`,
       })
       .then((res) => console.log(res.data));
   };
 
   return (
-    <div className="App">
-      <form onSubmit={handleSubmit}>
-        <h1>New Event</h1>
-        <Grid spacing={4}>
-          <TextField
-            fullWidth
-            label="Event Name"
-            value={event}
-            onChange={(e) => setEvent(e.target.value)}
-          />
-        </Grid>
-        <br />
-        <Grid container spacing={2}>
-          <Grid item xs={6}>
-            {/* <TextField
+    choices && (
+      <div className='App'>
+        <form onSubmit={handleSubmit}>
+          <h1>New Event</h1>
+          <Grid spacing={4}>
+            <TextField
+              fullWidth
+              label='Event Name'
+              value={event}
+              required
+              onChange={(e) => setEvent(e.target.value)}
+            />
+          </Grid>
+          <br />
+          <Grid container spacing={2}>
+            <Grid item xs={6}>
+              {/* <TextField
               label='Date'
               variant='outlined'
               required
@@ -84,17 +100,41 @@ export default function NewEvent() {
               onChange={(e) => setDate(e.target.value)}
               error={!date}
             /> */}
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <MobileDatePicker
-                label="Date mobile"
-                inputFormat="MM/DD/YYYY"
-                value={value}
-                onChange={handleChange}
-                renderInput={(params) => <TextField {...params} />}
-              />
-            </LocalizationProvider>
-          </Grid>
-          {/* <Grid item xs={6}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <MobileDatePicker
+                  label='Date'
+                  inputFormat='MM/DD/YYYY'
+                  value={date}
+                  onChange={handleChange}
+                  required
+                  renderInput={(params) => <TextField {...params} />}
+                />
+              </LocalizationProvider>
+            </Grid>
+            <Grid spacing={4}>
+              <FormControl sx={{ m: 2, minWidth: 120 }}>
+                <InputLabel id='demo-simple-select-helper-label'>
+                  Group
+                </InputLabel>
+                <Select
+                  labelId='demo-simple-select-helper-label'
+                  id='demo-simple-select-helper'
+                  value={group}
+                  label='Group'
+                  required
+                  onChange={(e) => setGroup(e.target.value)}
+                >
+                  <MenuItem value=''>
+                    <em>Select a Group</em>
+                  </MenuItem>
+                  {choices.map((c) => (
+                    <MenuItem value={c.id}>{c.title}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+            <br />
+            {/* <Grid item xs={6}>
             <TextField
               label='Time'
               variant='outlined'
@@ -102,9 +142,9 @@ export default function NewEvent() {
               onChange={(e) => setStartTime(e.target.value)}
             />
           </Grid> */}
-        </Grid>
-        <br />
-        {/* <Grid>
+          </Grid>
+          <br />
+          {/* <Grid>
           <Accordion>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
               <Typography>Select Group</Typography>
@@ -117,7 +157,7 @@ export default function NewEvent() {
           </Accordion>
         </Grid>
         <br /> */}
-        {/* <Stack spacing={4}>
+          {/* <Stack spacing={4}>
           <TextField
             fullWidth
             label='Location'
@@ -140,47 +180,42 @@ export default function NewEvent() {
             Add Activity to Event +
           </Button>
         </Stack> */}
+          <br />
+          <Stack>
+            <Button
+              type='submit'
+              fullWidth
+              variant='contained'
+              endDecorator={<ArrowForward />}
+            >
+              Submit Event
+            </Button>
+          </Stack>
+        </form>
+        {/* Vote Select Switch */}
         <br />
         <Stack>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            endDecorator={<ArrowForward />}
-            onClick={() => navigate("/event/:eventId")}
-          >
-            Submit Event
-          </Button>
-        </Stack>
-      </form>
-      {/* Vote Select Switch */}
-      <br />
-      <Stack>
-        <FormControlLabel
-          value="end"
-          control={
-            <Switch
-              color="primary"
-              onClick={() => setShowActivity(!showActivity)}
-            />
-          }
-          label="Set Vote?"
-          labelPlacement="end"
-          // onClick={() => setShowActivity(!showActivity)}
-        />
-        {/* ADD ACTIVITY BUTTON (show only for vote selection) */}
+          <FormControlLabel
+            value='end'
+            control={<Switch color='primary' onClick={() => setVote(!vote)} />}
+            label='Set Vote?'
+            labelPlacement='end'
+            // onClick={() => setShowActivity(!showActivity)}
+          />
+          {/* ADD ACTIVITY BUTTON (show only for vote selection) */}
 
-        {showActivity && (
-          <Button
-            onClick={() => navigate("/new/activity")}
-            fullWidth
-            variant="contained"
-          >
-            Add Activity
-          </Button>
-        )}
-      </Stack>
-      <FooterObject />
-    </div>
+          {vote && (
+            <Button
+              onClick={() => navigate("/new/activity")}
+              fullWidth
+              variant='contained'
+            >
+              Add Activity
+            </Button>
+          )}
+        </Stack>
+        <FooterObject />
+      </div>
+    )
   );
 }
