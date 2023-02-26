@@ -58,7 +58,7 @@ function EventCreation() {
         },
         attendees: [
           { email: `${userCredential.email}` },
-          { email: "capelhoworth@gmail.com" },
+          { email: "justcapel@gmail.com" },
           { email: "coxjerome24@gmail.com" },
         ],
       },
