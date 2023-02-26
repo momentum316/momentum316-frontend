@@ -1,4 +1,4 @@
-import { ButtonGroup, Button, Typography } from "@mui/material";
+import { ButtonGroup, Button, Typography, Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
@@ -25,7 +25,7 @@ export function FooterObject() {
 export function VertList() {
   return (
     <div>
-      <MoreVertIcon />
+      <MoreVertIcon fontSize="large" />
     </div>
   );
 }

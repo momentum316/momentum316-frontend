@@ -3,6 +3,10 @@
   padding: 15px;
 }
 
+html,
+body {
+  height: 100%;
+}
 footer {
   position: absolute;
   bottom: 0%;
@@ -10,6 +14,7 @@ footer {
 }
 
 .footer-wrapper {
+  min-height: 100%;
   justify-content: center;
   width: 100%;
   display: flex;
