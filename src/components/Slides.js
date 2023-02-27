@@ -107,7 +107,7 @@ export function VoterSlide({
         <Grid item xs={3}>
           <Box
             sx={{
-              height: 35,
+              height: 60,
               backgroundColor: "primary.main",
               "&:hover": {
                 backgroundColor: "primary.dark",
@@ -115,16 +115,19 @@ export function VoterSlide({
               },
             }}
           >
-            <Container onClick={() => handleUp()}>^</Container>
-            <Divider />
+            <Container onClick={() => handleUp()}>
+              <KeyboardArrowUpIcon />
+            </Container>
             {voteCount}
-            <Container onClick={() => handleDown()}>⌄</Container>
+            <Container onClick={() => handleDown()}>
+              <KeyboardArrowDownIcon />
+            </Container>
           </Box>
         </Grid>
         <Grid item xs={9}>
           <Box
             sx={{
-              height: 35,
+              height: 60,
               backgroundColor: "primary.main",
               "&:hover": {
                 backgroundColor: "primary.dark",
@@ -149,7 +152,7 @@ export function ActivitySlide() {
     <>
       <Box
         sx={{
-          height: 35,
+          height: 80,
           backgroundColor: "primary.main",
           "&:hover": {
             backgroundColor: "primary.dark",
@@ -158,9 +161,9 @@ export function ActivitySlide() {
         }}
       >
         <Stack>
-          <Typography fontSize='larger'>Event Name</Typography>
-          <Typography fontSize='large'>Event Date</Typography>
-          <Typography fontSize='large'>Event Address</Typography>
+          <Typography fontSize="larger">Event Name</Typography>
+          <Typography fontSize="large">Event Date</Typography>
+          <Typography fontSize="large">Event Address</Typography>
         </Stack>
       </Box>
     </>
@@ -172,7 +175,7 @@ export function EventSlide() {
     <>
       <Box>
         <Stack container sx={{ height: 80, backgroundColor: "primary.light" }}>
-          <Typography fontSize='3vh'>Event Name</Typography>
+          <Typography fontSize="3vh">Event Name</Typography>
           <item>Date Decided</item>
           <item>Location</item>
         </Stack>
