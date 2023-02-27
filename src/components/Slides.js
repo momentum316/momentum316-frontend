@@ -41,7 +41,11 @@ export function VoterSlide({ activity, location }) {
               },
             }}
           >
-            <Container>Some Other Dope Shit</Container>
+            <Container>
+              {activity}
+              <br />
+              {location}
+            </Container>
           </Box>
         </Grid>
       </Grid>
@@ -73,7 +77,7 @@ export function EventSlide() {
     <>
       <Box>
         <Stack container sx={{ height: 80, backgroundColor: "primary.light" }}>
-          <Typography fontSize="3vh">Event Name</Typography>
+          <Typography fontSize='3vh'>Event Name</Typography>
           <item>Date Decided</item>
           <item>Location</item>
         </Stack>
