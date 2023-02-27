@@ -38,6 +38,7 @@ export function VotePage() {
       <>
         <h1>Active Votes</h1>
         <GroupHeader />
+        <br />
         <Grid container spacing={2}>
           {activeVote.map((v) => (
             <Grid item xs={12}>
@@ -107,6 +108,7 @@ export function Vote() {
       <>
         <h1>{group}</h1>
         <GroupHeader />
+        <br />
         {event.map((e) => (
           <VoterSlide
             activity={e.title}

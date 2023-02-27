@@ -10,20 +10,20 @@ import PostVoteEvent from "./components/PostVote";
 
 function App() {
   return (
-    <div className='App'>
+    <div className="App">
       <Routes>
-        <Route path='/' element={<NewEvent />}></Route>
-        <Route path='/new/activity' element={<NewActivity />}></Route>
-        <Route path='/event/:eventId' element={<PostVoteEvent />}></Route>
-        <Route path='/group' element={<GroupPage />}></Route>
-        <Route path='/group/:groupId' element={<Group />}></Route>
-        <Route path='/voting' element={<VotePage />}></Route>
-        <Route path='/profile/:username' element={<VotePage />}></Route>
-        <Route path='/group/:groupId' element={<Group />}></Route>
-        <Route path='/group/:groupId/vote' element={<VotePage />}></Route>
-        <Route path='/group/:groupId/discussion' element={<Group />}></Route>
-        <Route path='/group/:groupId/events' element={<Group />}></Route>
-        <Route path='/group/:groupId/vote/:eventId' element={<Vote />}></Route>
+        <Route path="/" element={<NewEvent />}></Route>
+        <Route path="/new/activity" element={<NewActivity />}></Route>
+        <Route path="/event/:eventId" element={<PostVoteEvent />}></Route>
+        <Route path="/group" element={<GroupPage />}></Route>
+        <Route path="/group/:groupId" element={<Group />}></Route>
+        <Route path="/voting" element={<VotePage />}></Route>
+        <Route path="/profile/:username" element={<VotePage />}></Route>
+        <Route path="/group/:groupId" element={<Group />}></Route>
+        <Route path="/group/:groupId/vote" element={<VotePage />}></Route>
+        <Route path="/group/:groupId/discussion" element={<Group />}></Route>
+        <Route path="/group/:groupId/events" element={<Group />}></Route>
+        <Route path="/group/:groupId/vote/:eventId" element={<Vote />}></Route>
       </Routes>
     </div>
   );
