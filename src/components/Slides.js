@@ -13,7 +13,6 @@ import {
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
-
 export function VoterSlide({ activity, location }) {
   return (
     <>
@@ -62,7 +61,7 @@ export function ActivitySlide() {
     <>
       <Box
         sx={{
-          height: 35,
+          height: 82,
           backgroundColor: "primary.dark",
           "&:hover": {
             backgroundColor: "primary.main",
@@ -70,7 +69,11 @@ export function ActivitySlide() {
           },
         }}
       >
-        <Container>Some Active Dope Shit</Container>
+        <Stack>
+          <Typography fontSize="larger">Event Name</Typography>
+          <Typography fontSize="large">Event Date</Typography>
+          <Typography fontSize="large">Event Address</Typography>
+        </Stack>
       </Box>
     </>
   );
@@ -81,7 +84,7 @@ export function EventSlide() {
     <>
       <Box>
         <Stack container sx={{ height: 80, backgroundColor: "primary.light" }}>
-          <Typography fontSize='3vh'>Event Name</Typography>
+          <Typography fontSize="3vh">Event Name</Typography>
           <item>Date Decided</item>
           <item>Location</item>
         </Stack>
