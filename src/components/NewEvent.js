@@ -184,7 +184,7 @@ export default function NewEvent() {
           <FormControlLabel
             value="end"
             control={<Switch color="primary" onClick={() => setVote(!vote)} />}
-            label="Set Vote?"
+            label="Set Timer?"
             labelPlacement="end"
             // onClick={() => setShowActivity(!showActivity)}
           />
