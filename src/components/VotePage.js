@@ -8,6 +8,7 @@ import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import dayjs from "dayjs";
 import { CountdownTimer, useCountdown } from "./TimerSet";
+import backend_url from "../render.json";
 
 export function VotePage() {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ export function VotePage() {
 
   useEffect(() => {
     axios
-      .get(`https://congregate.onrender.com/group/${groupId}`)
+      .get(`${backend_url.backend_url}/group/${groupId}`)
 
       .then((res) => {
         let votesInProgress = res.data.event_list.filter(
@@ -92,13 +93,11 @@ export function Vote() {
   const countdown = useCountdown(endTime);
 
   useEffect(() => {
-    axios
-      .get(`https://congregate.onrender.com/event/${eventId}`)
-      .then((res) => {
-        console.log(res.data.activity_list);
-        setEvent(res.data.activity_list);
-        setGroup(res.data.group);
-      });
+    axios.get(`${backend_url.backend_url}/event/${eventId}`).then((res) => {
+      console.log(res.data.activity_list);
+      setEvent(res.data.activity_list);
+      setGroup(res.data.group);
+    });
   }, [eventId]);
 
   return (
