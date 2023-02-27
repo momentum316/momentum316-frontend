@@ -30,6 +30,7 @@ export default function NewActivity() {
   const [location, setLocation] = useState("");
   const [startValue, setStartValue] = useState(null);
   const [endValue, setEndValue] = useState(null);
+  const [activityTitle, setActivityTitle] = useState("");
   const handleStart = (newValue) => {
     var d = new Date(newValue);
     var date = d.toISOString();
@@ -52,6 +53,13 @@ export default function NewActivity() {
     <div className="App">
       <Container>
         <br />
+        <TextField
+          id="activity-title"
+          label="Activity Title"
+          fullWidth
+          value={activityTitle}
+          onChange={(e) => setActivityTitle(e.target.value)}
+        ></TextField>
         <Stack>
           <FormControlLabel
             value="end"
