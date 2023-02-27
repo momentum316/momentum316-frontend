@@ -13,6 +13,7 @@ import {
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import axios from "axios";
+import dayjs from "dayjs";
 
 export function VoterSlide({
   activity,
@@ -147,7 +148,8 @@ export function VoterSlide({
   );
 }
 
-export function ActivitySlide() {
+export function ActivitySlide({ name, date, address }) {
+  const formattedTime = dayjs(date).format("MMM | ddd DD | YYYY");
   return (
     <>
       <Box
@@ -161,9 +163,9 @@ export function ActivitySlide() {
         }}
       >
         <Stack>
-          <Typography fontSize="larger">Event Name</Typography>
-          <Typography fontSize="large">Event Date</Typography>
-          <Typography fontSize="large">Event Address</Typography>
+          <Typography fontSize='larger'>{name}</Typography>
+          <Typography fontSize='large'>{formattedTime}</Typography>
+          <Typography fontSize='large'>{address}</Typography>
         </Stack>
       </Box>
     </>
@@ -175,7 +177,7 @@ export function EventSlide() {
     <>
       <Box>
         <Stack container sx={{ height: 80, backgroundColor: "primary.light" }}>
-          <Typography fontSize="3vh">Event Name</Typography>
+          <Typography fontSize='3vh'>Event Name</Typography>
           <item>Date Decided</item>
           <item>Location</item>
         </Stack>

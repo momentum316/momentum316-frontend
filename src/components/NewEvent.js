@@ -75,19 +75,19 @@ export default function NewEvent() {
       })
       .then((res) => {
         console.log(res.data);
-        navigate(`/event/${res.data.event.id}`);
+        navigate(`/event/${group}/${res.data.event.id}`);
       });
   };
 
   return (
     choices && (
-      <div className="App">
+      <div className='App'>
         <form onSubmit={handleSubmit}>
           <h1>New Event</h1>
           <Stack spacing={4}>
             <TextField
               fullWidth
-              label="Event Name"
+              label='Event Name'
               value={event}
               required
               onChange={(e) => setEvent(e.target.value)}
@@ -106,8 +106,8 @@ export default function NewEvent() {
             /> */}
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <MobileDatePicker
-                  label="Date"
-                  inputFormat="MM/DD/YYYY"
+                  label='Date'
+                  inputFormat='MM/DD/YYYY'
                   value={date}
                   onChange={handleChange}
                   required
@@ -117,18 +117,18 @@ export default function NewEvent() {
             </Grid>
             <Grid item xs={6}>
               <FormControl sx={{ minWidth: 150 }}>
-                <InputLabel id="demo-simple-select-helper-label">
+                <InputLabel id='demo-simple-select-helper-label'>
                   Group
                 </InputLabel>
                 <Select
-                  labelId="demo-simple-select-helper-label"
-                  id="demo-simple-select-helper"
+                  labelId='demo-simple-select-helper-label'
+                  id='demo-simple-select-helper'
                   value={group}
-                  label="Group"
+                  label='Group'
                   required
                   onChange={(e) => setGroup(e.target.value)}
                 >
-                  <MenuItem value="">
+                  <MenuItem value=''>
                     <em>Select a Group</em>
                   </MenuItem>
                   {choices.map((c) => (
@@ -173,7 +173,7 @@ export default function NewEvent() {
         </Stack> */}
           <br />
           <Stack>
-            <Button type="submit" fullWidth variant="contained">
+            <Button type='submit' fullWidth variant='contained'>
               Submit Event
             </Button>
           </Stack>
@@ -182,10 +182,11 @@ export default function NewEvent() {
         <br />
         <Stack>
           <FormControlLabel
-            value="end"
-            control={<Switch color="primary" onClick={() => setVote(!vote)} />}
-            label="Set Timer?"
-            labelPlacement="end"
+            value='end'
+            control={<Switch color='primary' onClick={() => setVote(!vote)} />}
+            label='Set Timer?'
+            labelPlacement='end'
+
             // onClick={() => setShowActivity(!showActivity)}
           />
           {/* ADD ACTIVITY BUTTON (show only for vote selection) */}
