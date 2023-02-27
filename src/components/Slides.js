@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Grid,
   Button,
@@ -12,9 +12,95 @@ import {
 } from "@mui/material";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import axios from "axios";
 
+export function VoterSlide({
+  activity,
+  location,
+  eventId,
+  groupId,
+  activityId,
+}) {
+  const [voteCount, setVote] = useState(0);
 
-export function VoterSlide({ activity, location }) {
+  useEffect(() => {
+    axios
+      .patch(
+        `https://congregate.onrender.com/vote/${activityId}`,
+        { username: "villeryd" },
+        {
+          headers: {
+            authorization: `token ${process.env.REACT_APP_API_TOKEN}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+        setVote(res.data.vote);
+      });
+  }, [activityId]);
+
+  const handleUp = (e) => {
+    if (voteCount === 1) {
+      handleZero();
+      return;
+    }
+    console.log("up");
+    axios
+      .patch(
+        `https://congregate.onrender.com/vote/${activityId}`,
+        { username: "villeryd", vote: 1 },
+        {
+          headers: {
+            authorization: `token ${process.env.REACT_APP_API_TOKEN}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+        setVote(res.data.vote);
+      });
+  };
+
+  const handleDown = (e) => {
+    if (voteCount === -1) {
+      handleZero();
+      return;
+    }
+    console.log("down");
+    axios
+      .patch(
+        `https://congregate.onrender.com/vote/${activityId}`,
+        { username: "villeryd", vote: -1 },
+        {
+          headers: {
+            authorization: `token ${process.env.REACT_APP_API_TOKEN}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+        setVote(res.data.vote);
+      });
+  };
+  const handleZero = (e) => {
+    console.log("zero");
+    axios
+      .patch(
+        `https://congregate.onrender.com/vote/${activityId}`,
+        { username: "villeryd", vote: 0 },
+        {
+          headers: {
+            authorization: `token ${process.env.REACT_APP_API_TOKEN}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+        setVote(res.data.vote);
+      });
+  };
+
   return (
     <>
       <Grid container spacing={2}>
@@ -22,25 +108,26 @@ export function VoterSlide({ activity, location }) {
           <Box
             sx={{
               height: 35,
-              backgroundColor: "primary.dark",
+              backgroundColor: "primary.main",
               "&:hover": {
-                backgroundColor: "primary.main",
+                backgroundColor: "primary.dark",
                 opacity: [0.9, 0.8, 0.7],
               },
             }}
           >
-            <Container onClick={() => console.log("up")}>^</Container>
+            <Container onClick={() => handleUp()}>^</Container>
             <Divider />
-            <Container onClick={() => console.log("down")}>⌄</Container>
+            {voteCount}
+            <Container onClick={() => handleDown()}>⌄</Container>
           </Box>
         </Grid>
         <Grid item xs={9}>
           <Box
             sx={{
               height: 35,
-              backgroundColor: "primary.dark",
+              backgroundColor: "primary.main",
               "&:hover": {
-                backgroundColor: "primary.main",
+                backgroundColor: "primary.dark",
                 opacity: [0.9, 0.8, 0.7],
               },
             }}
@@ -63,9 +150,9 @@ export function ActivitySlide() {
       <Box
         sx={{
           height: 35,
-          backgroundColor: "primary.dark",
+          backgroundColor: "primary.main",
           "&:hover": {
-            backgroundColor: "primary.main",
+            backgroundColor: "primary.dark",
             opacity: [0.9, 0.8, 0.7],
           },
         }}
