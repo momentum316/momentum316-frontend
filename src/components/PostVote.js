@@ -23,6 +23,7 @@ export default function PostVoteEvent() {
     <div>
       <IconButton>
         <Avatar
+          onClick={() => navigate("/group/${g.id")}
           alt="Travis Howard"
           src="/static/images/avatar/2.jpg"
           sx={{ width: 90, height: 90 }}
