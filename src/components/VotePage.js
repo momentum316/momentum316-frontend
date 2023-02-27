@@ -7,6 +7,7 @@ import axios from "axios";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import dayjs from "dayjs";
+import { CountdownTimer, useCountdown } from "./TimerSet";
 
 export function VotePage() {
   const navigate = useNavigate();
@@ -14,9 +15,6 @@ export function VotePage() {
   const [activeVote, setActiveVote] = useState(null);
   const [activityList, setActivityList] = useState(null);
   const time = dayjs().toISOString();
-  const endTime = "2023-02-27T20:16:17.618000Z";
-
-  console.log(time < endTime);
 
   useEffect(() => {
     axios
@@ -90,8 +88,8 @@ export function Vote() {
   const { groupId, eventId } = useParams();
   const [event, setEvent] = useState(null);
   const [group, setGroup] = useState(null);
-  console.log(groupId);
-  console.log(eventId);
+  const endTime = "2023-03-01T05:00:00Z";
+  const countdown = useCountdown(endTime);
 
   useEffect(() => {
     axios
@@ -109,6 +107,7 @@ export function Vote() {
         <h1>{group}</h1>
         <GroupHeader />
         <br />
+        <CountdownTimer targetDate={endTime} />
         {event.map((e) => (
           <VoterSlide
             activity={e.title}
