@@ -5,13 +5,13 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 export function FooterObject() {
   const navigate = useNavigate();
   return (
-    <div className='footer-wrapper'>
+    <div className="footer-wrapper">
       <footer>
         <ButtonGroup
           fullWidth
-          size='large'
-          color='secondary'
-          variant='contained'
+          size="large"
+          color="secondary"
+          variant="contained"
         >
           <Button>Functions</Button>
           <Button onClick={() => navigate("/group")}>Groups</Button>
@@ -25,7 +25,7 @@ export function FooterObject() {
 export function VertList() {
   return (
     <div>
-      <MoreVertIcon fontSize='large' />
+      <MoreVertIcon fontSize="large" />
     </div>
   );
 }
@@ -34,8 +34,8 @@ export function GroupHeader() {
   let { groupId } = useParams();
   const navigate = useNavigate();
   return (
-    <div className='header-wrapper'>
-      <ButtonGroup fullWidth size='large' variant='outlined'>
+    <div className="header-wrapper">
+      <ButtonGroup fullWidth size="large" variant="outlined">
         <Button onClick={() => navigate(`/group/${groupId}/vote`)}>
           Voting
         </Button>

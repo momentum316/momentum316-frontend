@@ -14,6 +14,7 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import axios from "axios";
 import dayjs from "dayjs";
+import backend_url from "../render.json";
 
 export function VoterSlide({
   activity,
@@ -27,7 +28,7 @@ export function VoterSlide({
   useEffect(() => {
     axios
       .patch(
-        `https://congregate.onrender.com/vote/${activityId}`,
+        `${backend_url.backend_url}/vote/${activityId}`,
         { username: "villeryd" },
         {
           headers: {
@@ -49,7 +50,7 @@ export function VoterSlide({
     console.log("up");
     axios
       .patch(
-        `https://congregate.onrender.com/vote/${activityId}`,
+        `${backend_url.backend_url}/vote/${activityId}`,
         { username: "villeryd", vote: 1 },
         {
           headers: {
@@ -71,7 +72,7 @@ export function VoterSlide({
     console.log("down");
     axios
       .patch(
-        `https://congregate.onrender.com/vote/${activityId}`,
+        `${backend_url.backend_url}/vote/${activityId}`,
         { username: "villeryd", vote: -1 },
         {
           headers: {
@@ -88,7 +89,7 @@ export function VoterSlide({
     console.log("zero");
     axios
       .patch(
-        `https://congregate.onrender.com/vote/${activityId}`,
+        `${backend_url.backend_url}/vote/${activityId}`,
         { username: "villeryd", vote: 0 },
         {
           headers: {
@@ -163,9 +164,9 @@ export function ActivitySlide({ name, date, address }) {
         }}
       >
         <Stack>
-          <Typography fontSize='larger'>{name}</Typography>
-          <Typography fontSize='large'>{formattedTime}</Typography>
-          <Typography fontSize='large'>{address}</Typography>
+          <Typography fontSize="larger">{name}</Typography>
+          <Typography fontSize="large">{formattedTime}</Typography>
+          <Typography fontSize="large">{address}</Typography>
         </Stack>
       </Box>
     </>
@@ -177,7 +178,7 @@ export function EventSlide() {
     <>
       <Box>
         <Stack container sx={{ height: 80, backgroundColor: "primary.light" }}>
-          <Typography fontSize='3vh'>Event Name</Typography>
+          <Typography fontSize="3vh">Event Name</Typography>
           <item>Date Decided</item>
           <item>Location</item>
         </Stack>

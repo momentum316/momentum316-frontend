@@ -73,22 +73,22 @@ function EventCreation() {
   return (
     <div>
       <div
-        id='g_id_onload'
-        data-client_id='810551053192-v4k0609k7muia96p5smtg2hqmbfijakt.apps.googleusercontent.com'
-        data-context='signin'
-        data-ux_mode='popup'
-        data-login_uri=''
-        data-nonce=''
-        data-auto_prompt='false'
+        id="g_id_onload"
+        data-client_id="810551053192-v4k0609k7muia96p5smtg2hqmbfijakt.apps.googleusercontent.com"
+        data-context="signin"
+        data-ux_mode="popup"
+        data-login_uri=""
+        data-nonce=""
+        data-auto_prompt="false"
       ></div>
       <div
-        class='g_id_signin'
-        data-type='standard'
-        data-shape='rectangular'
-        data-theme='outline'
-        data-text='signin_with'
-        data-size='large'
-        data-logo_alignment='left'
+        class="g_id_signin"
+        data-type="standard"
+        data-shape="rectangular"
+        data-theme="outline"
+        data-text="signin_with"
+        data-size="large"
+        data-logo_alignment="left"
       ></div>
       <button onClick={() => client.requestAccessToken()}>
         Authorize with Google
@@ -97,40 +97,40 @@ function EventCreation() {
       {userCredential && authToken && (
         <form onSubmit={handleSubmit}>
           <input
-            type='text'
+            type="text"
             value={event}
             onChange={(e) => setEvent(e.target.value)}
-            placeholder='event'
+            placeholder="event"
           />
           <input
-            type='text'
+            type="text"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            placeholder='description'
+            placeholder="description"
           />
           <input
-            type='text'
+            type="text"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
-            placeholder='location'
+            placeholder="location"
           />
           <input
-            type='text'
+            type="text"
             value={startTime}
             onChange={(e) => setStartTime(e.target.value)}
-            placeholder='startTime'
+            placeholder="startTime"
           />
           <input
-            type='text'
+            type="text"
             value={endTime}
             onChange={(e) => setEndTime(e.target.value)}
-            placeholder='endTime'
+            placeholder="endTime"
           />
           <input
-            type='text'
+            type="text"
             value={attendees}
             onChange={(e) => setAttendees(e.target.value)}
-            placeholder='attendees'
+            placeholder="attendees"
           />
           <button>submit</button>
         </form>

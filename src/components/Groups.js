@@ -2,6 +2,7 @@ import { Avatar, AvatarGroup, Grid, Button, ButtonGroup } from "@mui/material";
 import { Route, Routes, Link, useParams, useNavigate } from "react-router-dom";
 import { FooterObject, GroupHeader } from "./Footer";
 import axios from "axios";
+import backend_url from "../render.json";
 
 import { useState, useEffect } from "react";
 
@@ -10,7 +11,7 @@ export function GroupPage() {
   useEffect(() => {
     axios
       // need to change this to dynamic username once login page is ready
-      .get("https://congregate.onrender.com/villeryd/groups")
+      .get(`${backend_url.backend_url}/villeryd/groups`)
       .then((response) => setGroups(response.data));
   }, []);
 
@@ -21,10 +22,10 @@ export function GroupPage() {
         <p>Groups Page</p>
 
         <br />
-        <div className='group-grid'>
+        <div className="group-grid">
           <Grid
             container
-            direction='columns'
+            direction="columns"
             spacing={3}
             columns={{ xs: 12, sm: 8, md: 12 }}
           >
@@ -34,7 +35,7 @@ export function GroupPage() {
                   key={g.id}
                   onClick={() => navigate(`/group/${g.id}`)}
                   alt={g.title}
-                  src='/static/images/avatar/1.jpg'
+                  src="/static/images/avatar/1.jpg"
                 />
                 <Grid item xs={4} sm={4} md={4}>
                   {g.title}
@@ -56,7 +57,7 @@ export function Group() {
   useEffect(() => {
     axios
       // need to change this to dynamic username once login page is ready
-      .get(`https://congregate.onrender.com/group/${groupId}`)
+      .get(`${backend_url.backend_url}/group/${groupId}`)
       .then((response) => setGroup(response.data));
   }, [groupId]);
   return (
@@ -64,10 +65,10 @@ export function Group() {
       <div>
         <h1>{group.title}</h1>
         <GroupHeader />
-        <div className='group-grid'>
+        <div className="group-grid">
           <Grid
             container
-            direction='columns'
+            direction="columns"
             spacing={3}
             columns={{ xs: 12, sm: 8, md: 12 }}
           >
