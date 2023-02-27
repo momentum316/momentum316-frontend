@@ -19,6 +19,10 @@ function App() {
         <Route path='/group/:groupId' element={<Group />}></Route>
         <Route path='/voting' element={<VotePage />}></Route>
         <Route path='/profile/:username' element={<VotePage />}></Route>
+        <Route path='/group/:groupId' element={<Group />}></Route>
+        <Route path='/group/:groupId/vote' element={<VotePage />}></Route>
+        <Route path='/group/:groupId/discussion' element={<Group />}></Route>
+        <Route path='/group/:groupId/events' element={<Group />}></Route>
       </Routes>
     </div>
   );
