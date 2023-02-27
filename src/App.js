@@ -2,7 +2,7 @@ import * as React from "react";
 import "./App.css";
 import NewEvent from "./components/NewEvent";
 import NewActivity from "./components/NewActivity";
-import VotePage from "./components/VotePage";
+import { VotePage, Vote } from "./components/VotePage";
 import { GroupPage, Group } from "./components/Groups";
 import { useState } from "react";
 import { Route, Routes, Link, UseParams, useNavigate } from "react-router-dom";
@@ -23,6 +23,7 @@ function App() {
         <Route path='/group/:groupId/vote' element={<VotePage />}></Route>
         <Route path='/group/:groupId/discussion' element={<Group />}></Route>
         <Route path='/group/:groupId/events' element={<Group />}></Route>
+        <Route path='/group/:groupId/vote/:eventId' element={<Vote />}></Route>
       </Routes>
     </div>
   );

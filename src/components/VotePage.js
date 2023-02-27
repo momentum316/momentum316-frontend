@@ -4,11 +4,12 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { VoterSlide, EventSlide } from "./Slides";
 import { FooterObject, VertList, GroupHeader } from "./Footer";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import dayjs from "dayjs";
 
-export default function VotePage() {
+export function VotePage() {
+  const navigate = useNavigate();
   const { groupId } = useParams();
   const [activeVote, setActiveVote] = useState(null);
   const [activityList, setActivityList] = useState(null);
@@ -37,16 +38,36 @@ export default function VotePage() {
       <>
         <h1>Active Votes</h1>
         <GroupHeader />
-        {activeVote.map((v) =>
-          v.activity_list.map((a) => (
-            <VoterSlide activity={a.title} location={a.description} />
-          ))
-        )}
+        <Grid container spacing={2}>
+          {activeVote.map((v) => (
+            <Grid item xs={12}>
+              <Box
+                onClick={() => navigate(`/group/${groupId}/vote/${v.id}`)}
+                sx={{
+                  height: 35,
+                  backgroundColor: "primary.main",
+                  "&:hover": {
+                    backgroundColor: "primary.dark",
+                    opacity: [0.9, 0.8, 0.7],
+                  },
+                }}
+              >
+                <Container>
+                  {v.title}
+                  <br />
+                </Container>
+              </Box>
+            </Grid>
+          ))}
+        </Grid>
         <FooterObject />
       </>
     )
   );
 }
+
+// v.activity_list.map((a) => (
+//   <VoterSlide activity={a.title} location={a.description} />
 
 // <Grid container spacing={2}>
 //           <Grid item xs={10} md={8}>
@@ -60,6 +81,43 @@ export default function VotePage() {
 //         <GroupHeader />
 //         <br />
 //         <Stack>
-//           <VoterSlide activity={"bowling"} location={"bowl america"} />
+//
 //         </Stack>
 //         <FooterObject />
+
+export function Vote() {
+  const { groupId, eventId } = useParams();
+  const [event, setEvent] = useState(null);
+  const [group, setGroup] = useState(null);
+  console.log(groupId);
+  console.log(eventId);
+
+  useEffect(() => {
+    axios
+      .get(`https://congregate.onrender.com/event/${eventId}`)
+      .then((res) => {
+        console.log(res.data.activity_list);
+        setEvent(res.data.activity_list);
+        setGroup(res.data.group);
+      });
+  }, [eventId]);
+
+  return (
+    event && (
+      <>
+        <h1>{group}</h1>
+        <GroupHeader />
+        {event.map((e) => (
+          <VoterSlide
+            activity={e.title}
+            location={e.description}
+            groupId={groupId}
+            eventId={eventId}
+            activityId={e.id}
+          />
+        ))}
+        <FooterObject />
+      </>
+    )
+  );
+}
