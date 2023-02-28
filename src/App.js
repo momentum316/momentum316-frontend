@@ -10,6 +10,7 @@ import { Route, Routes, Link, UseParams, useNavigate } from "react-router-dom";
 import PostVoteEvent from "./components/PostVote";
 import Login from "./components/LoginPage";
 import { Profile } from "./components/UserProfile";
+import { Homepage } from "./components/Homepage";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         <Route path="/group/:groupId/events" element={<Group />}></Route>
         <Route path="/group/:groupId/vote/:eventId" element={<Vote />}></Route>
         <Route path="/login" element={<Login />}></Route>
+        <Route path="/username" element={<Homepage />}></Route>
       </Routes>
     </div>
   );
