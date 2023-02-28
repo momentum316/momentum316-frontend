@@ -1,9 +1,9 @@
 import { FooterObject } from "./Footer";
 
-export function Profile() {
+export function Profile({ user }) {
   return (
     <div>
-      <h1>Butts</h1>
+      <h1>{user.user.username}</h1>
       <FooterObject />
     </div>
   );
