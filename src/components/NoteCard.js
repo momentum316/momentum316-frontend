@@ -132,10 +132,17 @@ export function VoteCard({
     <div>
       <Grid container xs={12}>
         <Grid item xs={2}>
-          <Stack alignItems="center">
-            <KeyboardArrowUpIcon onClick={(e) => handleUp(e)} />
-            {voteCount}
-            <KeyboardArrowDownIcon onClick={(e) => handleDown(e)} />
+          <Stack alignItems="center" justifyContent="center">
+            <KeyboardArrowUpIcon
+              onClick={(e) => handleUp(e)}
+              color={voteCount === 1 ? "warning" : ""}
+            />
+            {/* {voteCount} */}
+            <br />
+            <KeyboardArrowDownIcon
+              onClick={(e) => handleDown(e)}
+              color={voteCount === -1 ? "warning" : ""}
+            />
           </Stack>
         </Grid>
         <Grid item xs={10}>

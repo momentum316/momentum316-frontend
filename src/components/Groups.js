@@ -1,4 +1,12 @@
-import { Avatar, AvatarGroup, Grid, Button, ButtonGroup } from "@mui/material";
+import {
+  Avatar,
+  AvatarGroup,
+  Grid,
+  Button,
+  ButtonGroup,
+  Card,
+  CardHeader,
+} from "@mui/material";
 import { Route, Routes, Link, useParams, useNavigate } from "react-router-dom";
 import { FooterObject, GroupHeader } from "./Footer";
 import axios from "axios";
@@ -27,19 +35,23 @@ export function GroupPage() {
             container
             direction="columns"
             spacing={4}
-            columns={{ xs: 12, sm: 8, md: 12 }}
+            columns={{ xs: 6, sm: 6, md: 12 }}
           >
             {groups.map((g) => (
-              <Grid item xs={2} sm={2} md={2}>
-                <Avatar
-                  key={g.id}
-                  onClick={() => navigate(`/group/${g.id}`)}
-                  alt={g.title}
-                  src="/static/images/avatar/1.jpg"
-                />
-                <Grid item xs={1} sm={1} md={1}>
-                  {g.title}
-                </Grid>
+              <Grid item xs={3}>
+                <Card elevation={10}>
+                  <CardHeader
+                    title={
+                      <Avatar
+                        key={g.id}
+                        onClick={() => navigate(`/group/${g.id}`)}
+                        alt={g.title}
+                        src="/static/images/avatar/1.jpg"
+                      />
+                    }
+                    subheader={g.title}
+                  />
+                </Card>
               </Grid>
             ))}
           </Grid>
@@ -74,16 +86,20 @@ export function Group() {
             columnSpacing={{ xs: 2, sm: 8, md: 4 }}
           >
             {group.members.map((g) => (
-              <Grid item xs={4} sm={4} md={4}>
-                <Avatar
-                  key={g}
-                  onClick={() => navigate(`/profile/${g}`)}
-                  alt={g}
-                  src={g}
-                />
-                <Grid item xs={4} sm={4} md={4}>
-                  {g}
-                </Grid>
+              <Grid item>
+                <Card elevation={10}>
+                  <CardHeader
+                    title={
+                      <Avatar
+                        key={g}
+                        onClick={() => navigate(`/profile/${g}`)}
+                        alt={g}
+                        src={g}
+                      />
+                    }
+                    subheader={g}
+                  />
+                </Card>
               </Grid>
             ))}
           </Grid>
