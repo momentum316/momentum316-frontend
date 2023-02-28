@@ -13,7 +13,7 @@ export function FooterObject() {
           color="secondary"
           variant="contained"
         >
-          <Button>Functions</Button>
+          <Button onClick={() => navigate("/username")}>Home</Button>
           <Button onClick={() => navigate("/group")}>Groups</Button>
           <Button onClick={() => navigate("/")}>Events</Button>
         </ButtonGroup>
