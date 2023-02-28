@@ -37,6 +37,7 @@ export function Login({ setUser, setUserToken }) {
         navigate(`/home/${res.data.user.username}`);
       });
   };
+
   window.onload = function () {
     google.accounts.id.initialize({
       client_id: `${process.env.REACT_APP_GOOGLE_CLIENT_ID}`,
