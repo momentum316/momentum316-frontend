@@ -1,7 +1,16 @@
 import jwtDecode from "jwt-decode";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Stack, TextField, Box } from "@mui/material";
+import {
+  Stack,
+  TextField,
+  Box,
+  Card,
+  CardHeader,
+  CardMedia,
+  Grid,
+} from "@mui/material";
+import { LogoCard } from "./NoteCards";
 
 export default function Login({ setUser, setUserToken }) {
   /*global google*/
@@ -29,5 +38,9 @@ export default function Login({ setUser, setUserToken }) {
     google.accounts.id.prompt();
   };
 
-  return <h1>Hello, Welcome to Congregate</h1>;
+  return (
+    <div>
+      <LogoCard />
+    </div>
+  );
 }

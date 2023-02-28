@@ -14,8 +14,23 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Stack } from "@mui/system";
+import LogoImage from "../images/LogoImage.jpg";
 
-export function NoteCard({ activity, description, location }) {
+export function LogoCard() {
+  return (
+    <div>
+      <Grid container xs={12} justifyContent="center" alignItems="center">
+        <Grid item>
+          <Card elevation={0}>
+            <img src={LogoImage} />
+          </Card>
+        </Grid>
+      </Grid>
+    </div>
+  );
+}
+
+export function ActivityCard({ activity, description, location }) {
   const [isExpanded, setIsExpanded] = useState(false);
   return (
     <div>
@@ -146,7 +161,7 @@ export function VoteCard({
           </Stack>
         </Grid>
         <Grid item xs={10}>
-          <NoteCard
+          <ActivityCard
             activity={activity}
             location={location}
             description={description}
