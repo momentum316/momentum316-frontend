@@ -12,8 +12,11 @@ import {
 } from "@mui/material";
 import { LogoCard } from "./NoteCards";
 
-export default function Login({ setUser, setUserToken }) {
+import { useNavigate } from "react-router-dom";
+
+export function Login({ setUser, setUserToken }) {
   /*global google*/
+  const navigate = useNavigate();
   const [userCredential, setUserCredential] = useState(null);
   const handleCredentialResponse = (cred) => {
     setUser(jwtDecode(cred.credential));
@@ -22,12 +25,16 @@ export default function Login({ setUser, setUserToken }) {
     axios
       .post(`http://congregate.herokuapp.com/login`, {
         email: credential.email,
+        username: `${credential.given_name}_${credential.family_name}`,
         first_name: credential.given_name,
         last_name: credential.family_name,
+        avatar: credential.picture,
       })
       .then((res) => {
         console.log(res.data);
         setUserToken(res.data.token);
+        setUser(res.data);
+        navigate(`/home/${res.data.user.username}`);
       });
   };
   window.onload = function () {
@@ -44,3 +51,5 @@ export default function Login({ setUser, setUserToken }) {
     </div>
   );
 }
+
+export function MidRegistration() {}
