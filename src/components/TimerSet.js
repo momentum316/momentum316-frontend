@@ -33,7 +33,7 @@ export { useCountdown };
 
 const ExpiredNotice = () => {
   return (
-    <div className="expired-notice">
+    <div className='expired-notice'>
       <span>Expired!!!</span>
       <p>Please select a future date and time.</p>
     </div>
@@ -42,14 +42,16 @@ const ExpiredNotice = () => {
 
 const ShowCounter = ({ days, hours, minutes, seconds }) => {
   return (
-    <div className="show-counter">
-      <DateTimeDisplay value={days} type={"Days"} isDanger={days <= 3} />
-      <p>:</p>
-      <DateTimeDisplay value={hours} type={"Hours"} isDanger={false} />
-      <p>:</p>
-      <DateTimeDisplay value={minutes} type={"Mins"} isDanger={false} />
-      <p>:</p>
-      <DateTimeDisplay value={seconds} type={"Seconds"} isDanger={false} />
+    <div className='show-counter'>
+      <div className='countdown-link'>
+        <DateTimeDisplay value={days} type={"Days"} isDanger={days <= 0} />
+        <p>:</p>
+        <DateTimeDisplay value={hours} type={"Hours"} isDanger={false} />
+        <p>:</p>
+        <DateTimeDisplay value={minutes} type={"Mins"} isDanger={false} />
+        <p>:</p>
+        <DateTimeDisplay value={seconds} type={"Seconds"} isDanger={false} />
+      </div>
     </div>
   );
 };
