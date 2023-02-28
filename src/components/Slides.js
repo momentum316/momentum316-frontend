@@ -14,7 +14,6 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import axios from "axios";
 import dayjs from "dayjs";
-import backend_url from "../render.json";
 
 export function VoterSlide({
   activity,
@@ -28,7 +27,7 @@ export function VoterSlide({
   useEffect(() => {
     axios
       .patch(
-        `${backend_url.backend_url}/vote/${activityId}`,
+        `https://congregate.onrender.com/vote/${activityId}`,
         { username: "villeryd" },
         {
           headers: {
@@ -50,7 +49,7 @@ export function VoterSlide({
     console.log("up");
     axios
       .patch(
-        `${backend_url.backend_url}/vote/${activityId}`,
+        `https://congregate.onrender.com/vote/${activityId}`,
         { username: "villeryd", vote: 1 },
         {
           headers: {
@@ -72,7 +71,7 @@ export function VoterSlide({
     console.log("down");
     axios
       .patch(
-        `${backend_url.backend_url}/vote/${activityId}`,
+        `https://congregate.onrender.com/vote/${activityId}`,
         { username: "villeryd", vote: -1 },
         {
           headers: {
@@ -89,7 +88,7 @@ export function VoterSlide({
     console.log("zero");
     axios
       .patch(
-        `${backend_url.backend_url}/vote/${activityId}`,
+        `https://congregate.onrender.com/vote/${activityId}`,
         { username: "villeryd", vote: 0 },
         {
           headers: {
