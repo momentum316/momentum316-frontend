@@ -7,7 +7,7 @@ export function Homepage() {
   return (
     <div>
       <Typography variant="h1" component="h2" gutterBottom>
-        🏚️
+        🛖
       </Typography>
       <Grid container columnSpacing={{ xs: 2, sm: 2, md: 3 }}>
         <Grid item xs={12}>
