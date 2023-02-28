@@ -3,11 +3,23 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Stack, TextField, Box } from "@mui/material";
 
-export default function Login() {
+export default function Login({ setUser, setUserToken }) {
   /*global google*/
   const [userCredential, setUserCredential] = useState(null);
   const handleCredentialResponse = (cred) => {
-    setUserCredential(jwtDecode(cred.credential));
+    setUser(jwtDecode(cred.credential));
+    let credential = jwtDecode(cred.credential);
+    console.log(credential);
+    axios
+      .post(`http://congregate.herokuapp.com/login`, {
+        email: credential.email,
+        first_name: credential.given_name,
+        last_name: credential.family_name,
+      })
+      .then((res) => {
+        console.log(res.data);
+        setUserToken(res.data.token);
+      });
   };
   window.onload = function () {
     google.accounts.id.initialize({

@@ -13,26 +13,61 @@ import { Profile } from "./components/UserProfile";
 import { Homepage } from "./components/Homepage";
 
 function App() {
+  const [userToken, setUserToken] = useState(null);
+  const [user, setUser] = useState(null);
   return (
-    <div className="App">
+    <div className='App'>
       <Routes>
-        <Route path="/" element={<NewEvent />}></Route>
-        <Route path="/new/activity" element={<NewActivity />}></Route>
+        <Route path='/' element={<NewEvent />}></Route>
+        <Route path='/new/activity' element={<NewActivity />}></Route>
         <Route
-          path="/event/:groupId/:eventId"
+          path='/event/:groupId/:eventId'
           element={<PostVoteEvent />}
         ></Route>
-        <Route path="/group" element={<GroupPage />}></Route>
-        <Route path="/group/:groupId" element={<Group />}></Route>
-        <Route path="/voting" element={<VotePage />}></Route>
-        <Route path="/profile/:username" element={<Profile />}></Route>
-        <Route path="/group/:groupId" element={<Group />}></Route>
-        <Route path="/group/:groupId/vote" element={<VotePage />}></Route>
-        <Route path="/group/:groupId/discussion" element={<Group />}></Route>
-        <Route path="/group/:groupId/events" element={<Group />}></Route>
-        <Route path="/group/:groupId/vote/:eventId" element={<Vote />}></Route>
-        <Route path="/login" element={<Login />}></Route>
-        <Route path="/username" element={<Homepage />}></Route>
+        <Route
+          path='/group'
+          element={<GroupPage userToken={userToken} />}
+        ></Route>
+        <Route
+          path='/group/:groupId'
+          element={<Group userToken={userToken} />}
+        ></Route>
+        <Route
+          path='/voting'
+          element={<VotePage userToken={userToken} />}
+        ></Route>
+        <Route
+          path='/profile/:username'
+          element={<Profile userToken={userToken} />}
+        ></Route>
+        <Route
+          path='/group/:groupId'
+          element={<Group userToken={userToken} />}
+        ></Route>
+        <Route
+          path='/group/:groupId/vote'
+          element={<VotePage userToken={userToken} />}
+        ></Route>
+        <Route
+          path='/group/:groupId/discussion'
+          element={<Group userToken={userToken} />}
+        ></Route>
+        <Route
+          path='/group/:groupId/events'
+          element={<Group userToken={userToken} />}
+        ></Route>
+        <Route
+          path='/group/:groupId/vote/:eventId'
+          element={<Vote userToken={userToken} />}
+        ></Route>
+        <Route
+          path='/login'
+          element={<Login setUserToken={setUserToken} setUser={setUser} />}
+        ></Route>
+        <Route
+          path='/username'
+          element={<Homepage userToken={userToken} />}
+        ></Route>
       </Routes>
     </div>
   );
