@@ -1,19 +1,18 @@
 import { FooterObject } from "./Footer";
-import { Grid, Paper } from "@mui/material";
+import { Grid, Paper, Typography } from "@mui/material";
+import NoteCard from "./NoteCard";
+import { useState } from "react";
 
 export function Homepage() {
+  const [activeVote, setActiveVote] = useState(null);
   return (
     <div>
-      <h1>It Happened?</h1>
+      <Typography variant="h1" component="h2" gutterBottom>
+        🏚️
+      </Typography>
       <Grid container>
         <Grid item xs={12}>
-          <Paper>1</Paper>
-        </Grid>
-        <Grid item xs={12}>
-          <Paper>2</Paper>
-        </Grid>
-        <Grid item xs={12}>
-          <Paper>3</Paper>
+          <Paper>Paper Item</Paper>
         </Grid>
       </Grid>
       <FooterObject />

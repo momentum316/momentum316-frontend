@@ -1,4 +1,11 @@
-import { Grid, Box, IconButton, Divider, Container } from "@mui/material";
+import {
+  Grid,
+  Box,
+  IconButton,
+  Divider,
+  Container,
+  Paper,
+} from "@mui/material";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { VoterSlide, EventSlide } from "./Slides";
@@ -40,23 +47,20 @@ export function VotePage() {
         <br />
         <Grid container spacing={2}>
           {activeVote.map((v) => (
-            <Grid item xs={12}>
-              <Box
-                onClick={() => navigate(`/group/${groupId}/vote/${v.id}`)}
-                sx={{
-                  height: 35,
-                  backgroundColor: "primary.main",
-                  "&:hover": {
-                    backgroundColor: "primary.dark",
-                    opacity: [0.9, 0.8, 0.7],
-                  },
-                }}
-              >
-                <Container>
-                  {v.title}
-                  <br />
-                </Container>
-              </Box>
+            <Grid
+              item
+              xs={12}
+              sx={{
+                height: 35,
+                backgroundColor: "primary.main",
+                "&:hover": {
+                  backgroundColor: "primary.dark",
+                  opacity: [0.9, 0.8, 0.7],
+                },
+              }}
+              onClick={() => navigate(`/group/${groupId}/vote/${v.id}`)}
+            >
+              <Paper>{v.title}</Paper>
             </Grid>
           ))}
         </Grid>
