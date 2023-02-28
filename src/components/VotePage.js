@@ -16,6 +16,7 @@ import { useState, useEffect } from "react";
 import dayjs from "dayjs";
 import { CountdownTimer, useCountdown } from "./TimerSet";
 import backend_url from "../render.json";
+import { VoteCard } from "./NoteCard";
 
 export function VotePage() {
   const navigate = useNavigate();
@@ -112,9 +113,10 @@ export function Vote() {
         <br />
         <CountdownTimer targetDate={endTime} />
         {event.map((e) => (
-          <VoterSlide
+          <VoteCard
             activity={e.title}
-            location={e.description}
+            // location={e.location}
+            description={e.description}
             groupId={groupId}
             eventId={eventId}
             activityId={e.id}
