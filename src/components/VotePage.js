@@ -16,7 +16,7 @@ import { useState, useEffect } from "react";
 import dayjs from "dayjs";
 import { CountdownTimer, useCountdown } from "./TimerSet";
 import backend_url from "../render.json";
-import { VoteCard } from "./NoteCard";
+import { VoteCard } from "./NoteCards";
 
 export function VotePage() {
   const navigate = useNavigate();

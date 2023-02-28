@@ -1,6 +1,6 @@
 import { FooterObject } from "./Footer";
 import { Grid, Paper, Typography } from "@mui/material";
-import { NoteCard } from "./NoteCard";
+import { ActivityCard } from "./NoteCards";
 import { useState } from "react";
 
 export function Homepage() {
@@ -11,7 +11,7 @@ export function Homepage() {
       </Typography>
       <Grid container columnSpacing={{ xs: 2, sm: 2, md: 3 }}>
         <Grid item xs={12}>
-          <NoteCard
+          <ActivityCard
             activity={"absolute rager"}
             location={"jerome's house"}
             description={"byob = bring your own bumblebees"}
