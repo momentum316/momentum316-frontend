@@ -28,14 +28,15 @@ export function GroupPage() {
     groups && (
       <div>
         <h1>Groups Page</h1>
-
         <br />
-        <div className='group-grid'>
+        <div className="group-grid">
           <Grid
             container
-            direction='columns'
-            spacing={4}
+            spacing={2}
+            direction="columns"
             columns={{ xs: 6, sm: 6, md: 12 }}
+            alignItems="center"
+            justify="center"
           >
             {groups.map((g) => (
               <Grid item xs={3}>
@@ -46,7 +47,7 @@ export function GroupPage() {
                         key={g.id}
                         onClick={() => navigate(`/group/${g.id}`)}
                         alt={g.title}
-                        src='/static/images/avatar/1.jpg'
+                        src="/static/images/avatar/1.jpg"
                       />
                     }
                     subheader={g.title}
@@ -78,10 +79,10 @@ export function Group() {
         <h1>{group.title}</h1>
         <GroupHeader />
         <br />
-        <div className='group-grid'>
+        <div className="group-grid">
           <Grid
             container
-            direction='columns'
+            direction="columns"
             spacing={3}
             columnSpacing={{ xs: 2, sm: 8, md: 4 }}
           >
