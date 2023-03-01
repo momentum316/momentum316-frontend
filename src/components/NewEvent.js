@@ -2,7 +2,15 @@ import * as React from "react";
 import backend_url from "../render.json";
 import "../App.css";
 // General page use
-import { Stack, TextField, Button, Grid, Switch } from "@mui/material";
+import {
+  Stack,
+  TextField,
+  Button,
+  Grid,
+  Switch,
+  Card,
+  CardHeader,
+} from "@mui/material";
 // Footer Nav Bar
 import { ButtonGroup } from "@mui/material";
 // For Vote Set Switch
@@ -36,6 +44,7 @@ import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import NewActivity from "./NewActivity";
+import { LogoCard } from "./NoteCards";
 
 export default function NewEvent() {
   const navigate = useNavigate();
@@ -60,7 +69,7 @@ export default function NewEvent() {
 
   useEffect(() => {
     axios
-      .get(`${backend_url.backend_url}/villeryd/home`)
+      .get(`${backend_url.backend_url}/Daniel_Villery/home`)
       .then((res) => setChoices(res.data.group_list));
   }, []);
 
@@ -84,18 +93,23 @@ export default function NewEvent() {
     choices && (
       <div className="App">
         <form onSubmit={handleSubmit}>
-          <h1>New Event</h1>
-          <Stack spacing={4}>
-            <TextField
-              fullWidth
-              label="Event Name"
-              value={event}
-              required
-              onChange={(e) => setEvent(e.target.value)}
-            />
-          </Stack>
-          <br />
-          <Grid container spacing={2}>
+          <Grid container spacing={2} xs={12}>
+            <Grid item xs={12}>
+              <Card elevation={3}>
+                <CardHeader subheader="New Event" />
+              </Card>
+            </Grid>
+            <Grid item xs={12}>
+              {/* <Stack spacing={4}> */}
+              <TextField
+                fullWidth
+                label="Event Name"
+                value={event}
+                required
+                onChange={(e) => setEvent(e.target.value)}
+              />
+            </Grid>
+            {/* </Stack> */}
             <Grid item xs={6}>
               {/* <TextField
               label='Date'
