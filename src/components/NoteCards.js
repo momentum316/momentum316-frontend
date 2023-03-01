@@ -7,6 +7,7 @@ import {
   CardHeader,
   IconButton,
   Typography,
+  Avatar,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
@@ -20,7 +21,7 @@ import backend_url from "../render.json";
 export function LogoCard() {
   return (
     <div>
-      <Grid container xs={12} justifyContent='center' alignItems='center'>
+      <Grid container xs={12} justifyContent="center" alignItems="center">
         <Grid item>
           <Card elevation={0}>
             <img src={LogoImage} />
@@ -47,7 +48,7 @@ export function ActivityCard({ activity, description, location }) {
         />
         {isExpanded && (
           <CardContent>
-            <Typography variant='body2' color='textSecondary'>
+            <Typography variant="body2" color="textSecondary">
               {description}
             </Typography>
           </CardContent>
@@ -149,7 +150,7 @@ export function VoteCard({
     <div>
       <Grid container xs={12}>
         <Grid item xs={2}>
-          <Stack alignItems='center' justifyContent='center'>
+          <Stack alignItems="center" justifyContent="center">
             <KeyboardArrowUpIcon
               onClick={(e) => handleUp(e)}
               color={voteCount === 1 ? "warning" : ""}
@@ -171,5 +172,22 @@ export function VoteCard({
         </Grid>
       </Grid>
     </div>
+  );
+}
+
+export function HomepageCard({ user }) {
+  return (
+    <Card elevation={10}>
+      <CardHeader
+        title={
+          <Avatar
+            key={user.user.username}
+            alt={user.user.first_name}
+            src="/static/images/avatar/1.jpg"
+          />
+        }
+        subheader={user}
+      />
+    </Card>
   );
 }
