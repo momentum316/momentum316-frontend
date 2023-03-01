@@ -69,4 +69,8 @@ export function Login({ setUser, setUserToken }) {
   );
 }
 
-export function MidRegistration() {}
+export function Logout({ setUser, setUserToken }) {
+  setUser(null);
+  setUserToken(null);
+  return <div></div>;
+}
