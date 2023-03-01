@@ -39,9 +39,9 @@ export function Login({ setUser, setUserToken }) {
       .then((res) => {
         console.log(res.data);
         // setUserToken(res.data.token);
-        navigate(`/home/${res.data.user.username}`);
         setUser(res.data);
         setUsername(res.data.user.username);
+        navigate(`/home/${res.data.user.username}`);
       });
   };
 
@@ -80,10 +80,10 @@ export function Logout({ setUser, setUserToken }) {
   const [emptyToken, setEmptyToken] = useState(false);
 
   const handleLogout = () => {
-    navigate("/");
     setUser(null);
     setUserToken(null);
     setEmptyToken(true);
+    navigate("/");
   };
 
   return (
