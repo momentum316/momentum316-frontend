@@ -31,7 +31,11 @@ function App() {
         <Route
           path="/"
           element={
-            <PrivateRoute>
+            <PrivateRoute
+              setUserToken={setUserToken}
+              setUser={setUser}
+              user={user}
+            >
               <NewEvent user={user} />
             </PrivateRoute>
           }
@@ -39,7 +43,11 @@ function App() {
         <Route
           path="/new/activity"
           element={
-            <PrivateRoute>
+            <PrivateRoute
+              setUserToken={setUserToken}
+              setUser={setUser}
+              user={user}
+            >
               <NewActivity user={user} />
             </PrivateRoute>
           }
@@ -47,7 +55,11 @@ function App() {
         <Route
           path="/event/:groupId/:eventId"
           element={
-            <PrivateRoute>
+            <PrivateRoute
+              setUserToken={setUserToken}
+              setUser={setUser}
+              user={user}
+            >
               <PostVoteEvent user={user} />
             </PrivateRoute>
           }
@@ -55,7 +67,11 @@ function App() {
         <Route
           path="/group"
           element={
-            <PrivateRoute>
+            <PrivateRoute
+              setUserToken={setUserToken}
+              setUser={setUser}
+              user={user}
+            >
               <GroupPage user={user} />
             </PrivateRoute>
           }
@@ -63,7 +79,11 @@ function App() {
         <Route
           path="/group/:groupId"
           element={
-            <PrivateRoute>
+            <PrivateRoute
+              setUserToken={setUserToken}
+              setUser={setUser}
+              user={user}
+            >
               <Group user={user} />
             </PrivateRoute>
           }
@@ -71,7 +91,11 @@ function App() {
         <Route
           path="/voting"
           element={
-            <PrivateRoute>
+            <PrivateRoute
+              setUserToken={setUserToken}
+              setUser={setUser}
+              user={user}
+            >
               <VotePage user={user} />
             </PrivateRoute>
           }
@@ -79,7 +103,11 @@ function App() {
         <Route
           path="/profile/:username"
           element={
-            <PrivateRoute>
+            <PrivateRoute
+              setUserToken={setUserToken}
+              setUser={setUser}
+              user={user}
+            >
               <Profile user={user} />
             </PrivateRoute>
           }
@@ -87,7 +115,11 @@ function App() {
         <Route
           path="/group/:groupId"
           element={
-            <PrivateRoute>
+            <PrivateRoute
+              setUserToken={setUserToken}
+              setUser={setUser}
+              user={user}
+            >
               <Group user={user} />
             </PrivateRoute>
           }
@@ -95,7 +127,11 @@ function App() {
         <Route
           path="/group/:groupId/vote"
           element={
-            <PrivateRoute>
+            <PrivateRoute
+              setUserToken={setUserToken}
+              setUser={setUser}
+              user={user}
+            >
               <VotePage user={user} />
             </PrivateRoute>
           }
@@ -103,7 +139,11 @@ function App() {
         <Route
           path="/group/:groupId/discussion"
           element={
-            <PrivateRoute>
+            <PrivateRoute
+              setUserToken={setUserToken}
+              setUser={setUser}
+              user={user}
+            >
               <Group user={user} />
             </PrivateRoute>
           }
@@ -111,7 +151,11 @@ function App() {
         <Route
           path="/group/:groupId/events"
           element={
-            <PrivateRoute>
+            <PrivateRoute
+              setUserToken={setUserToken}
+              setUser={setUser}
+              user={user}
+            >
               <Group user={user} />
             </PrivateRoute>
           }
@@ -119,7 +163,11 @@ function App() {
         <Route
           path="/group/:groupId/vote/:eventId"
           element={
-            <PrivateRoute>
+            <PrivateRoute
+              setUserToken={setUserToken}
+              setUser={setUser}
+              user={user}
+            >
               <Vote user={user} />
             </PrivateRoute>
           }
@@ -127,7 +175,11 @@ function App() {
         <Route
           path="/home/:username"
           element={
-            <PrivateRoute>
+            <PrivateRoute
+              setUserToken={setUserToken}
+              setUser={setUser}
+              user={user}
+            >
               <Homepage user={user} />
             </PrivateRoute>
           }
@@ -135,7 +187,11 @@ function App() {
         <Route
           path="/logout"
           element={
-            <PrivateRoute>
+            <PrivateRoute
+              setUserToken={setUserToken}
+              setUser={setUser}
+              user={user}
+            >
               <Logout setUserToken={setUserToken} setUser={setUser} />
             </PrivateRoute>
           }
