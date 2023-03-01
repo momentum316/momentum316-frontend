@@ -15,11 +15,12 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Stack } from "@mui/system";
 import LogoImage from "../images/LogoImage.jpg";
+import backend_url from "../render.json";
 
 export function LogoCard() {
   return (
     <div>
-      <Grid container xs={12} justifyContent="center" alignItems="center">
+      <Grid container xs={12} justifyContent='center' alignItems='center'>
         <Grid item>
           <Card elevation={0}>
             <img src={LogoImage} />
@@ -46,7 +47,7 @@ export function ActivityCard({ activity, description, location }) {
         />
         {isExpanded && (
           <CardContent>
-            <Typography variant="body2" color="textSecondary">
+            <Typography variant='body2' color='textSecondary'>
               {description}
             </Typography>
           </CardContent>
@@ -63,13 +64,14 @@ export function VoteCard({
   groupId,
   eventId,
   activityId,
+  user,
 }) {
   const [voteCount, setVote] = useState(0);
 
   useEffect(() => {
     axios
       .patch(
-        `https://congregate.onrender.com/vote/${activityId}`,
+        `${backend_url.backend_url}/vote/${activityId}`,
         { username: "villeryd" },
         {
           headers: {
@@ -91,8 +93,8 @@ export function VoteCard({
     console.log("up");
     axios
       .patch(
-        `https://congregate.onrender.com/vote/${activityId}`,
-        { username: "villeryd", vote: 1 },
+        `${backend_url.backend_url}/vote/${activityId}`,
+        { username: user.user.username, vote: 1 },
         {
           headers: {
             authorization: `token ${process.env.REACT_APP_API_TOKEN}`,
@@ -113,8 +115,8 @@ export function VoteCard({
     console.log("down");
     axios
       .patch(
-        `https://congregate.onrender.com/vote/${activityId}`,
-        { username: "villeryd", vote: -1 },
+        `${backend_url.backend_url}/vote/${activityId}`,
+        { username: user.user.username, vote: -1 },
         {
           headers: {
             authorization: `token ${process.env.REACT_APP_API_TOKEN}`,
@@ -130,8 +132,8 @@ export function VoteCard({
     console.log("zero");
     axios
       .patch(
-        `https://congregate.onrender.com/vote/${activityId}`,
-        { username: "villeryd", vote: 0 },
+        `${backend_url.backend_url}/vote/${activityId}`,
+        { username: user.user.username, vote: 0 },
         {
           headers: {
             authorization: `token ${process.env.REACT_APP_API_TOKEN}`,
@@ -147,7 +149,7 @@ export function VoteCard({
     <div>
       <Grid container xs={12}>
         <Grid item xs={2}>
-          <Stack alignItems="center" justifyContent="center">
+          <Stack alignItems='center' justifyContent='center'>
             <KeyboardArrowUpIcon
               onClick={(e) => handleUp(e)}
               color={voteCount === 1 ? "warning" : ""}

@@ -14,12 +14,12 @@ import backend_url from "../render.json";
 
 import { useState, useEffect } from "react";
 
-export function GroupPage() {
+export function GroupPage({ user }) {
   const [groups, setGroups] = useState(null);
   useEffect(() => {
     axios
       // need to change this to dynamic username once login page is ready
-      .get(`${backend_url.backend_url}/Daniel_Villery/groups`)
+      .get(`${backend_url.backend_url}/${user.user.username}/groups`)
       .then((response) => setGroups(response.data));
   }, []);
 
@@ -29,14 +29,14 @@ export function GroupPage() {
       <div>
         <h1>Groups Page</h1>
         <br />
-        <div className="group-grid">
+        <div className='group-grid'>
           <Grid
             container
             spacing={2}
-            direction="columns"
+            direction='columns'
             columns={{ xs: 6, sm: 6, md: 12 }}
-            alignItems="center"
-            justify="center"
+            alignItems='center'
+            justify='center'
           >
             {groups.map((g) => (
               <Grid item xs={3}>
@@ -47,7 +47,7 @@ export function GroupPage() {
                         key={g.id}
                         onClick={() => navigate(`/group/${g.id}`)}
                         alt={g.title}
-                        src="/static/images/avatar/1.jpg"
+                        src='/static/images/avatar/1.jpg'
                       />
                     }
                     subheader={g.title}
@@ -57,7 +57,7 @@ export function GroupPage() {
             ))}
           </Grid>
         </div>
-        <FooterObject />
+        {/* <FooterObject /> */}
       </div>
     )
   );
@@ -79,10 +79,10 @@ export function Group() {
         <h1>{group.title}</h1>
         <GroupHeader />
         <br />
-        <div className="group-grid">
+        <div className='group-grid'>
           <Grid
             container
-            direction="columns"
+            direction='columns'
             spacing={3}
             columnSpacing={{ xs: 2, sm: 8, md: 4 }}
           >
@@ -105,7 +105,7 @@ export function Group() {
             ))}
           </Grid>
         </div>
-        <FooterObject />
+        {/* <FooterObject /> */}
       </div>
     )
   );

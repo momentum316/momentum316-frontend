@@ -28,7 +28,7 @@ export default function PostVoteEvent() {
 
   useEffect(() => {
     axios.get(`${backend_url.backend_url}/event/${eventId}`).then((res) => {
-      console.log(res.data);
+      console.log(res.data.date);
       setEvent(res.data);
     });
   }, [eventId]);
@@ -40,14 +40,14 @@ export default function PostVoteEvent() {
           <Avatar
             onClick={() => navigate(`/group/${groupId}`)}
             alt={event.group}
-            src="/static/images/avatar/2.jpg"
+            src='/static/images/avatar/2.jpg'
             sx={{ width: 90, height: 90 }}
           />
         </IconButton>
         {/* Make this a component */}
-        <ActivitySlide name={event.title} date={event.date} />
+        <ActivitySlide event={event} />
         <Divider />
-        <Stack textAlign="left">
+        <Stack textAlign='left'>
           <h6>Address Line</h6>
         </Stack>
         <Container>
@@ -57,7 +57,7 @@ export default function PostVoteEvent() {
         </Container>
         <br />
         <Divider />
-        <Stack textAlign="left">
+        <Stack textAlign='left'>
           <h6>Description</h6>
         </Stack>
         <Container>
@@ -70,25 +70,25 @@ export default function PostVoteEvent() {
         <h6>Group Membe</h6>
       </Stack> */}
         <Box
-          justifyContent="center"
-          alignContent="center"
+          justifyContent='center'
+          alignContent='center'
           sx={{ margin: 0.5, height: 20, paddingLeft: 1, bgcolor: "#0093c4" }}
         >
           <Stack
             sx={{ margin: 0.5, height: 8, paddingLeft: 1 }}
-            textAlign="left"
+            textAlign='left'
           >
             <h6>Group Members</h6>
           </Stack>
-          <AvatarGroup max={5} spacing="medium">
-            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-            <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
-            <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
-            <Avatar alt="Agnes Walker" src="/static/images/avatar/4.jpg" />
-            <Avatar alt="Trevor Henderson" src="/static/images/avatar/5.jpg" />
+          <AvatarGroup max={5} spacing='medium'>
+            <Avatar alt='Remy Sharp' src='/static/images/avatar/1.jpg' />
+            <Avatar alt='Travis Howard' src='/static/images/avatar/2.jpg' />
+            <Avatar alt='Cindy Baker' src='/static/images/avatar/3.jpg' />
+            <Avatar alt='Agnes Walker' src='/static/images/avatar/4.jpg' />
+            <Avatar alt='Trevor Henderson' src='/static/images/avatar/5.jpg' />
           </AvatarGroup>
         </Box>
-        <FooterObject />
+        {/* <FooterObject /> */}
       </div>
     )
   );

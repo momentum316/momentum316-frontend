@@ -50,28 +50,28 @@ export default function NewActivity() {
   const [showDateTime, setShowDateTime] = useState(false);
 
   return (
-    <div className="App">
+    <div className='App'>
       <Container>
         <br />
         <TextField
-          id="activity-title"
-          label="Activity Title"
+          id='activity-title'
+          label='Activity Title'
           fullWidth
           value={activityTitle}
           onChange={(e) => setActivityTitle(e.target.value)}
         ></TextField>
         <Stack>
           <FormControlLabel
-            value="end"
-            control={<Switch color="primary" onClick={() => handleTime()} />}
-            label="Set Time"
+            value='end'
+            control={<Switch color='primary' onClick={() => handleTime()} />}
+            label='Set Time'
           />
           {/* Time Field dayjs needs to be finished*/}
           {showDateTime && (
             <>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <TimePicker
-                  label="Start Time"
+                  label='Start Time'
                   value={startValue}
                   onChange={handleStart}
                   renderInput={(params) => <TextField {...params} />}
@@ -80,7 +80,7 @@ export default function NewActivity() {
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <br />
                 <TimePicker
-                  label="End Time"
+                  label='End Time'
                   value={endValue}
                   onChange={handleEnd}
                   renderInput={(params) => <TextField {...params} />}
@@ -97,14 +97,14 @@ export default function NewActivity() {
         <Stack spacing={4}>
           <TextField
             fullWidth
-            label="Location"
+            label='Location'
             value={location}
             onChange={(e) => setLocation(e.target.value)}
           />
           {/* description box */}
           <TextField
-            id="description-box"
-            label="Description"
+            id='description-box'
+            label='Description'
             multiline
             rows={4}
             fullWidth
@@ -115,7 +115,7 @@ export default function NewActivity() {
         {/* CANCEL BUTTON (clear fields or back to event?)*/}
         <br />
         <Stack>
-          <Button onClick={() => navigate("/")} fullWidth variant="contained">
+          <Button onClick={() => navigate("/")} fullWidth variant='contained'>
             Cancel
           </Button>
         </Stack>
@@ -125,7 +125,7 @@ export default function NewActivity() {
           <Button
             onClick={() => navigate("/voting")}
             fullWidth
-            variant="contained"
+            variant='contained'
           >
             Add Item to Vote!
           </Button>

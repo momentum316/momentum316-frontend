@@ -2,11 +2,15 @@ import { FooterObject } from "./Footer";
 import { Grid, Paper, Typography } from "@mui/material";
 import { ActivityCard } from "./NoteCards";
 import { useState } from "react";
+import userEvent from "@testing-library/user-event";
 
-export function Homepage() {
+export function Homepage({ user }) {
   return (
     <div>
-      <Typography variant="h1" component="h2" gutterBottom>
+      <Typography variant='h1' component='h2' gutterBottom>
+        Hi {user.user.first_name}
+      </Typography>
+      <Typography variant='h1' component='h2' gutterBottom>
         🛖
       </Typography>
       <Grid container columnSpacing={{ xs: 2, sm: 2, md: 3 }}>
@@ -18,7 +22,7 @@ export function Homepage() {
           />
         </Grid>
       </Grid>
-      <FooterObject />
+      {/* <FooterObject /> */}
     </div>
   );
 }
