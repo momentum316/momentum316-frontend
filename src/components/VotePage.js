@@ -18,7 +18,7 @@ import { CountdownTimer, useCountdown } from "./TimerSet";
 import backend_url from "../render.json";
 import { VoteCard } from "./NoteCards";
 
-export function VotePage() {
+export function VotePage({ user }) {
   const navigate = useNavigate();
   const { groupId } = useParams();
   const [activeVote, setActiveVote] = useState(null);
@@ -36,8 +36,7 @@ export function VotePage() {
 
         setActiveVote(votesInProgress);
 
-        // setActivityList(votesInProgress.activity_list[0]);
-        console.log(votesInProgress[0].activity_list[0].title);
+        console.log(votesInProgress);
       });
   }, [groupId]);
   return (
@@ -47,25 +46,29 @@ export function VotePage() {
         <GroupHeader />
         <br />
         <Grid container spacing={2}>
-          {activeVote.map((v) => (
-            <Grid
-              item
-              xs={12}
-              sx={{
-                height: 35,
-                backgroundColor: "primary.main",
-                "&:hover": {
-                  backgroundColor: "primary.dark",
-                  opacity: [0.9, 0.8, 0.7],
-                },
-              }}
-              onClick={() => navigate(`/group/${groupId}/vote/${v.id}`)}
-            >
-              <Paper>{v.title}</Paper>
-            </Grid>
-          ))}
+          {activeVote > 0 ? (
+            activeVote.map((v) => (
+              <Grid
+                item
+                xs={12}
+                sx={{
+                  height: 35,
+                  backgroundColor: "primary.main",
+                  "&:hover": {
+                    backgroundColor: "primary.dark",
+                    opacity: [0.9, 0.8, 0.7],
+                  },
+                }}
+                onClick={() => navigate(`/group/${groupId}/vote/${v.id}`)}
+              >
+                <Paper>{v.title}</Paper>
+              </Grid>
+            ))
+          ) : (
+            <p>No Active Votes</p>
+          )}
         </Grid>
-        <FooterObject />
+        {/* <FooterObject /> */}
       </>
     )
   );
@@ -90,7 +93,7 @@ export function VotePage() {
 //         </Stack>
 //         <FooterObject />
 
-export function Vote() {
+export function Vote({ user }) {
   const { groupId, eventId } = useParams();
   const [event, setEvent] = useState(null);
   const [group, setGroup] = useState(null);
@@ -120,9 +123,10 @@ export function Vote() {
             groupId={groupId}
             eventId={eventId}
             activityId={e.id}
+            user={user}
           />
         ))}
-        <FooterObject />
+        {/* <FooterObject /> */}
       </>
     )
   );

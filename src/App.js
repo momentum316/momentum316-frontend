@@ -12,18 +12,24 @@ import { Login } from "./components/LoginPage";
 import { Profile } from "./components/UserProfile";
 import { Homepage } from "./components/Homepage";
 import { useRadioGroup } from "@mui/material";
+import { FooterObject } from "./components/Footer";
+import useLocalStorageState from "use-local-storage-state";
 
 function App() {
   const [userToken, setUserToken] = useState(null);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useLocalStorageState("CongregateToken", "");
+
   return (
     <div className='App'>
       <Routes>
-        <Route path='/' element={<NewEvent />}></Route>
-        <Route path='/new/activity' element={<NewActivity />}></Route>
+        <Route path='/' element={<NewEvent user={user} />}></Route>
+        <Route
+          path='/new/activity'
+          element={<NewActivity user={user} />}
+        ></Route>
         <Route
           path='/event/:groupId/:eventId'
-          element={<PostVoteEvent />}
+          element={<PostVoteEvent user={user} />}
         ></Route>
         <Route path='/group' element={<GroupPage user={user} />}></Route>
         <Route path='/group/:groupId' element={<Group user={user} />}></Route>
@@ -58,6 +64,7 @@ function App() {
           element={<Homepage user={user} />}
         ></Route>
       </Routes>
+      <FooterObject user={user} />
     </div>
   );
 }

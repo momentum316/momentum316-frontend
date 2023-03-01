@@ -46,7 +46,7 @@ import Select from "@mui/material/Select";
 import NewActivity from "./NewActivity";
 import { LogoCard } from "./NoteCards";
 
-export default function NewEvent() {
+export default function NewEvent({ user }) {
   const navigate = useNavigate();
   const [event, setEvent] = useState("");
   const [date, setDate] = useState(dayjs().format("YYYY-MM-DD"));
@@ -69,41 +69,49 @@ export default function NewEvent() {
 
   useEffect(() => {
     axios
-      .get(`${backend_url.backend_url}/Daniel_Villery/home`)
+      .get(`${backend_url.backend_url}/${user.user.username}/home`)
       .then((res) => setChoices(res.data.group_list));
   }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(`${backend_url.backend_url}/new/event/`, {
-        title: `${event}`,
-        group_id: group,
-        voting: vote,
-        date: `${date}`,
-        vote_closing_time: `${endTime}`,
-      })
+      .post(
+        `${backend_url.backend_url}/new/event/`,
+        {
+          title: `${event}`,
+          group_id: group,
+          voting: vote,
+          date: `${date}`,
+          vote_closing_time: `${endTime}`,
+        },
+        {
+          headers: {
+            Authorization: `token ${user.token}`,
+          },
+        }
+      )
       .then((res) => {
         console.log(res.data);
-        navigate(`/event/${group}/${res.data.event.id}`);
+        navigate(`/event/${group}/${res.data.id}`);
       });
   };
 
   return (
     choices && (
-      <div className="App">
+      <div className='App'>
         <form onSubmit={handleSubmit}>
           <Grid container spacing={2} xs={12}>
             <Grid item xs={12}>
               <Card elevation={3}>
-                <CardHeader subheader="New Event" />
+                <CardHeader subheader='New Event' />
               </Card>
             </Grid>
             <Grid item xs={12}>
               {/* <Stack spacing={4}> */}
               <TextField
                 fullWidth
-                label="Event Name"
+                label='Event Name'
                 value={event}
                 required
                 onChange={(e) => setEvent(e.target.value)}
@@ -121,8 +129,8 @@ export default function NewEvent() {
             /> */}
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <MobileDatePicker
-                  label="Date"
-                  inputFormat="MM/DD/YYYY"
+                  label='Date'
+                  inputFormat='MM/DD/YYYY'
                   value={date}
                   onChange={handleChange}
                   required
@@ -132,18 +140,18 @@ export default function NewEvent() {
             </Grid>
             <Grid item xs={6}>
               <FormControl sx={{ minWidth: 150 }}>
-                <InputLabel id="demo-simple-select-helper-label">
+                <InputLabel id='demo-simple-select-helper-label'>
                   Group
                 </InputLabel>
                 <Select
-                  labelId="demo-simple-select-helper-label"
-                  id="demo-simple-select-helper"
+                  labelId='demo-simple-select-helper-label'
+                  id='demo-simple-select-helper'
                   value={group}
-                  label="Group"
+                  label='Group'
                   required
                   onChange={(e) => setGroup(e.target.value)}
                 >
-                  <MenuItem value="">
+                  <MenuItem value=''>
                     <em>Select a Group</em>
                   </MenuItem>
                   {choices.map((c) => (
@@ -188,7 +196,7 @@ export default function NewEvent() {
         </Stack> */}
           <br />
           <Stack>
-            <Button type="submit" fullWidth variant="contained">
+            <Button type='submit' fullWidth variant='contained'>
               Submit Event
             </Button>
           </Stack>
@@ -197,10 +205,10 @@ export default function NewEvent() {
         <br />
         <Stack>
           <FormControlLabel
-            value="end"
-            control={<Switch color="primary" onClick={() => setVote(!vote)} />}
-            label="Set Timer?"
-            labelPlacement="end"
+            value='end'
+            control={<Switch color='primary' onClick={() => setVote(!vote)} />}
+            label='Set Timer?'
+            labelPlacement='end'
 
             // onClick={() => setShowActivity(!showActivity)}
           />
@@ -212,7 +220,7 @@ export default function NewEvent() {
             </>
           )}
         </Stack>
-        <FooterObject />
+        {/* <FooterObject /> */}
       </div>
     )
   );

@@ -14,6 +14,7 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import axios from "axios";
 import dayjs from "dayjs";
+import backend_url from "../render.json";
 
 export function VoterSlide({
   activity,
@@ -21,14 +22,15 @@ export function VoterSlide({
   eventId,
   groupId,
   activityId,
+  user,
 }) {
   const [voteCount, setVote] = useState(0);
 
   useEffect(() => {
     axios
       .patch(
-        `https://congregate.onrender.com/vote/${activityId}`,
-        { username: "villeryd" },
+        `${backend_url.backend_url}/vote/${activityId}`,
+        { username: user.user.username },
         {
           headers: {
             authorization: `token ${process.env.REACT_APP_API_TOKEN}`,
@@ -49,8 +51,8 @@ export function VoterSlide({
     console.log("up");
     axios
       .patch(
-        `https://congregate.onrender.com/vote/${activityId}`,
-        { username: "villeryd", vote: 1 },
+        `${backend_url.backend_url}/vote/${activityId}`,
+        { username: user.user.username, vote: 1 },
         {
           headers: {
             authorization: `token ${process.env.REACT_APP_API_TOKEN}`,
@@ -71,8 +73,8 @@ export function VoterSlide({
     console.log("down");
     axios
       .patch(
-        `https://congregate.onrender.com/vote/${activityId}`,
-        { username: "villeryd", vote: -1 },
+        ` ${backend_url.backend_url}/vote/${activityId}`,
+        { username: user.user.username, vote: -1 },
         {
           headers: {
             authorization: `token ${process.env.REACT_APP_API_TOKEN}`,
@@ -88,8 +90,8 @@ export function VoterSlide({
     console.log("zero");
     axios
       .patch(
-        `https://congregate.onrender.com/vote/${activityId}`,
-        { username: "villeryd", vote: 0 },
+        `${backend_url.backend_url}/vote/${activityId}`,
+        { username: user.user.username, vote: 0 },
         {
           headers: {
             authorization: `token ${process.env.REACT_APP_API_TOKEN}`,
@@ -148,8 +150,9 @@ export function VoterSlide({
   );
 }
 
-export function ActivitySlide({ name, date, address }) {
-  const formattedTime = dayjs(date).format("MMM | ddd DD | YYYY");
+export function ActivitySlide({ event }) {
+  const formattedTime = dayjs(event.date).format("MMM | ddd DD | YYYY");
+  console.log(event);
   return (
     <>
       <Box
@@ -163,9 +166,9 @@ export function ActivitySlide({ name, date, address }) {
         }}
       >
         <Stack>
-          <Typography fontSize="larger">{name}</Typography>
-          <Typography fontSize="large">{formattedTime}</Typography>
-          <Typography fontSize="large">{address}</Typography>
+          <Typography fontSize='larger'>{event.title}</Typography>
+          <Typography fontSize='large'>{formattedTime}</Typography>
+          <Typography fontSize='large'>{event.address}</Typography>
         </Stack>
       </Box>
     </>
@@ -177,7 +180,7 @@ export function EventSlide() {
     <>
       <Box>
         <Stack container sx={{ height: 80, backgroundColor: "primary.light" }}>
-          <Typography fontSize="3vh">Event Name</Typography>
+          <Typography fontSize='3vh'>Event Name</Typography>
           <item>Date Decided</item>
           <item>Location</item>
         </Stack>
