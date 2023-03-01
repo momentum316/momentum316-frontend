@@ -71,7 +71,7 @@ export function VoteCard({
   useEffect(() => {
     axios
       .patch(
-        `${backend_url.backend_url}/vote/${activityId}`,
+        `${process.env.REACT_APP_BACKEND_URL}/vote/${activityId}`,
         { username: "villeryd" },
         {
           headers: {
@@ -93,7 +93,7 @@ export function VoteCard({
     console.log("up");
     axios
       .patch(
-        `${backend_url.backend_url}/vote/${activityId}`,
+        `${process.env.REACT_APP_BACKEND_URL}/vote/${activityId}`,
         { username: user.user.username, vote: 1 },
         {
           headers: {
@@ -115,7 +115,7 @@ export function VoteCard({
     console.log("down");
     axios
       .patch(
-        `${backend_url.backend_url}/vote/${activityId}`,
+        `${process.env.REACT_APP_BACKEND_URL}/vote/${activityId}`,
         { username: user.user.username, vote: -1 },
         {
           headers: {
@@ -132,7 +132,7 @@ export function VoteCard({
     console.log("zero");
     axios
       .patch(
-        `${backend_url.backend_url}/vote/${activityId}`,
+        `${process.env.REACT_APP_BACKEND_URL}/vote/${activityId}`,
         { username: user.user.username, vote: 0 },
         {
           headers: {

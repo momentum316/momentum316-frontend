@@ -27,10 +27,12 @@ export default function PostVoteEvent() {
   const [event, setEvent] = useState(null);
 
   useEffect(() => {
-    axios.get(`${backend_url.backend_url}/event/${eventId}`).then((res) => {
-      console.log(res.data.date);
-      setEvent(res.data);
-    });
+    axios
+      .get(`${process.env.REACT_APP_BACKEND_URL}/event/${eventId}`)
+      .then((res) => {
+        console.log(res.data.date);
+        setEvent(res.data);
+      });
   }, [eventId]);
 
   return (

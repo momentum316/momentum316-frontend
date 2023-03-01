@@ -27,7 +27,7 @@ export function VotePage({ user }) {
 
   useEffect(() => {
     axios
-      .get(`${backend_url.backend_url}/group/${groupId}`)
+      .get(`${process.env.REACT_APP_BACKEND_URL}/group/${groupId}`)
 
       .then((res) => {
         let votesInProgress = res.data.event_list.filter(
@@ -101,11 +101,13 @@ export function Vote({ user }) {
   const countdown = useCountdown(endTime);
 
   useEffect(() => {
-    axios.get(`${backend_url.backend_url}/event/${eventId}`).then((res) => {
-      console.log(res.data.activity_list);
-      setEvent(res.data.activity_list);
-      setGroup(res.data.group);
-    });
+    axios
+      .get(`${process.env.REACT_APP_BACKEND_URL}/event/${eventId}`)
+      .then((res) => {
+        console.log(res.data.activity_list);
+        setEvent(res.data.activity_list);
+        setGroup(res.data.group);
+      });
   }, [eventId]);
 
   return (

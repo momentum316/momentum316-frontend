@@ -19,7 +19,7 @@ export function GroupPage({ user }) {
   useEffect(() => {
     axios
       // need to change this to dynamic username once login page is ready
-      .get(`${backend_url.backend_url}/${user.user.username}/groups`)
+      .get(`${process.env.REACT_APP_BACKEND_URL}/${user.user.username}/groups`)
       .then((response) => setGroups(response.data));
   }, []);
 
@@ -70,7 +70,7 @@ export function Group() {
   useEffect(() => {
     axios
       // need to change this to dynamic username once login page is ready
-      .get(`${backend_url.backend_url}/group/${groupId}`)
+      .get(`${process.env.REACT_APP_BACKEND_URL}/group/${groupId}`)
       .then((response) => setGroup(response.data));
   }, [groupId]);
   return (

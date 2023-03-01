@@ -69,7 +69,7 @@ export default function NewEvent({ user }) {
 
   useEffect(() => {
     axios
-      .get(`${backend_url.backend_url}/${user.user.username}/home`)
+      .get(`${process.env.REACT_APP_BACKEND_URL}/${user.user.username}/home`)
       .then((res) => setChoices(res.data.group_list));
   }, []);
 
@@ -77,7 +77,7 @@ export default function NewEvent({ user }) {
     e.preventDefault();
     axios
       .post(
-        `${backend_url.backend_url}/new/event/`,
+        `${process.env.REACT_APP_BACKEND_URL}/new/event/`,
         {
           title: `${event}`,
           group_id: group,

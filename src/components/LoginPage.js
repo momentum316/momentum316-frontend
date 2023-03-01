@@ -28,7 +28,7 @@ export function Login({ setUser, setUserToken }) {
     let credential = jwtDecode(cred.credential);
     console.log(credential);
     axios
-      .post(`http://congregate.herokuapp.com/login`, {
+      .post(`${process.env.REACT_APP_BACKEND_URL}/login`, {
         email: credential.email,
         username: `${credential.given_name}_${credential.family_name}`,
         first_name: credential.given_name,
