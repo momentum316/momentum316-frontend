@@ -12,13 +12,14 @@ import {
 } from "@mui/material";
 import { LogoCard } from "./NoteCards";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 
 export function Login({ setUser, setUserToken }) {
   /*global google*/
   const navigate = useNavigate();
   const [userCredential, setUserCredential] = useState(null);
+  const [username, setUsername] = useState(null);
 
   const errorMessage = (error) => {
     console.log(error);
@@ -37,11 +38,16 @@ export function Login({ setUser, setUserToken }) {
       })
       .then((res) => {
         console.log(res.data);
-        setUserToken(res.data.token);
-        setUser(res.data);
+        // setUserToken(res.data.token);
         navigate(`/home/${res.data.user.username}`);
+        setUser(res.data);
+        setUsername(res.data.user.username);
       });
   };
+
+  // if (username) {
+  //   return <Navigate to={`/home/${username}`} />;
+  // }
 
   // window.onload = function () {
   //   google.accounts.id.initialize({
@@ -70,7 +76,19 @@ export function Login({ setUser, setUserToken }) {
 }
 
 export function Logout({ setUser, setUserToken }) {
-  setUser(null);
-  setUserToken(null);
-  return <div></div>;
+  const navigate = useNavigate();
+  const [emptyToken, setEmptyToken] = useState(false);
+
+  const handleLogout = () => {
+    navigate("/");
+    setUser(null);
+    setUserToken(null);
+    setEmptyToken(true);
+  };
+
+  return (
+    <div>
+      <button onClick={() => handleLogout()}>Logout</button>
+    </div>
+  );
 }

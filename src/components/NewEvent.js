@@ -71,7 +71,7 @@ export default function NewEvent({ user }) {
     axios
       .get(`${process.env.REACT_APP_BACKEND_URL}/${user.user.username}/home`)
       .then((res) => setChoices(res.data.group_list));
-  }, []);
+  }, [user.user.username]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
