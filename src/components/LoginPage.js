@@ -13,11 +13,16 @@ import {
 import { LogoCard } from "./NoteCards";
 
 import { useNavigate } from "react-router-dom";
+import { GoogleLogin } from "@react-oauth/google";
 
 export function Login({ setUser, setUserToken }) {
   /*global google*/
   const navigate = useNavigate();
   const [userCredential, setUserCredential] = useState(null);
+
+  const errorMessage = (error) => {
+    console.log(error);
+  };
   const handleCredentialResponse = (cred) => {
     setUser(jwtDecode(cred.credential));
     let credential = jwtDecode(cred.credential);
@@ -38,17 +43,28 @@ export function Login({ setUser, setUserToken }) {
       });
   };
 
-  window.onload = function () {
-    google.accounts.id.initialize({
-      client_id: `${process.env.REACT_APP_GOOGLE_CLIENT_ID}`,
-      callback: handleCredentialResponse,
-    });
-    google.accounts.id.prompt();
-  };
+  // window.onload = function () {
+  //   google.accounts.id.initialize({
+  //     client_id: `${process.env.REACT_APP_GOOGLE_CLIENT_ID}`,
+  //     callback: handleCredentialResponse,
+  //   });
+  //   google.accounts.id.prompt((notification) => {
+  //     if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+  //       // try next provider if OneTap is not displayed or skipped
+  //     }
+  //   });
+  // };
 
   return (
     <div>
-      <LogoCard />
+      <Stack direction='column' justifyContent='center' alignItems='center'>
+        <LogoCard />
+        <GoogleLogin
+          onSuccess={handleCredentialResponse}
+          onError={errorMessage}
+          size='large'
+        />
+      </Stack>
     </div>
   );
 }
