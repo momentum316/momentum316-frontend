@@ -10,7 +10,6 @@ import { useNavigate, useParams } from "react-router-dom";
 
 export function FooterObject({ user }) {
   const navigate = useNavigate();
-  console.log(user);
   return (
     <div className="footer-wrapper">
       <footer>

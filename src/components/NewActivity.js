@@ -17,14 +17,15 @@ import { ButtonGroup, Container } from "@mui/material";
 // Needed for Error on Date entry and we'll use it a lot
 import { useState } from "react";
 
-import { Route, Routes, Link, UseParams, useNavigate } from "react-router-dom";
+import { Route, Routes, Link, useParams, useNavigate } from "react-router-dom";
 import NewEvent from "./NewEvent";
 import dayjs from "dayjs";
 import { FooterObject } from "./Footer";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import axios from "axios";
 
-export default function NewActivity() {
+export function NewActivity({ groupId, eventId, user }) {
   const navigate = useNavigate();
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
@@ -46,6 +47,27 @@ export default function NewActivity() {
     setStartValue(null);
     setEndValue(null);
     setShowDateTime(!showDateTime);
+  };
+
+  const handleAdd = (e) => {
+    axios
+      .post(
+        `${process.env.REACT_APP_BACKEND_URL}/new/activity/`,
+        {
+          title: activityTitle,
+          event_id: eventId,
+          description: description,
+          location: location,
+          start_time: startValue,
+          end_time: endValue,
+        },
+        {
+          headers: {
+            Authorization: `token ${user.token}`,
+          },
+        }
+      )
+      .then((res) => navigate(`/group/${groupId}/vote/${eventId}`));
   };
   const [showDateTime, setShowDateTime] = useState(false);
 
@@ -122,15 +144,16 @@ export default function NewActivity() {
         {/* POST TO EVENT BUTTON (carry to db)*/}
         <br />
         <Stack>
-          <Button
-            onClick={() => navigate("/voting")}
-            fullWidth
-            variant='contained'
-          >
+          <Button onClick={(e) => handleAdd(e)} fullWidth variant='contained'>
             Add Item to Vote!
           </Button>
         </Stack>
       </Container>
     </div>
   );
+}
+
+export function AddActivity({ user }) {
+  const { groupId, eventId } = useParams();
+  return <NewActivity user={user} groupId={groupId} eventId={eventId} />;
 }

@@ -33,7 +33,7 @@ export function VoterSlide({
         { username: user.user.username },
         {
           headers: {
-            authorization: `token ${process.env.REACT_APP_API_TOKEN}`,
+            authorization: `token ${user.token}`,
           },
         }
       )
@@ -55,7 +55,7 @@ export function VoterSlide({
         { username: user.user.username, vote: 1 },
         {
           headers: {
-            authorization: `token ${process.env.REACT_APP_API_TOKEN}`,
+            authorization: `token ${user.token}`,
           },
         }
       )
@@ -77,7 +77,7 @@ export function VoterSlide({
         { username: user.user.username, vote: -1 },
         {
           headers: {
-            authorization: `token ${process.env.REACT_APP_API_TOKEN}`,
+            authorization: `token ${user.token}`,
           },
         }
       )
@@ -94,7 +94,7 @@ export function VoterSlide({
         { username: user.user.username, vote: 0 },
         {
           headers: {
-            authorization: `token ${process.env.REACT_APP_API_TOKEN}`,
+            authorization: `token ${user.token}`,
           },
         }
       )
