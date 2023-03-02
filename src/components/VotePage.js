@@ -5,6 +5,7 @@ import {
   Divider,
   Container,
   Paper,
+  Button,
 } from "@mui/material";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -46,7 +47,7 @@ export function VotePage({ user }) {
         <GroupHeader />
         <br />
         <Grid container spacing={2}>
-          {activeVote > 0 ? (
+          {activeVote.length > 0 ? (
             activeVote.map((v) => (
               <Grid
                 item
@@ -55,13 +56,13 @@ export function VotePage({ user }) {
                   height: 35,
                   backgroundColor: "primary.main",
                   "&:hover": {
-                    backgroundColor: "primary.dark",
+                    backgroundColor: "primary.main",
                     opacity: [0.9, 0.8, 0.7],
                   },
                 }}
                 onClick={() => navigate(`/group/${groupId}/vote/${v.id}`)}
               >
-                <Paper>{v.title}</Paper>
+                {v.title}
               </Grid>
             ))
           ) : (
@@ -97,8 +98,14 @@ export function Vote({ user }) {
   const { groupId, eventId } = useParams();
   const [event, setEvent] = useState(null);
   const [group, setGroup] = useState(null);
-  const endTime = "2023-03-01T05:00:00Z";
+  const [endTime, setEndTime] = useState(null);
   const countdown = useCountdown(endTime);
+
+  const navigate = useNavigate();
+
+  const handleEvent = (e) => {
+    navigate(`/add/${groupId}/${eventId}`);
+  };
 
   useEffect(() => {
     axios
@@ -107,6 +114,7 @@ export function Vote({ user }) {
         console.log(res.data.activity_list);
         setEvent(res.data.activity_list);
         setGroup(res.data.group);
+        setEndTime(res.data.vote_closing_time);
       });
   }, [eventId]);
 
@@ -128,7 +136,7 @@ export function Vote({ user }) {
             user={user}
           />
         ))}
-        {/* <FooterObject /> */}
+        <Button onClick={(e) => handleEvent(e)}>Add an Event</Button>
       </>
     )
   );

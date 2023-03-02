@@ -4,7 +4,6 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 export function FooterObject({ user }) {
   const navigate = useNavigate();
-  console.log(user);
   return (
     <div className='footer-wrapper'>
       <footer>

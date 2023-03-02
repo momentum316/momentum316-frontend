@@ -21,7 +21,7 @@ import backend_url from "../render.json";
 export function LogoCard() {
   return (
     <div>
-      <Grid container xs={12} justifyContent="center" alignItems="center">
+      <Grid container xs={12} justifyContent='center' alignItems='center'>
         <Grid item>
           <Card elevation={0}>
             <img src={LogoImage} />
@@ -48,7 +48,7 @@ export function ActivityCard({ activity, description, location }) {
         />
         {isExpanded && (
           <CardContent>
-            <Typography variant="body2" color="textSecondary">
+            <Typography variant='body2' color='textSecondary'>
               {description}
             </Typography>
           </CardContent>
@@ -73,7 +73,7 @@ export function VoteCard({
     axios
       .patch(
         `${process.env.REACT_APP_BACKEND_URL}/vote/${activityId}`,
-        { username: "villeryd" },
+        { username: user.user.username },
         {
           headers: {
             authorization: `token ${process.env.REACT_APP_API_TOKEN}`,
@@ -98,7 +98,7 @@ export function VoteCard({
         { username: user.user.username, vote: 1 },
         {
           headers: {
-            authorization: `token ${process.env.REACT_APP_API_TOKEN}`,
+            authorization: `token ${user.token}`,
           },
         }
       )
@@ -120,7 +120,7 @@ export function VoteCard({
         { username: user.user.username, vote: -1 },
         {
           headers: {
-            authorization: `token ${process.env.REACT_APP_API_TOKEN}`,
+            authorization: `token ${user.token}`,
           },
         }
       )
@@ -137,7 +137,7 @@ export function VoteCard({
         { username: user.user.username, vote: 0 },
         {
           headers: {
-            authorization: `token ${process.env.REACT_APP_API_TOKEN}`,
+            authorization: `token ${user.token}`,
           },
         }
       )
@@ -150,7 +150,7 @@ export function VoteCard({
     <div>
       <Grid container xs={12}>
         <Grid item xs={2}>
-          <Stack alignItems="center" justifyContent="center">
+          <Stack alignItems='center' justifyContent='center'>
             <KeyboardArrowUpIcon
               onClick={(e) => handleUp(e)}
               color={voteCount === 1 ? "warning" : ""}
@@ -183,7 +183,7 @@ export function HomepageCard({ user }) {
           <Avatar
             key={user.user.username}
             alt={user.user.first_name}
-            src="/static/images/avatar/1.jpg"
+            src='/static/images/avatar/1.jpg'
           />
         }
         subheader={user}
