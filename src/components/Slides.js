@@ -166,9 +166,9 @@ export function ActivitySlide({ event }) {
         }}
       >
         <Stack>
-          <Typography fontSize='larger'>{event.title}</Typography>
-          <Typography fontSize='large'>{formattedTime}</Typography>
-          <Typography fontSize='large'>{event.address}</Typography>
+          <Typography fontSize="larger">{event.title}</Typography>
+          <Typography fontSize="large">{formattedTime}</Typography>
+          <Typography fontSize="large">{event.address}</Typography>
         </Stack>
       </Box>
     </>
@@ -180,7 +180,7 @@ export function EventSlide() {
     <>
       <Box>
         <Stack container sx={{ height: 80, backgroundColor: "primary.light" }}>
-          <Typography fontSize='3vh'>Event Name</Typography>
+          <Typography fontSize="3vh">Event Name</Typography>
           <item>Date Decided</item>
           <item>Location</item>
         </Stack>

@@ -19,6 +19,7 @@ import { CountdownTimer, useCountdown } from "./TimerSet";
 import backend_url from "../render.json";
 import { VoteCard } from "./NoteCards";
 
+// LIST OF ACTIVE VOTES PAGE
 export function VotePage({ user }) {
   const navigate = useNavigate();
   const { groupId } = useParams();
@@ -75,25 +76,7 @@ export function VotePage({ user }) {
   );
 }
 
-// v.activity_list.map((a) => (
-//   <VoterSlide activity={a.title} location={a.description} />
-
-// <Grid container spacing={2}>
-//           <Grid item xs={10} md={8}>
-//             <EventSlide />
-//           </Grid>
-//           <Grid item xs={2} md={4}>
-//             <VertList />
-//           </Grid>
-//         </Grid>
-//         <br />
-//         <GroupHeader />
-//         <br />
-//         <Stack>
-//
-//         </Stack>
-//         <FooterObject />
-
+// VOTING PAGE
 export function Vote({ user }) {
   const { groupId, eventId } = useParams();
   const [event, setEvent] = useState(null);
@@ -128,15 +111,17 @@ export function Vote({ user }) {
         {event.map((e) => (
           <VoteCard
             activity={e.title}
-            // location={e.location}
+            location={e.location}
             description={e.description}
             groupId={groupId}
             eventId={eventId}
             activityId={e.id}
             user={user}
+            startTime={e.start_time}
+            endTime={e.end_time}
           />
         ))}
-        <Button onClick={(e) => handleEvent(e)}>Add an Event</Button>
+        <Button onClick={(e) => handleEvent(e)}>Add an Activity</Button>
       </>
     )
   );
