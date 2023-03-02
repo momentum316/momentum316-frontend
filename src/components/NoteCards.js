@@ -8,6 +8,7 @@ import {
   IconButton,
   Typography,
   Avatar,
+  Paper,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
@@ -17,21 +18,22 @@ import axios from "axios";
 import { Stack } from "@mui/system";
 import LogoImage from "../images/LogoImage.jpg";
 import backend_url from "../render.json";
+import CameraRollIcon from "@mui/icons-material/CameraRoll";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 export function LogoCard() {
   return (
     <div>
-      <Grid container xs={12} justifyContent="center" alignItems="center">
-        <Grid item>
-          <Card elevation={0}>
-            <img src={LogoImage} />
-          </Card>
-        </Grid>
+      <Grid justifyContent="center" alignItems="center">
+        <Card>
+          <img src={LogoImage} />
+        </Card>
       </Grid>
     </div>
   );
 }
 
+// ACTIVITY ITEM CARD
 export function ActivityCard({ activity, description, location }) {
   const [isExpanded, setIsExpanded] = useState(false);
   return (
@@ -58,6 +60,7 @@ export function ActivityCard({ activity, description, location }) {
   );
 }
 
+// VOTING ON ACTIVITY BLOCK (includes logic)
 export function VoteCard({
   activity,
   description,
@@ -175,19 +178,29 @@ export function VoteCard({
   );
 }
 
-export function HomepageCard({ user }) {
+// HOMEPAGE HEADER W/ CAMERA, GREETING, OPTION LIST ICON
+export function HomeHeader({ user }) {
   return (
-    <Card elevation={10}>
-      <CardHeader
-        title={
-          <Avatar
-            key={user.user.username}
-            alt={user.user.first_name}
-            src="/static/images/avatar/1.jpg"
-          />
-        }
-        subheader={user}
-      />
-    </Card>
+    <div>
+      <Grid container spacing={8} justifyContent="center" alignItems="center">
+        <Grid item xs={3}>
+          <CameraRollIcon fontSize="large" />
+        </Grid>
+        <Grid item>
+          <Card elevation={0}>
+            {/* <LogoCard /> */}
+            <Typography variant="h3" component="h2">
+              {user.user.first_name}
+            </Typography>
+            <Typography variant="h2" component="h2">
+              🏠
+            </Typography>
+          </Card>
+        </Grid>
+        <Grid item xs={3}>
+          <MoreVertIcon fontSize="large" />
+        </Grid>
+      </Grid>
+    </div>
   );
 }

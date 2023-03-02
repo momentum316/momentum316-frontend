@@ -4,26 +4,13 @@ import { ActivityCard } from "./NoteCards";
 import { useState } from "react";
 import userEvent from "@testing-library/user-event";
 import { HomepageCard } from "./NoteCards";
+import { HomeHeader } from "./NoteCards";
 
 export function Homepage({ user }) {
   return (
     <div>
-      {/* <HomepageCard /> */}
-      <Grid container justifyContent="center">
-        <Grid item>
-          <Card elevation={1}>
-            <Typography variant="h3" component="h2" color="green">
-              Hi {user.user.first_name}
-            </Typography>
-            <Typography variant="h2" component="h2">
-              🛖
-            </Typography>
-          </Card>
-        </Grid>
-      </Grid>
-      <Grid item>
-        <div></div>
-      </Grid>
+      <HomeHeader user={user} />
+      <br />
       <Grid container columnSpacing={{ xs: 2, sm: 2, md: 3 }}>
         <Grid item xs={12}>
           <ActivityCard
@@ -33,7 +20,6 @@ export function Homepage({ user }) {
           />
         </Grid>
       </Grid>
-      {/* <FooterObject /> */}
     </div>
   );
 }
