@@ -79,21 +79,17 @@ export function VoteCard({
   endTime,
 }) {
   const [voteCount, setVote] = useState(0);
+  const [voteId, setVoteId] = useState(null);
 
   useEffect(() => {
     axios
-      .patch(
-        `${process.env.REACT_APP_BACKEND_URL}/vote/${activityId}`,
-        { username: user.user.username },
-        {
-          headers: {
-            authorization: `token ${process.env.REACT_APP_API_TOKEN}`,
-          },
-        }
-      )
+      .get(`${process.env.REACT_APP_BACKEND_URL}/activity/${activityId}`)
       .then((res) => {
-        console.log(res.data);
-        setVote(res.data.vote);
+        let voter = res.data.vote_list.filter(
+          (voter) => voter.voter === user.user.username
+        );
+        setVoteId(voter[0].id);
+        setVote(voter[0].vote);
       });
   }, [activityId]);
 
@@ -105,8 +101,8 @@ export function VoteCard({
     console.log("up");
     axios
       .patch(
-        `${process.env.REACT_APP_BACKEND_URL}/vote/${activityId}`,
-        { username: user.user.username, vote: 1 },
+        `${process.env.REACT_APP_BACKEND_URL}/vote/${voteId}`,
+        { vote: 1 },
         {
           headers: {
             authorization: `token ${user.token}`,
@@ -127,8 +123,8 @@ export function VoteCard({
     console.log("down");
     axios
       .patch(
-        `${process.env.REACT_APP_BACKEND_URL}/vote/${activityId}`,
-        { username: user.user.username, vote: -1 },
+        `${process.env.REACT_APP_BACKEND_URL}/vote/${voteId}`,
+        { vote: -1 },
         {
           headers: {
             authorization: `token ${user.token}`,
@@ -144,8 +140,8 @@ export function VoteCard({
     console.log("zero");
     axios
       .patch(
-        `${process.env.REACT_APP_BACKEND_URL}/vote/${activityId}`,
-        { username: user.user.username, vote: 0 },
+        `${process.env.REACT_APP_BACKEND_URL}/vote/${voteId}`,
+        { vote: 0 },
         {
           headers: {
             authorization: `token ${user.token}`,

@@ -94,7 +94,7 @@ export function Vote({ user }) {
     axios
       .get(`${process.env.REACT_APP_BACKEND_URL}/event/${eventId}`)
       .then((res) => {
-        console.log(res.data.activity_list);
+        // console.log(res.data.activity_list);
         setEvent(res.data.activity_list);
         setGroup(res.data.group);
         setEndTime(res.data.vote_closing_time);
