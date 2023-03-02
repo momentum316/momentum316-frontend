@@ -29,22 +29,3 @@ export function FooterObject({ user }) {
     </div>
   );
 }
-export function GroupHeader() {
-  let { groupId } = useParams();
-  const navigate = useNavigate();
-  return (
-    <div className="header-wrapper">
-      <ButtonGroup fullWidth size="large" variant="outlined">
-        <Button onClick={() => navigate(`/group/${groupId}/vote`)}>
-          Voting
-        </Button>
-        <Button onClick={() => navigate(`/group/${groupId}/discussion`)}>
-          Discussion
-        </Button>
-        <Button onClick={() => navigate(`/group/${groupId}/events`)}>
-          Events
-        </Button>
-      </ButtonGroup>
-    </div>
-  );
-}

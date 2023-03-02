@@ -4,7 +4,7 @@ import { ActivityCard } from "./NoteCards";
 import { useState } from "react";
 import userEvent from "@testing-library/user-event";
 import { HomepageCard } from "./NoteCards";
-import { HomeHeader } from "./NoteCards";
+import { HomeHeader } from "./Headers";
 
 export function Homepage({ user }) {
   return (
