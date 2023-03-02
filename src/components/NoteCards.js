@@ -24,7 +24,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 export function LogoCard() {
   return (
     <div>
-      <Grid justifyContent='center' alignItems='center'>
+      <Grid justifyContent="center" alignItems="center">
         <Card>
           <img src={LogoImage} />
         </Card>
@@ -34,7 +34,13 @@ export function LogoCard() {
 }
 
 // ACTIVITY ITEM CARD
-export function ActivityCard({ activity, description, location }) {
+export function ActivityCard({
+  activity,
+  description,
+  location,
+  startTime,
+  endTime,
+}) {
   const [isExpanded, setIsExpanded] = useState(false);
   return (
     <div>
@@ -46,11 +52,11 @@ export function ActivityCard({ activity, description, location }) {
             </IconButton>
           }
           title={activity}
-          subheader={location}
+          subheader={`${location}, ${startTime}, ${endTime}`}
         />
         {isExpanded && (
           <CardContent>
-            <Typography variant='body2' color='textSecondary'>
+            <Typography variant="body2" color="textSecondary">
               {description}
             </Typography>
           </CardContent>
@@ -60,7 +66,7 @@ export function ActivityCard({ activity, description, location }) {
   );
 }
 
-// VOTING ON ACTIVITY BLOCK (includes logic)
+// VOTE CARD INCLUDING ARROW BLOCK (includes logic)
 export function VoteCard({
   activity,
   description,
@@ -69,6 +75,8 @@ export function VoteCard({
   eventId,
   activityId,
   user,
+  startTime,
+  endTime,
 }) {
   const [voteCount, setVote] = useState(0);
 
@@ -153,7 +161,7 @@ export function VoteCard({
     <div>
       <Grid container xs={12}>
         <Grid item xs={2}>
-          <Stack alignItems='center' justifyContent='center'>
+          <Stack alignItems="center" justifyContent="center">
             <KeyboardArrowUpIcon
               onClick={(e) => handleUp(e)}
               color={voteCount === 1 ? "warning" : ""}
@@ -170,6 +178,8 @@ export function VoteCard({
           <ActivityCard
             activity={activity}
             location={location}
+            startTime={startTime}
+            endTime={endTime}
             description={description}
           />
         </Grid>
@@ -182,23 +192,23 @@ export function VoteCard({
 export function HomeHeader({ user }) {
   return (
     <div>
-      <Grid container spacing={8} justifyContent='center' alignItems='center'>
+      <Grid container spacing={8} justifyContent="center" alignItems="center">
         <Grid item xs={3}>
-          <CameraRollIcon fontSize='large' />
+          <CameraRollIcon fontSize="large" />
         </Grid>
         <Grid item>
           <Card elevation={0}>
             {/* <LogoCard /> */}
-            <Typography variant='h3' component='h2'>
+            <Typography variant="h3" component="h2">
               {user.user.first_name}
             </Typography>
-            <Typography variant='h2' component='h2'>
+            <Typography variant="h2" component="h2">
               🏠
             </Typography>
           </Card>
         </Grid>
         <Grid item xs={3}>
-          <MoreVertIcon fontSize='large' />
+          <MoreVertIcon fontSize="large" />
         </Grid>
       </Grid>
     </div>
