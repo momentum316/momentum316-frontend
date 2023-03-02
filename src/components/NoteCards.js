@@ -20,11 +20,15 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Stack } from "@mui/system";
 import LogoImage from "../images/LogoImage.jpg";
+import backend_url from "../render.json";
+import CameraRollIcon from "@mui/icons-material/CameraRoll";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import dayjs from "dayjs";
 
 export function LogoCard() {
   return (
     <div>
-      <Grid justifyContent="center" alignItems="center">
+      <Grid justifyContent='center' alignItems='center'>
         <Card>
           <img src={LogoImage} />
         </Card>
@@ -52,11 +56,15 @@ export function ActivityCard({
             </IconButton>
           }
           title={activity}
-          subheader={`${location}, ${startTime}, ${endTime}`}
+          subheader={`${location}`}
         />
         {isExpanded && (
           <CardContent>
-            <Typography variant="body2" color="textSecondary">
+            <Typography variant='body2' color='textSecondary'>
+              {`Time: ${dayjs(startTime).format("hh:mm a")} - ${dayjs(
+                endTime
+              ).format("hh:mm a")}`}
+              <br />
               {description}
             </Typography>
           </CardContent>
@@ -98,7 +106,7 @@ export function VoteCard({
       handleZero();
       return;
     }
-    console.log("up");
+
     axios
       .patch(
         `${process.env.REACT_APP_BACKEND_URL}/vote/${voteId}`,
@@ -110,7 +118,6 @@ export function VoteCard({
         }
       )
       .then((res) => {
-        console.log(res.data);
         setVote(res.data.vote);
       });
   };
@@ -120,7 +127,7 @@ export function VoteCard({
       handleZero();
       return;
     }
-    console.log("down");
+
     axios
       .patch(
         `${process.env.REACT_APP_BACKEND_URL}/vote/${voteId}`,
@@ -132,12 +139,10 @@ export function VoteCard({
         }
       )
       .then((res) => {
-        console.log(res.data);
         setVote(res.data.vote);
       });
   };
   const handleZero = (e) => {
-    console.log("zero");
     axios
       .patch(
         `${process.env.REACT_APP_BACKEND_URL}/vote/${voteId}`,
@@ -149,7 +154,6 @@ export function VoteCard({
         }
       )
       .then((res) => {
-        console.log(res.data);
         setVote(res.data.vote);
       });
   };
@@ -157,7 +161,7 @@ export function VoteCard({
     <div>
       <Grid container xs={12}>
         <Grid item xs={2}>
-          <Stack alignItems="center" justifyContent="center">
+          <Stack alignItems='center' justifyContent='center'>
             <KeyboardArrowUpIcon
               onClick={(e) => handleUp(e)}
               color={voteCount === 1 ? "warning" : ""}
@@ -185,12 +189,12 @@ export function VoteCard({
 }
 
 // GROUP CARD FOR USER'S GROUP LIST
-export function GroupCard() {
+export function GroupTabs() {
   let { groupId } = useParams();
   const navigate = useNavigate();
   return (
-    <div className="header-wrapper">
-      <ButtonGroup fullWidth size="large" variant="outlined">
+    <div className='header-wrapper'>
+      <ButtonGroup fullWidth size='large' variant='outlined'>
         <Button onClick={() => navigate(`/group/${groupId}/vote`)}>
           Voting
         </Button>

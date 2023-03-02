@@ -10,7 +10,7 @@ import {
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { VoterSlide, EventSlide } from "./Slides";
-import { GroupCard } from "./NoteCards";
+import { GroupTabs } from "./NoteCards";
 
 import axios from "axios";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
@@ -46,7 +46,7 @@ export function VotePage({ user }) {
     activeVote && (
       <>
         <h1>Active Votes</h1>
-        <GroupCard />
+        <GroupTabs />
         <br />
         <Grid container spacing={2}>
           {activeVote.length > 0 ? (
@@ -106,7 +106,7 @@ export function Vote({ user }) {
     event && (
       <>
         <h1>{group}</h1>
-        <GroupCard />
+        <GroupTabs />
         <br />
         <CountdownTimer targetDate={endTime} />
         {event.map((e) => (
