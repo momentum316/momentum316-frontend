@@ -1,4 +1,5 @@
 import React from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import {
   Box,
   Grid,
@@ -9,6 +10,8 @@ import {
   Typography,
   Avatar,
   Paper,
+  Button,
+  ButtonGroup,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
@@ -17,9 +20,6 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Stack } from "@mui/system";
 import LogoImage from "../images/LogoImage.jpg";
-import backend_url from "../render.json";
-import CameraRollIcon from "@mui/icons-material/CameraRoll";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 export function LogoCard() {
   return (
@@ -184,42 +184,23 @@ export function VoteCard({
   );
 }
 
-// HOMEPAGE HEADER W/ CAMERA, GREETING, OPTION LIST ICON
-export function HomeHeader({ user }) {
+// GROUP CARD FOR USER'S GROUP LIST
+export function GroupCard() {
+  let { groupId } = useParams();
+  const navigate = useNavigate();
   return (
-    <div>
-      <Grid container spacing={8} justifyContent="center" alignItems="center">
-        <Grid item xs={3}>
-          <CameraRollIcon fontSize="large" />
-        </Grid>
-        <Grid item>
-          <Card elevation={0}>
-            {/* <LogoCard /> */}
-            <Typography variant="h3" component="h2">
-              {user.user.first_name}
-            </Typography>
-            <Typography variant="h2" component="h2">
-              🏠
-            </Typography>
-          </Card>
-        </Grid>
-        <Grid item xs={3}>
-          <MoreVertIcon fontSize="large" />
-        </Grid>
-      </Grid>
+    <div className="header-wrapper">
+      <ButtonGroup fullWidth size="large" variant="outlined">
+        <Button onClick={() => navigate(`/group/${groupId}/vote`)}>
+          Voting
+        </Button>
+        <Button onClick={() => navigate(`/group/${groupId}/discussion`)}>
+          Discussion
+        </Button>
+        <Button onClick={() => navigate(`/group/${groupId}/events`)}>
+          Events
+        </Button>
+      </ButtonGroup>
     </div>
-
-    // <Card elevation={10}>
-    //   <CardHeader
-    //     title={
-    //       <Avatar
-    //         key={user.user.username}
-    //         alt={user.user.first_name}
-    //         src='/static/images/avatar/1.jpg'
-    //       />
-    //     }
-    //     subheader={user}
-    //   />
-    // </Card>
   );
 }
