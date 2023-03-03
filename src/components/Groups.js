@@ -13,14 +13,19 @@ import {
   MenuItem,
   Select,
   Stack,
+  InputAdornment,
+  IconButton,
+  Input,
 } from "@mui/material";
 import { Route, Routes, Link, useParams, useNavigate } from "react-router-dom";
+import ContentPasteIcon from "@mui/icons-material/ContentPaste";
 import { GroupTabs } from "./NoteCards";
 import { GroupsHeader } from "./Headers";
 import axios from "axios";
 import backend_url from "../render.json";
 
 import { useState, useEffect } from "react";
+import { CopyAll } from "@mui/icons-material";
 
 export function GroupPage({ user }) {
   const [groups, setGroups] = useState(null);
@@ -138,6 +143,10 @@ export function NewGroup({ user }) {
   let NewGroup = "create";
   const navigate = useNavigate();
 
+  const [groupLink, setGroupLink] = useState(null);
+
+  const link = `https://main--fanciful-pothos-f7e454.netlify.app/new/group/`;
+
   useEffect(() => {
     axios
       // need to change this to dynamic username once login page is ready
@@ -151,8 +160,6 @@ export function NewGroup({ user }) {
       )
       .then((response) => setChoices(response.data));
   }, [user.user.username, user.token]);
-
-  console.log(user);
 
   const handleSubmit = (groupName) => {
     console.log(groupName);
@@ -171,6 +178,14 @@ export function NewGroup({ user }) {
         navigate("/group");
       });
   };
+
+  const handleChange = (e) => {
+    let groupId = e.target.value;
+    setGroups(groupId);
+    setGroupLink(`${link}${groupId}`);
+    console.log(groupId);
+    console.log(`${link}${groupId}`);
+  };
   return (
     choices && (
       <>
@@ -186,7 +201,7 @@ export function NewGroup({ user }) {
                 value={groups}
                 label='Group'
                 required
-                onChange={(e) => setGroups(e.target.value)}
+                onChange={(e) => handleChange(e)}
               >
                 <MenuItem value=''>
                   <em>Select a Group</em>
@@ -199,14 +214,13 @@ export function NewGroup({ user }) {
             </FormControl>
           </Grid>
           <br />
-          {groups === NewGroup && (
+          {groups === NewGroup ? (
             <Grid item xs={12}>
               <TextField
                 id='groupName'
                 label='Group Name'
                 fullWidth
                 value={groupName}
-                onChange={(e) => setGroupName(e.target.value)}
               ></TextField>
               <Stack>
                 <Button
@@ -218,6 +232,24 @@ export function NewGroup({ user }) {
                 </Button>
               </Stack>
             </Grid>
+          ) : (
+            <>
+              <Grid item xs={11}>
+                <TextField
+                  id='groupName'
+                  label='Group Link'
+                  fullWidth
+                  value={groupLink}
+                ></TextField>
+              </Grid>
+              <Grid item xs={1}>
+                <IconButton>
+                  <ContentPasteIcon
+                    onClick={() => navigator.clipboard.writeText(groupLink)}
+                  ></ContentPasteIcon>
+                </IconButton>
+              </Grid>
+            </>
           )}
         </Grid>
       </>
