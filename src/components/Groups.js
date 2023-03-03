@@ -19,7 +19,7 @@ import {
 } from "@mui/material";
 import { Route, Routes, Link, useParams, useNavigate } from "react-router-dom";
 import ContentPasteIcon from "@mui/icons-material/ContentPaste";
-import { GroupTabs } from "./NoteCards";
+import { GroupTabs, SmallLogo } from "./NoteCards";
 import { GroupsHeader } from "./Headers";
 import axios from "axios";
 import backend_url from "../render.json";
@@ -50,25 +50,25 @@ export function GroupPage({ user }) {
       <div>
         <GroupsHeader user={user} />
         <br />
-        <div className='group-grid'>
+        <div className="group-grid">
           <Grid
             container
             spacing={2}
-            direction='columns'
+            direction="columns"
             columns={{ xs: 6, sm: 6, md: 12 }}
-            alignItems='center'
-            justify='center'
+            alignItems="center"
+            justify="center"
           >
             {groups.map((g) => (
               <Grid item xs={3}>
-                <Card elevation={10}>
+                <Card elevation={3}>
                   <CardHeader
                     title={
                       <Avatar
                         key={g.id}
                         onClick={() => navigate(`/group/${g.id}`)}
                         alt={g.title}
-                        src='/static/images/avatar/1.jpg'
+                        src="/static/images/avatar/1.jpg"
                       />
                     }
                     subheader={g.title}
@@ -105,10 +105,10 @@ export function Group({ user }) {
         <h1>{group.title}</h1>
         <GroupTabs />
         <br />
-        <div className='group-grid'>
+        <div className="group-grid">
           <Grid
             container
-            direction='columns'
+            direction="columns"
             spacing={3}
             columnSpacing={{ xs: 2, sm: 8, md: 4 }}
           >
@@ -137,11 +137,12 @@ export function Group({ user }) {
   );
 }
 
+// CREATE NEW GROUP OR COPY LINK TO GROUP INVITE PAGE
 export function NewGroup({ user }) {
-  const [groups, setGroups] = useState("");
+  let NewGroup = "create";
+  const [groups, setGroups] = useState(NewGroup);
   const [choices, setChoices] = useState(null);
   const [groupName, setGroupName] = useState(null);
-  let NewGroup = "create";
   const navigate = useNavigate();
 
   const [groupLink, setGroupLink] = useState(null);
@@ -190,61 +191,61 @@ export function NewGroup({ user }) {
   return (
     choices && (
       <>
-        <Grid container>
+        <SmallLogo />
+        <Grid container spacing={2}>
           <Grid item xs={12}>
             <FormControl sx={{ minWidth: 150 }}>
-              <InputLabel id='demo-simple-select-helper-label'>
+              <InputLabel id="demo-simple-select-helper-label" alt="Group name">
                 Group
               </InputLabel>
               <Select
-                labelId='demo-simple-select-helper-label'
-                id='demo-simple-select-helper'
+                labelId="demo-simple-select-helper-label"
+                id="demo-simple-select-helper"
                 value={groups}
-                label='Group'
+                label="Group"
                 required
                 onChange={(e) => handleChange(e)}
               >
-                <MenuItem value=''>
-                  <em>Select a Group</em>
-                </MenuItem>
+                <MenuItem value={NewGroup}>Create New Group</MenuItem>
                 {choices.map((c) => (
                   <MenuItem value={c.id}>{c.title}</MenuItem>
                 ))}
-                <MenuItem value={NewGroup}>Create New Group</MenuItem>
               </Select>
             </FormControl>
           </Grid>
-          <br />
           {groups === NewGroup ? (
-            <Grid item xs={12}>
-              <TextField
-                id='groupName'
-                label='Group Name'
-                fullWidth
-                value={groupName}
-                onChange={(e) => setGroupName(e.target.value)}
-              ></TextField>
-              <Stack>
+            <>
+              <Grid item xs={12}>
+                <TextField
+                  id="groupName"
+                  label="Group Name"
+                  fullWidth
+                  value={groupName}
+                  onChange={(e) => setGroupName(e.target.value)}
+                ></TextField>
+              </Grid>
+              <Grid item xs={12}>
                 <Button
                   onClick={() => handleSubmit(groupName)}
                   fullWidth
-                  variant='contained'
+                  variant="contained"
                 >
                   Create Group
                 </Button>
-              </Stack>
-            </Grid>
+              </Grid>
+            </>
           ) : (
             <>
-              <Grid item xs={11}>
+              <br />
+              <Grid item xs={10}>
                 <TextField
-                  id='groupName'
-                  label='Group Link'
+                  id="groupName"
+                  label="Group Link"
                   fullWidth
                   value={groupLink}
                 ></TextField>
               </Grid>
-              <Grid item xs={1}>
+              <Grid item xs={2}>
                 <IconButton>
                   <ContentPasteIcon
                     onClick={() => navigator.clipboard.writeText(groupLink)}
