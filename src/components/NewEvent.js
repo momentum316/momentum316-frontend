@@ -109,8 +109,8 @@ export function NewEvent({ user }) {
     choices && (
       <div className="App">
         <form onSubmit={handleSubmit}>
+          <CreateEventHeader />
           <Grid container spacing={2} xs={12}>
-            <CreateEventHeader />
             {/* <Grid item xs={12}>
               <Card elevation={3}>
                 <CardHeader subheader="New Event" />

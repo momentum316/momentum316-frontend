@@ -237,8 +237,8 @@ export function NewGroup({ user }) {
             <>
               <Grid item xs={11}>
                 <TextField
-                  id='groupName'
-                  label='Group Link'
+                  id="groupName"
+                  label="Group Link"
                   fullWidth
                   value={groupLink}
                 ></TextField>
