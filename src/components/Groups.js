@@ -19,7 +19,7 @@ import {
 } from "@mui/material";
 import { Route, Routes, Link, useParams, useNavigate } from "react-router-dom";
 import ContentPasteIcon from "@mui/icons-material/ContentPaste";
-import { GroupTabs } from "./NoteCards";
+import { GroupTabs, SmallLogo } from "./NoteCards";
 import { GroupsHeader } from "./Headers";
 import axios from "axios";
 import backend_url from "../render.json";
@@ -61,7 +61,7 @@ export function GroupPage({ user }) {
           >
             {groups.map((g) => (
               <Grid item xs={3}>
-                <Card elevation={10}>
+                <Card elevation={3}>
                   <CardHeader
                     title={
                       <Avatar
@@ -137,11 +137,12 @@ export function Group({ user }) {
   );
 }
 
+// CREATE NEW GROUP OR COPY LINK TO GROUP INVITE PAGE
 export function NewGroup({ user }) {
-  const [groups, setGroups] = useState("");
+  let NewGroup = "create";
+  const [groups, setGroups] = useState(NewGroup);
   const [choices, setChoices] = useState(null);
   const [groupName, setGroupName] = useState(null);
-  let NewGroup = "create";
   const navigate = useNavigate();
 
   const [groupLink, setGroupLink] = useState(null);
@@ -190,10 +191,11 @@ export function NewGroup({ user }) {
   return (
     choices && (
       <>
-        <Grid container>
+        <SmallLogo />
+        <Grid container spacing={2}>
           <Grid item xs={12}>
             <FormControl sx={{ minWidth: 150 }}>
-              <InputLabel id="demo-simple-select-helper-label">
+              <InputLabel id="demo-simple-select-helper-label" alt="Group name">
                 Group
               </InputLabel>
               <Select
@@ -204,26 +206,28 @@ export function NewGroup({ user }) {
                 required
                 onChange={(e) => handleChange(e)}
               >
-                <MenuItem value="">
+                {/* <MenuItem value="">
                   <em>Select a Group</em>
-                </MenuItem>
+                </MenuItem> */}
+                <MenuItem value={NewGroup}>Create New Group</MenuItem>
                 {choices.map((c) => (
                   <MenuItem value={c.id}>{c.title}</MenuItem>
                 ))}
-                <MenuItem value={NewGroup}>Create New Group</MenuItem>
               </Select>
             </FormControl>
           </Grid>
-          <br />
           {groups === NewGroup ? (
-            <Grid item xs={12}>
-              <TextField
-                id="groupName"
-                label="Group Name"
-                fullWidth
-                value={groupName}
-              ></TextField>
-              <Stack>
+            <>
+              <Grid item xs={12}>
+                <TextField
+                  id="groupName"
+                  label="Group Name"
+                  fullWidth
+                  value={groupName}
+                  onChange={(e) => setGroupName(e.target.value)}
+                ></TextField>
+              </Grid>
+              <Grid item xs={12}>
                 <Button
                   onClick={() => handleSubmit(groupName)}
                   fullWidth
@@ -231,11 +235,12 @@ export function NewGroup({ user }) {
                 >
                   Create Group
                 </Button>
-              </Stack>
-            </Grid>
+              </Grid>
+            </>
           ) : (
             <>
-              <Grid item xs={11}>
+              <br />
+              <Grid item xs={10}>
                 <TextField
                   id="groupName"
                   label="Group Link"
@@ -243,7 +248,7 @@ export function NewGroup({ user }) {
                   value={groupLink}
                 ></TextField>
               </Grid>
-              <Grid item xs={1}>
+              <Grid item xs={2}>
                 <IconButton>
                   <ContentPasteIcon
                     onClick={() => navigator.clipboard.writeText(groupLink)}
