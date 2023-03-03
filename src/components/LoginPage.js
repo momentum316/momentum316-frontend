@@ -63,13 +63,13 @@ export function Login({ setUser, setUserToken }) {
 
   return (
     <div>
-      <Stack direction="column" justifyContent="center" alignItems="center">
+      <Stack direction='column' justifyContent='center' alignItems='center'>
         <LogoCard />
         <br />
         <GoogleLogin
           onSuccess={handleCredentialResponse}
           onError={errorMessage}
-          size="large"
+          size='large'
         />
       </Stack>
     </div>
