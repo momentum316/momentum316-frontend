@@ -10,6 +10,10 @@ import {
   Typography,
   Avatar,
   Paper,
+  Tooltip,
+  Menu,
+  MenuList,
+  MenuItem,
 } from "@mui/material";
 import CameraRollIcon from "@mui/icons-material/CameraRoll";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
@@ -77,7 +81,7 @@ export function GroupsHeader({ user }) {
           </Grid>
           <Grid item xs={4}>
             <IconButton onClick={() => navigate("/new/group")}>
-              <GroupAddIcon fontSize="large" color="black" />
+              <MoreVertIcon fontSize="large" />
             </IconButton>
           </Grid>
         </Grid>
@@ -89,6 +93,14 @@ export function GroupsHeader({ user }) {
 // GROUP MEMBERS PAGE HEADER (WERE YOU CAN LEAVE GROUP)
 export function GroupMembersHeader({ user, groupTitle }) {
   const navigate = useNavigate();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   // useEffect(() =>
   // axios
   // .delete(`${process.env.REACT_APP_BACKEND_URL}/leave/${groupId}`)
@@ -107,12 +119,39 @@ export function GroupMembersHeader({ user, groupTitle }) {
             </Card>
           </Grid>
           <Grid item xs={4}>
-            <IconButton onClick={() => navigate("/group")}>
-              <PersonRemoveIcon fontSize="large" />
-            </IconButton>
+            <Tooltip title="More Options">
+              <IconButton onClick={handleClick}>
+                <MoreVertIcon fontSize="large" />
+              </IconButton>
+            </Tooltip>
           </Grid>
         </Grid>
       </Box>
+      <Menu
+        anchorEl={anchorEl}
+        id="account-menu"
+        open={open}
+        onClose={handleClose}
+        onClick={handleClose}
+        PaperProps={{
+          elevation: 0,
+          sx: {
+            overflow: "visible",
+            filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+            mt: 1.5,
+          },
+        }}
+      >
+        <MenuList
+          autoFocusItem={open}
+          id="composition-menu"
+          aria-labelledby="composition-button"
+        >
+          <MenuItem onClick={handleClose}>Profile</MenuItem>
+          <MenuItem onClick={handleClose}>My account</MenuItem>
+          <MenuItem onClick={handleClose}>Logout</MenuItem>
+        </MenuList>
+      </Menu>
     </div>
   );
 }
