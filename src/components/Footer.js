@@ -23,7 +23,7 @@ export function FooterObject({ user }) {
             Home
           </Button>
           <Button onClick={() => navigate("/group")}>Groups</Button>
-          <Button onClick={() => navigate("/")}>Events</Button>
+          <Button onClick={() => navigate("/")}>Event List</Button>
         </ButtonGroup>
       </footer>
     </div>

@@ -27,6 +27,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 // Needed for Error on Date entry and we'll use it a lot
 import { useState, useEffect } from "react";
 import { Route, Routes, Link, UseParams, useNavigate } from "react-router-dom";
+import { GroupsHeader } from "./Headers";
 
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -45,8 +46,9 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { NewActivity, AddActivity } from "./NewActivity";
 import { LogoCard } from "./NoteCards";
+import { CreateEventHeader, EventsHeader } from "./Headers";
 
-export default function NewEvent({ user }) {
+export function NewEvent({ user }) {
   const navigate = useNavigate();
   const [event, setEvent] = useState("");
   const [date, setDate] = useState(dayjs().format("YYYY-MM-DD"));
@@ -103,19 +105,20 @@ export default function NewEvent({ user }) {
 
   return (
     choices && (
-      <div className='App'>
+      <div className="App">
         <form onSubmit={handleSubmit}>
           <Grid container spacing={2} xs={12}>
-            <Grid item xs={12}>
+            <CreateEventHeader />
+            {/* <Grid item xs={12}>
               <Card elevation={3}>
-                <CardHeader subheader='New Event' />
+                <CardHeader subheader="New Event" />
               </Card>
-            </Grid>
+            </Grid> */}
             <Grid item xs={12}>
               {/* <Stack spacing={4}> */}
               <TextField
                 fullWidth
-                label='Event Name'
+                label="Event Name"
                 value={event}
                 required
                 onChange={(e) => setEvent(e.target.value)}
@@ -133,8 +136,8 @@ export default function NewEvent({ user }) {
             /> */}
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <MobileDatePicker
-                  label='Date'
-                  inputFormat='MM/DD/YYYY'
+                  label="Date"
+                  inputFormat="MM/DD/YYYY"
                   value={date}
                   onChange={handleChange}
                   required
@@ -144,18 +147,18 @@ export default function NewEvent({ user }) {
             </Grid>
             <Grid item xs={6}>
               <FormControl sx={{ minWidth: 150 }}>
-                <InputLabel id='demo-simple-select-helper-label'>
+                <InputLabel id="demo-simple-select-helper-label">
                   Group
                 </InputLabel>
                 <Select
-                  labelId='demo-simple-select-helper-label'
-                  id='demo-simple-select-helper'
+                  labelId="demo-simple-select-helper-label"
+                  id="demo-simple-select-helper"
                   value={group}
-                  label='Group'
+                  label="Group"
                   required
                   onChange={(e) => setGroup(e.target.value)}
                 >
-                  <MenuItem value=''>
+                  <MenuItem value="">
                     <em>Select a Group</em>
                   </MenuItem>
                   {choices.map((c) => (
@@ -200,7 +203,7 @@ export default function NewEvent({ user }) {
         </Stack> */}
           <br />
           <Stack>
-            <Button type='submit' fullWidth variant='contained'>
+            <Button type="submit" fullWidth variant="contained">
               Submit Event
             </Button>
           </Stack>
@@ -209,10 +212,10 @@ export default function NewEvent({ user }) {
         <br />
         <Stack>
           <FormControlLabel
-            value='end'
-            control={<Switch color='primary' onClick={() => setVote(!vote)} />}
-            label='Set Timer?'
-            labelPlacement='end'
+            value="end"
+            control={<Switch color="primary" onClick={() => setVote(!vote)} />}
+            label="Set Timer?"
+            labelPlacement="end"
 
             // onClick={() => setShowActivity(!showActivity)}
           />
@@ -227,5 +230,14 @@ export default function NewEvent({ user }) {
         {/* <FooterObject /> */}
       </div>
     )
+  );
+}
+
+// EVENTS LIST
+export function Event({ user }) {
+  return (
+    <div>
+      <EventsHeader user={user} />
+    </div>
   );
 }
