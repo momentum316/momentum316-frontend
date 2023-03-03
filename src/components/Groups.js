@@ -50,14 +50,14 @@ export function GroupPage({ user }) {
       <div>
         <GroupsHeader user={user} />
         <br />
-        <div className="group-grid">
+        <div className='group-grid'>
           <Grid
             container
             spacing={2}
-            direction="columns"
+            direction='columns'
             columns={{ xs: 6, sm: 6, md: 12 }}
-            alignItems="center"
-            justify="center"
+            alignItems='center'
+            justify='center'
           >
             {groups.map((g) => (
               <Grid item xs={3}>
@@ -68,7 +68,7 @@ export function GroupPage({ user }) {
                         key={g.id}
                         onClick={() => navigate(`/group/${g.id}`)}
                         alt={g.title}
-                        src="/static/images/avatar/1.jpg"
+                        src='/static/images/avatar/1.jpg'
                       />
                     }
                     subheader={g.title}
@@ -105,10 +105,10 @@ export function Group({ user }) {
         <h1>{group.title}</h1>
         <GroupTabs />
         <br />
-        <div className="group-grid">
+        <div className='group-grid'>
           <Grid
             container
-            direction="columns"
+            direction='columns'
             spacing={3}
             columnSpacing={{ xs: 2, sm: 8, md: 4 }}
           >
@@ -193,18 +193,18 @@ export function NewGroup({ user }) {
         <Grid container>
           <Grid item xs={12}>
             <FormControl sx={{ minWidth: 150 }}>
-              <InputLabel id="demo-simple-select-helper-label">
+              <InputLabel id='demo-simple-select-helper-label'>
                 Group
               </InputLabel>
               <Select
-                labelId="demo-simple-select-helper-label"
-                id="demo-simple-select-helper"
+                labelId='demo-simple-select-helper-label'
+                id='demo-simple-select-helper'
                 value={groups}
-                label="Group"
+                label='Group'
                 required
                 onChange={(e) => handleChange(e)}
               >
-                <MenuItem value="">
+                <MenuItem value=''>
                   <em>Select a Group</em>
                 </MenuItem>
                 {choices.map((c) => (
@@ -218,16 +218,17 @@ export function NewGroup({ user }) {
           {groups === NewGroup ? (
             <Grid item xs={12}>
               <TextField
-                id="groupName"
-                label="Group Name"
+                id='groupName'
+                label='Group Name'
                 fullWidth
                 value={groupName}
+                onChange={(e) => setGroupName(e.target.value)}
               ></TextField>
               <Stack>
                 <Button
                   onClick={() => handleSubmit(groupName)}
                   fullWidth
-                  variant="contained"
+                  variant='contained'
                 >
                   Create Group
                 </Button>
@@ -237,8 +238,8 @@ export function NewGroup({ user }) {
             <>
               <Grid item xs={11}>
                 <TextField
-                  id="groupName"
-                  label="Group Link"
+                  id='groupName'
+                  label='Group Link'
                   fullWidth
                   value={groupLink}
                 ></TextField>
@@ -256,4 +257,27 @@ export function NewGroup({ user }) {
       </>
     )
   );
+}
+
+export function AddToGroup({ user }) {
+  const { groupId } = useParams();
+  const navigate = useNavigate();
+  useEffect(() => {
+    axios
+      .patch(
+        `${process.env.REACT_APP_BACKEND_URL}/join/${groupId}`,
+        {
+          username: user.user.username,
+        },
+        {
+          headers: {
+            authorization: `token ${user.token}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        navigate(`/group/${groupId}`);
+      });
+  });
 }
