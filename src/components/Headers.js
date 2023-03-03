@@ -22,7 +22,7 @@ import { SmallLogo } from "./NoteCards";
 export function HomeHeader({ user }) {
   return (
     <div>
-      <Grid container spacing={8} justifyContent="center" alignItems="center">
+      <Grid container spacing={6} justifyContent="center" alignItems="center">
         <Grid item>
           <IconButton>
             <CameraRollIcon fontSize="large" />
@@ -63,8 +63,8 @@ export function GroupsHeader({ user }) {
   return (
     <div>
       <Box alignItems="center">
-        <Grid container alignItems="center" justifyContent="center">
-          <Grid item xs={8}>
+        <Grid container alignItems="center" justifyContent="right">
+          <Grid item xs={4}>
             <Card elevation={0}>
               <CardHeader
                 title={`${user.user.first_name}'s`}
@@ -72,7 +72,7 @@ export function GroupsHeader({ user }) {
               />
             </Card>
           </Grid>
-          <Grid item>
+          <Grid item xs={4}>
             <IconButton onClick={() => navigate("/new/group")}>
               <GroupAddIcon fontSize="large" color="black" />
             </IconButton>
@@ -89,8 +89,8 @@ export function EventsHeader({ user }) {
   return (
     <div>
       <Box alignItems="center">
-        <Grid container alignItems="center" justifyContent="center">
-          <Grid item xs={8}>
+        <Grid container alignItems="center" justifyContent="right">
+          <Grid item xs={4}>
             <Card elevation={0}>
               <CardHeader
                 title={`${user.user.first_name}'s`}
@@ -98,7 +98,7 @@ export function EventsHeader({ user }) {
               />
             </Card>
           </Grid>
-          <Grid item>
+          <Grid item xs={4}>
             <IconButton onClick={() => navigate("events/new")}>
               <AddBoxIcon fontSize="large" />
             </IconButton>
@@ -108,13 +108,15 @@ export function EventsHeader({ user }) {
     </div>
   );
 }
-export function CreateEventHeader() {
+
+// NEW EVENT HEADER
+export function CreateEventHeader({ user }) {
   return (
     <Box>
       <Grid container justifyContent="center" alignItems="center">
         <Grid item>
-          <Card>
-            <CardHeader title="New Event Page" />
+          <Card columns>
+            <CardHeader avatar={<Avatar> NE </Avatar>} subheader="New Event" />
           </Card>
         </Grid>
       </Grid>
