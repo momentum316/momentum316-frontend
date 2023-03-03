@@ -19,7 +19,7 @@ import {
 } from "@mui/material";
 import { Route, Routes, Link, useParams, useNavigate } from "react-router-dom";
 import ContentPasteIcon from "@mui/icons-material/ContentPaste";
-import { GroupTabs, SmallLogo } from "./NoteCards";
+import { GroupTabs, SmallLogo, ActivityCard } from "./NoteCards";
 import { GroupsHeader } from "./Headers";
 import axios from "axios";
 import backend_url from "../render.json";
@@ -51,14 +51,14 @@ export function GroupPage({ user }) {
       <div>
         <GroupsHeader user={user} />
         <br />
-        <div className="group-grid">
+        <div className='group-grid'>
           <Grid
             container
             spacing={2}
-            direction="columns"
+            direction='columns'
             columns={{ xs: 6, sm: 6, md: 12 }}
-            alignItems="center"
-            justify="center"
+            alignItems='center'
+            justify='center'
           >
             {groups.map((g) => (
               <Grid item xs={3}>
@@ -69,7 +69,7 @@ export function GroupPage({ user }) {
                         key={g.id}
                         onClick={() => navigate(`/group/${g.id}`)}
                         alt={g.title}
-                        src="/static/images/avatar/1.jpg"
+                        src='/static/images/avatar/1.jpg'
                       />
                     }
                     subheader={g.title}
@@ -106,10 +106,10 @@ export function Group({ user }) {
         <GroupMembersHeader user={user} groupTitle={group.title} />
         <GroupTabs />
         <br />
-        <div className="group-grid">
+        <div className='group-grid'>
           <Grid
             container
-            direction="columns"
+            direction='columns'
             spacing={3}
             columnSpacing={{ xs: 2, sm: 8, md: 4 }}
           >
@@ -196,14 +196,14 @@ export function NewGroup({ user }) {
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <FormControl sx={{ minWidth: 150 }}>
-              <InputLabel id="demo-simple-select-helper-label" alt="Group name">
+              <InputLabel id='demo-simple-select-helper-label' alt='Group name'>
                 Group
               </InputLabel>
               <Select
-                labelId="demo-simple-select-helper-label"
-                id="demo-simple-select-helper"
+                labelId='demo-simple-select-helper-label'
+                id='demo-simple-select-helper'
                 value={groups}
-                label="Group"
+                label='Group'
                 required
                 onChange={(e) => handleChange(e)}
               >
@@ -218,8 +218,8 @@ export function NewGroup({ user }) {
             <>
               <Grid item xs={12}>
                 <TextField
-                  id="groupName"
-                  label="Group Name"
+                  id='groupName'
+                  label='Group Name'
                   fullWidth
                   value={groupName}
                   onChange={(e) => setGroupName(e.target.value)}
@@ -229,7 +229,7 @@ export function NewGroup({ user }) {
                 <Button
                   onClick={() => handleSubmit(groupName)}
                   fullWidth
-                  variant="contained"
+                  variant='contained'
                 >
                   Create Group
                 </Button>
@@ -240,8 +240,8 @@ export function NewGroup({ user }) {
               <br />
               <Grid item xs={10}>
                 <TextField
-                  id="groupName"
-                  label="Group Link"
+                  id='groupName'
+                  label='Group Link'
                   fullWidth
                   value={groupLink}
                 ></TextField>
@@ -283,4 +283,47 @@ export function AddToGroup({ user }) {
         navigate(`/group/${groupId}`);
       });
   });
+}
+
+export function GroupEvents({ user }) {
+  const { groupId } = useParams();
+  const navigate = useNavigate();
+  const [events, setEvents] = useState(null);
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BACKEND_URL}/group/${groupId}`, {
+        headers: {
+          authorization: `token ${user.token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        setEvents(res.data);
+      });
+  }, [groupId, user.token]);
+
+  return (
+    events &&
+    (events.event_list.length > 0 ? (
+      <Grid container>
+        {events.event_list.map((e) => {
+          console.log(e.activity_list[0]);
+          return (
+            e.activity_list[0] && (
+              <Grid item xs={12}>
+                <ActivityCard
+                  activity={e.activity_list[0].title}
+                  location={e.activity_list[0].title}
+                  description={e.activity_list[0].title}
+                />
+              </Grid>
+            )
+          );
+        })}
+      </Grid>
+    ) : (
+      <p>No Scheduled Events!</p>
+    ))
+  );
 }

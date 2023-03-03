@@ -4,7 +4,7 @@ import "./App.css";
 import { NewEvent, Event } from "./components/NewEvent";
 import { NewActivity, AddActivity } from "./components/NewActivity";
 import { VotePage, Vote } from "./components/VotePage";
-import { GroupPage, Group, NewGroup, AddToGroup } from "./components/Groups";
+import { GroupPage, Group, NewGroup, AddToGroup, GroupEvents } from "./components/Groups";
 import { useState } from "react";
 import { Route, Routes, Link, UseParams, useNavigate } from "react-router-dom";
 import PostVoteEvent from "./components/PostVote";
@@ -168,7 +168,7 @@ function App() {
               setUser={setUser}
               user={user}
             >
-              <Group user={user} />
+              <GroupEvents user={user} />
             </PrivateRoute>
           }
         ></Route>
