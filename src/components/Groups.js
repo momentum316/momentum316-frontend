@@ -6,6 +6,13 @@ import {
   ButtonGroup,
   Card,
   CardHeader,
+  Container,
+  TextField,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Stack,
 } from "@mui/material";
 import { Route, Routes, Link, useParams, useNavigate } from "react-router-dom";
 import { GroupTabs } from "./NoteCards";
@@ -20,9 +27,16 @@ export function GroupPage({ user }) {
   useEffect(() => {
     axios
       // need to change this to dynamic username once login page is ready
-      .get(`${process.env.REACT_APP_BACKEND_URL}/${user.user.username}/groups`)
+      .get(
+        `${process.env.REACT_APP_BACKEND_URL}/${user.user.username}/groups`,
+        {
+          headers: {
+            Authorization: `token ${user.token}`,
+          },
+        }
+      )
       .then((response) => setGroups(response.data));
-  }, []);
+  }, [user.user.username, user.token]);
 
   const navigate = useNavigate();
   return (
@@ -65,14 +79,18 @@ export function GroupPage({ user }) {
 }
 
 // LIST OF GROUPS A USER BELONGS TO
-export function Group() {
+export function Group({ user }) {
   let { groupId } = useParams();
   const [group, setGroup] = useState(null);
   const navigate = useNavigate();
   useEffect(() => {
     axios
       // need to change this to dynamic username once login page is ready
-      .get(`${process.env.REACT_APP_BACKEND_URL}/group/${groupId}`)
+      .get(`${process.env.REACT_APP_BACKEND_URL}/group/${groupId}`, {
+        headers: {
+          Authorization: `token ${user.token}`,
+        },
+      })
       .then((response) => setGroup(response.data));
   }, [groupId]);
   return (
@@ -109,6 +127,100 @@ export function Group() {
         </div>
         {/* <FooterObject /> */}
       </div>
+    )
+  );
+}
+
+export function NewGroup({ user }) {
+  const [groups, setGroups] = useState("");
+  const [choices, setChoices] = useState(null);
+  const [groupName, setGroupName] = useState(null);
+  let NewGroup = "create";
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    axios
+      // need to change this to dynamic username once login page is ready
+      .get(
+        `${process.env.REACT_APP_BACKEND_URL}/${user.user.username}/groups`,
+        {
+          headers: {
+            Authorization: `token ${user.token}`,
+          },
+        }
+      )
+      .then((response) => setChoices(response.data));
+  }, [user.user.username, user.token]);
+
+  console.log(user);
+
+  const handleSubmit = (groupName) => {
+    console.log(groupName);
+    axios
+      .post(
+        `${process.env.REACT_APP_BACKEND_URL}/new/group/`,
+        { title: groupName },
+        {
+          headers: {
+            Authorization: `token ${user.token}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        navigate("/group");
+      });
+  };
+  return (
+    choices && (
+      <>
+        <Grid container>
+          <Grid item xs={12}>
+            <FormControl sx={{ minWidth: 150 }}>
+              <InputLabel id='demo-simple-select-helper-label'>
+                Group
+              </InputLabel>
+              <Select
+                labelId='demo-simple-select-helper-label'
+                id='demo-simple-select-helper'
+                value={groups}
+                label='Group'
+                required
+                onChange={(e) => setGroups(e.target.value)}
+              >
+                <MenuItem value=''>
+                  <em>Select a Group</em>
+                </MenuItem>
+                {choices.map((c) => (
+                  <MenuItem value={c.id}>{c.title}</MenuItem>
+                ))}
+                <MenuItem value={NewGroup}>Create New Group</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <br />
+          {groups === NewGroup && (
+            <Grid item xs={12}>
+              <TextField
+                id='groupName'
+                label='Group Name'
+                fullWidth
+                value={groupName}
+                onChange={(e) => setGroupName(e.target.value)}
+              ></TextField>
+              <Stack>
+                <Button
+                  onClick={() => handleSubmit(groupName)}
+                  fullWidth
+                  variant='contained'
+                >
+                  Create Group
+                </Button>
+              </Stack>
+            </Grid>
+          )}
+        </Grid>
+      </>
     )
   );
 }

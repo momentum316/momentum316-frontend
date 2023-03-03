@@ -30,7 +30,11 @@ export function VotePage({ user }) {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BACKEND_URL}/group/${groupId}`)
+      .get(`${process.env.REACT_APP_BACKEND_URL}/group/${groupId}`, {
+        headers: {
+          Authorization: `token ${user.token}`,
+        },
+      })
 
       .then((res) => {
         let votesInProgress = res.data.event_list.filter(
@@ -93,7 +97,11 @@ export function Vote({ user }) {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BACKEND_URL}/event/${eventId}`)
+      .get(`${process.env.REACT_APP_BACKEND_URL}/event/${eventId}`, {
+        headers: {
+          Authorization: `token ${user.token}`,
+        },
+      })
       .then((res) => {
         // console.log(res.data.activity_list);
         setEvent(res.data.activity_list);
