@@ -28,7 +28,7 @@ import dayjs from "dayjs";
 export function LogoCard() {
   return (
     <div>
-      <Grid justifyContent='center' alignItems='center'>
+      <Grid justifyContent="center" alignItems="center">
         <Card>
           <img src={LogoImage} />
         </Card>
@@ -60,7 +60,7 @@ export function ActivityCard({
         />
         {isExpanded && (
           <CardContent>
-            <Typography variant='body2' color='textSecondary'>
+            <Typography variant="body2" color="textSecondary">
               {`Time: ${dayjs(startTime).format("hh:mm a")} - ${dayjs(
                 endTime
               ).format("hh:mm a")}`}
@@ -161,7 +161,7 @@ export function VoteCard({
     <div>
       <Grid container xs={12}>
         <Grid item xs={2}>
-          <Stack alignItems='center' justifyContent='center'>
+          <Stack alignItems="center" justifyContent="center">
             <KeyboardArrowUpIcon
               onClick={(e) => handleUp(e)}
               color={voteCount === 1 ? "warning" : ""}
@@ -188,13 +188,13 @@ export function VoteCard({
   );
 }
 
-// GROUP CARD FOR USER'S GROUP LIST
+// 3 ITEM HEADER FOR VOTING, DISCUSSION, AND EVENT
 export function GroupTabs() {
   let { groupId } = useParams();
   const navigate = useNavigate();
   return (
-    <div className='header-wrapper'>
-      <ButtonGroup fullWidth size='large' variant='outlined'>
+    <div className="header-wrapper">
+      <ButtonGroup fullWidth size="large" variant="outlined">
         <Button onClick={() => navigate(`/group/${groupId}/vote`)}>
           Voting
         </Button>
