@@ -1,23 +1,10 @@
-import {
-  Grid,
-  Box,
-  IconButton,
-  Divider,
-  Container,
-  Paper,
-  Button,
-} from "@mui/material";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { VoterSlide, EventSlide } from "./Slides";
+import { Grid, Button } from "@mui/material";
 import { GroupTabs } from "./NoteCards";
-
 import axios from "axios";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import dayjs from "dayjs";
 import { CountdownTimer, useCountdown } from "./TimerSet";
-import backend_url from "../render.json";
 import { VoteCard } from "./NoteCards";
 
 // LIST OF ACTIVE VOTES PAGE
@@ -112,24 +99,33 @@ export function Vote({ user }) {
   return (
     event && (
       <>
-        <h1>{group}</h1>
-        <GroupTabs />
-        <br />
-        <CountdownTimer targetDate={endTime} />
-        {event.map((e) => (
-          <VoteCard
-            activity={e.title}
-            location={e.location}
-            description={e.description}
-            groupId={groupId}
-            eventId={eventId}
-            activityId={e.id}
-            user={user}
-            startTime={e.start_time}
-            endTime={e.end_time}
-          />
-        ))}
-        <Button onClick={(e) => handleEvent(e)}>Add an Activity</Button>
+        <Grid container spacing={2} justifyContent="center" alignItems="center">
+          <Grid item xs={12}>
+            <h1>{group}</h1>
+            <CountdownTimer targetDate={endTime} />
+            <GroupTabs />
+          </Grid>
+          <Grid item xs={12}>
+            {event.map((e) => (
+              <VoteCard
+                activity={e.title}
+                location={e.location}
+                description={e.description}
+                groupId={groupId}
+                eventId={eventId}
+                activityId={e.id}
+                user={user}
+                startTime={e.start_time}
+                endTime={e.end_time}
+              />
+            ))}
+          </Grid>
+          <Grid item>
+            <Button variant="contained" onClick={(e) => handleEvent(e)}>
+              Add an Activity
+            </Button>
+          </Grid>
+        </Grid>
       </>
     )
   );
