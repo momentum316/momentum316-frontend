@@ -26,6 +26,7 @@ import backend_url from "../render.json";
 
 import { useState, useEffect } from "react";
 import { CopyAll } from "@mui/icons-material";
+import { GroupMembersHeader } from "./Headers";
 
 // LIST OF USER'S GROUPS
 export function GroupPage({ user }) {
@@ -86,7 +87,7 @@ export function GroupPage({ user }) {
 
 //USERS WITHIN A GROUP
 export function Group({ user }) {
-  let { groupId } = useParams();
+  const { groupId } = useParams();
   const [group, setGroup] = useState(null);
   const navigate = useNavigate();
   useEffect(() => {
@@ -102,7 +103,7 @@ export function Group({ user }) {
   return (
     group && (
       <div>
-        <h1>{group.title}</h1>
+        <GroupMembersHeader user={user} groupTitle={group.title} />
         <GroupTabs />
         <br />
         <div className="group-grid">
@@ -114,7 +115,7 @@ export function Group({ user }) {
           >
             {group.members.map((g) => (
               <Grid item>
-                <Card elevation={10}>
+                <Card elevation={3}>
                   <CardHeader
                     title={
                       <Avatar
@@ -260,6 +261,7 @@ export function NewGroup({ user }) {
   );
 }
 
+// LOGIC FOR LINK TO ADD TO GROUP
 export function AddToGroup({ user }) {
   const { groupId } = useParams();
   const navigate = useNavigate();

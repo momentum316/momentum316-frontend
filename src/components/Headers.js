@@ -1,5 +1,6 @@
 // HOMEPAGE HEADER W/ CAMERA, GREETING, OPTION LIST ICON
 import React from "react";
+import axios from "axios";
 import {
   IconButton,
   Box,
@@ -13,10 +14,12 @@ import {
 import CameraRollIcon from "@mui/icons-material/CameraRoll";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import AddIcon from "@mui/icons-material/Add";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import { SmallLogo } from "./NoteCards";
+import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
+import { useState, useEffect } from "react";
 
 // HOMEPAGE HEADER
 export function HomeHeader({ user }) {
@@ -35,7 +38,7 @@ export function HomeHeader({ user }) {
           </Card>
         </Grid>
         <Grid item>
-          <IconButton>
+          <IconButton onClick="expand">
             <MoreVertIcon fontSize="large" />
           </IconButton>
         </Grid>
@@ -75,6 +78,37 @@ export function GroupsHeader({ user }) {
           <Grid item xs={4}>
             <IconButton onClick={() => navigate("/new/group")}>
               <GroupAddIcon fontSize="large" color="black" />
+            </IconButton>
+          </Grid>
+        </Grid>
+      </Box>
+    </div>
+  );
+}
+
+// GROUP MEMBERS PAGE HEADER (WERE YOU CAN LEAVE GROUP)
+export function GroupMembersHeader({ user, groupTitle }) {
+  const navigate = useNavigate();
+  // useEffect(() =>
+  // axios
+  // .delete(`${process.env.REACT_APP_BACKEND_URL}/leave/${groupId}`)
+  // .then((response) => )
+  // .catch(onClick => {
+
+  // })
+
+  return (
+    <div>
+      <Box alignItems="center">
+        <Grid container alignItems="center" justifyContent="right">
+          <Grid item xs={4}>
+            <Card elevation={0}>
+              <CardHeader title={`${groupTitle}`} subheader="Members" />
+            </Card>
+          </Grid>
+          <Grid item xs={4}>
+            <IconButton onClick={() => navigate("/group")}>
+              <PersonRemoveIcon fontSize="large" />
             </IconButton>
           </Grid>
         </Grid>
