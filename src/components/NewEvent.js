@@ -47,7 +47,9 @@ import Select from "@mui/material/Select";
 import { NewActivity, AddActivity } from "./NewActivity";
 import { LogoCard } from "./NoteCards";
 import { CreateEventHeader, EventsHeader } from "./Headers";
+import { ActiveVoteCard } from "./NoteCards";
 
+// CREATE NEW EVENT PAGE
 export function NewEvent({ user }) {
   const navigate = useNavigate();
   const [event, setEvent] = useState("");
@@ -238,6 +240,7 @@ export function Event({ user }) {
   return (
     <div>
       <EventsHeader user={user} />
+      <ActiveVoteCard user={user} />
     </div>
   );
 }

@@ -22,6 +22,7 @@ import backend_url from "../render.json";
 
 import { useState, useEffect } from "react";
 
+// LIST OF USER'S GROUPS
 export function GroupPage({ user }) {
   const [groups, setGroups] = useState(null);
   useEffect(() => {
