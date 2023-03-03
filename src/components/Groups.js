@@ -303,17 +303,22 @@ export function GroupEvents({ user }) {
 
   return (
     events &&
-    (events.length > 0 ? (
+    (events.event_list.length > 0 ? (
       <Grid container>
-        {events.activity_list.map((a) => (
-          <Grid item xs={12}>
-            <ActivityCard
-              activity={a.title}
-              location={a.location}
-              description={a.description}
-            />
-          </Grid>
-        ))}
+        {events.event_list.map((e) => {
+          console.log(e.activity_list[0]);
+          return (
+            e.activity_list[0] && (
+              <Grid item xs={12}>
+                <ActivityCard
+                  activity={e.activity_list[0].title}
+                  location={e.activity_list[0].title}
+                  description={e.activity_list[0].title}
+                />
+              </Grid>
+            )
+          );
+        })}
       </Grid>
     ) : (
       <p>No Scheduled Events!</p>
