@@ -25,6 +25,7 @@ import CameraRollIcon from "@mui/icons-material/CameraRoll";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import dayjs from "dayjs";
 
+// LOGIN LOGO
 export function LogoCard() {
   return (
     <div>
@@ -32,6 +33,28 @@ export function LogoCard() {
         <Card>
           <img src={LogoImage} />
         </Card>
+      </Grid>
+    </div>
+  );
+}
+
+// THUMBNAIL LOGO
+export function SmallLogo() {
+  return (
+    <div>
+      <Box
+        component="img"
+        sx={{
+          height: 120,
+          width: 120,
+          maxHeight: { xs: 150, md: 150 },
+          maxWidth: { xs: 150, md: 150 },
+        }}
+        alt="Small Logo"
+        src={`${LogoImage}`}
+      />
+      <Grid justifyContent="center" alignItems="center">
+        <Card></Card>
       </Grid>
     </div>
   );
@@ -205,6 +228,44 @@ export function GroupTabs() {
           Events
         </Button>
       </ButtonGroup>
+    </div>
+  );
+}
+
+// ACTIVE VOTE CARDS
+export function ActiveVoteCard({
+  user,
+  activity,
+  description,
+  location,
+  startTime,
+  endTime,
+}) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  return (
+    <div>
+      <Card elevation={3}>
+        <CardHeader
+          action={
+            <IconButton onClick={() => setIsExpanded(!isExpanded)}>
+              <ExpandMoreIcon />
+            </IconButton>
+          }
+          title={activity}
+          subheader={`${location}`}
+        />
+        {isExpanded && (
+          <Card>
+            <Typography variant="body2" color="textSecondary">
+              {`Time: ${dayjs(startTime).format("hh:mm a")} - ${dayjs(
+                endTime
+              ).format("hh:mm a")}`}
+              <br />
+              {description}
+            </Typography>
+          </Card>
+        )}
+      </Card>
     </div>
   );
 }

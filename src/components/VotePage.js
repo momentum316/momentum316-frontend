@@ -75,7 +75,6 @@ export function VotePage({ user }) {
             <p>No Active Votes</p>
           )}
         </Grid>
-        {/* <FooterObject /> */}
       </>
     )
   );

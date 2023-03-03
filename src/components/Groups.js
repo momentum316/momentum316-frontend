@@ -27,6 +27,7 @@ import backend_url from "../render.json";
 import { useState, useEffect } from "react";
 import { CopyAll } from "@mui/icons-material";
 
+// LIST OF USER'S GROUPS
 export function GroupPage({ user }) {
   const [groups, setGroups] = useState(null);
   useEffect(() => {

@@ -16,6 +16,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { useNavigate } from "react-router-dom";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import AddBoxIcon from "@mui/icons-material/AddBox";
+import { SmallLogo } from "./NoteCards";
 
 // HOMEPAGE HEADER
 export function HomeHeader({ user }) {
@@ -30,12 +31,7 @@ export function HomeHeader({ user }) {
         <Grid item>
           <Card elevation={0}>
             {/* <LogoCard /> */}
-            <Typography variant="h3" component="h2">
-              {user.user.first_name}
-            </Typography>
-            <Typography variant="h2" component="h2">
-              🏠
-            </Typography>
+            <SmallLogo />
           </Card>
         </Grid>
         <Grid item>
