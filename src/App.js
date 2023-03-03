@@ -4,7 +4,7 @@ import "./App.css";
 import NewEvent from "./components/NewEvent";
 import { NewActivity, AddActivity } from "./components/NewActivity";
 import { VotePage, Vote } from "./components/VotePage";
-import { GroupPage, Group } from "./components/Groups";
+import { GroupPage, Group, NewGroup } from "./components/Groups";
 import { useState } from "react";
 import { Route, Routes, Link, UseParams, useNavigate } from "react-router-dom";
 import PostVoteEvent from "./components/PostVote";
@@ -181,6 +181,18 @@ function App() {
               user={user}
             >
               <Homepage user={user} />
+            </PrivateRoute>
+          }
+        ></Route>
+        <Route
+          path='/new/group'
+          element={
+            <PrivateRoute
+              setUserToken={setUserToken}
+              setUser={setUser}
+              user={user}
+            >
+              <NewGroup user={user} />
             </PrivateRoute>
           }
         ></Route>

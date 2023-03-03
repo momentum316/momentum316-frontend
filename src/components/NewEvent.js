@@ -69,9 +69,13 @@ export default function NewEvent({ user }) {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BACKEND_URL}/${user.user.username}/home`)
+      .get(`${process.env.REACT_APP_BACKEND_URL}/${user.user.username}/home`, {
+        headers: {
+          Authorization: `token ${user.token}`,
+        },
+      })
       .then((res) => setChoices(res.data.group_list));
-  }, [user.user.username]);
+  }, [user.user.username, user.token]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
