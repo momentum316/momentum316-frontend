@@ -29,7 +29,7 @@ import dayjs from "dayjs";
 export function LogoCard() {
   return (
     <div>
-      <Grid justifyContent="center" alignItems="center">
+      <Grid justifyContent='center' alignItems='center'>
         <Card>
           <img src={LogoImage} />
         </Card>
@@ -43,17 +43,17 @@ export function SmallLogo() {
   return (
     <div>
       <Box
-        component="img"
+        component='img'
         sx={{
           height: 120,
           width: 120,
           maxHeight: { xs: 150, md: 150 },
           maxWidth: { xs: 150, md: 150 },
         }}
-        alt="Small Logo"
+        alt='Small Logo'
         src={`${LogoImage}`}
       />
-      <Grid justifyContent="center" alignItems="center">
+      <Grid justifyContent='center' alignItems='center'>
         <Card></Card>
       </Grid>
     </div>
@@ -67,8 +67,11 @@ export function ActivityCard({
   location,
   startTime,
   endTime,
+  groupId,
+  eventId,
 }) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const navigate = useNavigate();
   return (
     <div>
       <Card elevation={3}>
@@ -83,13 +86,16 @@ export function ActivityCard({
         />
         {isExpanded && (
           <CardContent>
-            <Typography variant="body2" color="textSecondary">
+            <Typography variant='body2' color='textSecondary'>
               {`Time: ${dayjs(startTime).format("hh:mm a")} - ${dayjs(
                 endTime
               ).format("hh:mm a")}`}
               <br />
               {description}
             </Typography>
+            <Button onClick={() => navigate(`/event/${groupId}/${eventId}`)}>
+              Event Page
+            </Button>
           </CardContent>
         )}
       </Card>
@@ -184,7 +190,7 @@ export function VoteCard({
     <div>
       <Grid container xs={12}>
         <Grid item xs={2}>
-          <Stack alignItems="center" justifyContent="center">
+          <Stack alignItems='center' justifyContent='center'>
             <KeyboardArrowUpIcon
               onClick={(e) => handleUp(e)}
               color={voteCount === 1 ? "warning" : ""}
@@ -216,8 +222,8 @@ export function GroupTabs() {
   let { groupId } = useParams();
   const navigate = useNavigate();
   return (
-    <div className="header-wrapper">
-      <ButtonGroup fullWidth size="large" variant="outlined">
+    <div className='header-wrapper'>
+      <ButtonGroup fullWidth size='large' variant='outlined'>
         <Button onClick={() => navigate(`/group/${groupId}/vote`)}>
           Voting
         </Button>
@@ -256,7 +262,7 @@ export function ActiveVoteCard({
         />
         {isExpanded && (
           <Card>
-            <Typography variant="body2" color="textSecondary">
+            <Typography variant='body2' color='textSecondary'>
               {`Time: ${dayjs(startTime).format("hh:mm a")} - ${dayjs(
                 endTime
               ).format("hh:mm a")}`}
