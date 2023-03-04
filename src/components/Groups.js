@@ -316,6 +316,9 @@ export function GroupEvents({ user }) {
                   activity={e.activity_list[0].title}
                   location={e.activity_list[0].title}
                   description={e.activity_list[0].title}
+                  groupId={groupId}
+                  eventId={events.id}
+                  onClick={() => navigate(`/event/${groupId}/${events.id}`)}
                 />
               </Grid>
             )

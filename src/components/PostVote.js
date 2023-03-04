@@ -21,26 +21,43 @@ import { FooterObject } from "./Footer";
 import { bgcolor } from "@mui/system";
 import React from "react";
 
-export default function PostVoteEvent() {
+export default function PostVoteEvent({ user }) {
   const navigate = useNavigate();
   const { groupId, eventId } = useParams();
   const [event, setEvent] = useState(null);
+  const [group, setGroup] = useState(null);
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BACKEND_URL}/event/${eventId}`)
+      .get(`${process.env.REACT_APP_BACKEND_URL}/group/${groupId}`, {
+        headers: {
+          Authorization: `token ${user.token}`,
+        },
+      })
+      .then((res) => {
+        setGroup(res.data);
+      });
+  }, [groupId, user.token]);
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BACKEND_URL}/event/${eventId}`, {
+        headers: {
+          Authorization: `token ${user.token}`,
+        },
+      })
       .then((res) => {
         console.log(res.data.date);
         setEvent(res.data);
       });
-  }, [eventId]);
+  }, [eventId, user.token]);
 
   return (
-    event && (
+    event &&
+    group && (
       <div>
         <IconButton onClick={() => navigate(`/group/${groupId}`)}>
           <Avatar
-            onClick={() => navigate(`/group/${groupId}`)}
             alt={event.group}
             src='/static/images/avatar/2.jpg'
             sx={{ width: 90, height: 90 }}
@@ -64,7 +81,8 @@ export default function PostVoteEvent() {
         </Stack>
         <Container>
           <Box sx={{ bgcolor: "#cfe8fc", height: "15vh" }}>
-            Carried over description. But also editable?
+            {event.activity_list.length > 0 &&
+              event.activity_list[0].description}
           </Box>
         </Container>
         <br />
@@ -83,11 +101,9 @@ export default function PostVoteEvent() {
             <h6>Group Members</h6>
           </Stack>
           <AvatarGroup max={5} spacing='medium'>
-            <Avatar alt='Remy Sharp' src='/static/images/avatar/1.jpg' />
-            <Avatar alt='Travis Howard' src='/static/images/avatar/2.jpg' />
-            <Avatar alt='Cindy Baker' src='/static/images/avatar/3.jpg' />
-            <Avatar alt='Agnes Walker' src='/static/images/avatar/4.jpg' />
-            <Avatar alt='Trevor Henderson' src='/static/images/avatar/5.jpg' />
+            {group.members.map((g) => (
+              <Avatar key={g} alt={g} src='/static/images/avatar/1.jpg' />
+            ))}
           </AvatarGroup>
         </Box>
         {/* <FooterObject /> */}
