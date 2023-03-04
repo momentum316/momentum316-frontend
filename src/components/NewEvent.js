@@ -32,6 +32,7 @@ export function NewEvent({ user }) {
 
   const [createdEvent, setCreatedEvent] = useState("");
   const [vote, setVote] = useState(false);
+  const [activity, setActivity] = useState(false);
 
   const handleChange = (newValue) => {
     var d = new Date(newValue);
@@ -43,6 +44,7 @@ export function NewEvent({ user }) {
     console.log(date);
   };
 
+  //  GRAB GROUP NAMES FOR DROPDOWN MENU ON NEW EVENT
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_BACKEND_URL}/${user.user.username}/home`, {
@@ -53,6 +55,7 @@ export function NewEvent({ user }) {
       .then((res) => setChoices(res.data.group_list));
   }, [user.user.username, user.token]);
 
+  // SUBMITS EVENT
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
@@ -83,13 +86,7 @@ export function NewEvent({ user }) {
         <form onSubmit={handleSubmit}>
           <CreateEventHeader />
           <Grid container spacing={2} xs={12}>
-            {/* <Grid item xs={12}>
-              <Card elevation={3}>
-                <CardHeader subheader="New Event" />
-              </Card>
-            </Grid> */}
             <Grid item xs={12}>
-              {/* <Stack spacing={4}> */}
               <TextField
                 fullWidth
                 label="Event Name"
@@ -98,16 +95,7 @@ export function NewEvent({ user }) {
                 onChange={(e) => setEvent(e.target.value)}
               />
             </Grid>
-            {/* </Stack> */}
             <Grid item xs={6}>
-              {/* <TextField
-              label='Date'
-              variant='outlined'
-              required
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-              error={!date}
-            /> */}
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <MobileDatePicker
                   label="Date"
@@ -142,68 +130,47 @@ export function NewEvent({ user }) {
               </FormControl>
             </Grid>
             <br />
-            {/* <Grid item xs={6}>
-            <TextField
-              label='Time'
-              variant='outlined'
-              value={startTime}
-              onChange={(e) => setStartTime(e.target.value)}
-            />
-          </Grid> */}
           </Grid>
           <br />
-          {/* <Stack spacing={4}>
-          <TextField
-            fullWidth
-            label='Location'
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-          />
-          <TextField
-            id='description-box'
-            label='Description'
-            multiline
-            rows={4}
-            fullWidth
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </Stack>
-        <br />
-        <Stack>
-          <Button fullWidth variant='outlined' rows={2}>
-            Add Activity to Event +
-          </Button>
-        </Stack> */}
+
           <Stack>
             <FormControlLabel
               value="end"
               control={
                 <Switch color="primary" onClick={() => setVote(!vote)} />
               }
-              label="Set Timer?"
+              label="Set Vote"
               labelPlacement="end"
-
-              // onClick={() => setShowActivity(!showActivity)}
-            />
-            {/* ADD ACTIVITY BUTTON (show only for vote selection) */}
-
+            />{" "}
             {vote && (
               <>
-                <NewActivity />
+                <FormControlLabel
+                  value="end"
+                  control={
+                    <Switch
+                      color="primary"
+                      onClick={() => setActivity(!activity)}
+                    />
+                  }
+                  label="Add Activity"
+                  labelPlacement="end"
+                />
+                {activity && <NewActivity />}
               </>
             )}
           </Stack>
           <br />
           <Stack>
-            <Button type="submit" fullWidth variant="contained">
+            <Button
+              onClick={(e) => handleSubmit(e)}
+              fullWidth
+              variant="contained"
+            >
               Submit Event
             </Button>
           </Stack>
         </form>
-        {/* Vote Select Switch */}
         <br />
-        {/* <FooterObject /> */}
       </div>
     )
   );

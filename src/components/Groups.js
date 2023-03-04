@@ -16,6 +16,7 @@ import {
   InputAdornment,
   IconButton,
   Input,
+  Tooltip,
 } from "@mui/material";
 import { Route, Routes, Link, useParams, useNavigate } from "react-router-dom";
 import ContentPasteIcon from "@mui/icons-material/ContentPaste";
@@ -248,9 +249,11 @@ export function NewGroup({ user }) {
               </Grid>
               <Grid item xs={2}>
                 <IconButton>
-                  <ContentPasteIcon
-                    onClick={() => navigator.clipboard.writeText(groupLink)}
-                  ></ContentPasteIcon>
+                  <Tooltip title="Copy to Clipboard">
+                    <ContentPasteIcon
+                      onClick={() => navigator.clipboard.writeText(groupLink)}
+                    ></ContentPasteIcon>
+                  </Tooltip>
                 </IconButton>
               </Grid>
             </>

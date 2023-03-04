@@ -104,7 +104,7 @@ export default function PostVoteEvent({ user }) {
           />
         </IconButton>
         {/* Make this a component */}
-        {/* <ActivitySlide event={event} /> */}
+        <ActivitySlide event={event} />
         <Divider />
         <Stack textAlign="left">
           <h6>Address Line</h6>
