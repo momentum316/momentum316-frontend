@@ -19,7 +19,7 @@ export function Homepage({
       <HomeHeader user={user} />
       <br />
       <Grid container spacing={2}>
-        <Grid item xs={2}>
+        <Grid item>
           <Typography variant="h5" gutterBottom>
             Live Votes
           </Typography>

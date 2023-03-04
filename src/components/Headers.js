@@ -119,7 +119,7 @@ export function GroupsHeader({ user }) {
           <Divider />
           <MenuItem onClick={handleClose}>Leave Group</MenuItem>
           <Divider />
-          <MenuItem onClick={handleClose}>Logout</MenuItem>
+          <MenuItem onClick={() => navigate("/logout")}>Logout</MenuItem>
         </MenuList>
       </Menu>
     </div>
