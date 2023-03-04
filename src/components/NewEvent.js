@@ -148,7 +148,7 @@ export function NewEvent({ user }) {
               </LocalizationProvider>
             </Grid>
             <Grid item xs={6}>
-              <FormControl sx={{ minWidth: 150 }}>
+              <FormControl sx={{ minWidth: 150, maxWidth: 150 }}>
                 <InputLabel id="demo-simple-select-helper-label">
                   Group
                 </InputLabel>
@@ -203,6 +203,25 @@ export function NewEvent({ user }) {
             Add Activity to Event +
           </Button>
         </Stack> */}
+          <Stack>
+            <FormControlLabel
+              value="end"
+              control={
+                <Switch color="primary" onClick={() => setVote(!vote)} />
+              }
+              label="Set Timer?"
+              labelPlacement="end"
+
+              // onClick={() => setShowActivity(!showActivity)}
+            />
+            {/* ADD ACTIVITY BUTTON (show only for vote selection) */}
+
+            {vote && (
+              <>
+                <NewActivity />
+              </>
+            )}
+          </Stack>
           <br />
           <Stack>
             <Button type="submit" fullWidth variant="contained">
@@ -212,23 +231,6 @@ export function NewEvent({ user }) {
         </form>
         {/* Vote Select Switch */}
         <br />
-        <Stack>
-          <FormControlLabel
-            value="end"
-            control={<Switch color="primary" onClick={() => setVote(!vote)} />}
-            label="Set Timer?"
-            labelPlacement="end"
-
-            // onClick={() => setShowActivity(!showActivity)}
-          />
-          {/* ADD ACTIVITY BUTTON (show only for vote selection) */}
-
-          {vote && (
-            <>
-              <NewActivity />
-            </>
-          )}
-        </Stack>
         {/* <FooterObject /> */}
       </div>
     )

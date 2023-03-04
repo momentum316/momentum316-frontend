@@ -65,7 +65,7 @@ export function HomeHeader({ user }) {
   );
 }
 
-// GROUPS PAGE HEADER
+// GROUPS A USER BELONGS TO PAGE HEADER
 export function GroupsHeader({ user }) {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -226,15 +226,17 @@ export function EventsHeader({ user }) {
 
 // NEW EVENT HEADER
 export function CreateEventHeader({ user }) {
+  const [groups, setGroups] = useState(null);
   return (
     <Box>
       <Grid container justifyContent="center" alignItems="center">
         <Grid item>
-          <Card columns>
-            <CardHeader avatar={<Avatar> NE </Avatar>} subheader="New Event" />
+          <Card elevation={0}>
+            <CardHeader title="Create New Event" />
           </Card>
         </Grid>
       </Grid>
+      <br />
     </Box>
   );
 }
