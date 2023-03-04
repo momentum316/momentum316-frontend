@@ -1,53 +1,25 @@
 import * as React from "react";
-import backend_url from "../render.json";
 import "../App.css";
 // General page use
-import {
-  Stack,
-  TextField,
-  Button,
-  Grid,
-  Switch,
-  Card,
-  CardHeader,
-} from "@mui/material";
-// Footer Nav Bar
-import { ButtonGroup } from "@mui/material";
+import { Stack, TextField, Button, Grid, Switch } from "@mui/material";
 // For Vote Set Switch
 import { FormControlLabel } from "@mui/material";
-// Group Select dropdown
-import {
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-  Typography,
-} from "@mui/material";
-// Group select icon
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-// Needed for Error on Date entry and we'll use it a lot
 import { useState, useEffect } from "react";
-import { Route, Routes, Link, UseParams, useNavigate } from "react-router-dom";
-import { GroupsHeader } from "./Headers";
+import { useNavigate } from "react-router-dom";
 
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { TimePicker } from "@mui/x-date-pickers/TimePicker";
-import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import dayjs from "dayjs";
 import axios from "axios";
-import { FooterObject } from "./Footer";
-import { SetMeal } from "@mui/icons-material";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { NewActivity, AddActivity } from "./NewActivity";
-import { LogoCard } from "./NoteCards";
+import { NewActivity } from "./NewActivity";
 import { CreateEventHeader, EventsHeader } from "./Headers";
-import { ActiveVoteCard } from "./NoteCards";
+import { ActiveVotesForUser } from "./NoteCards";
+import { VoterSlide } from "./Slides";
 
 // CREATE NEW EVENT PAGE
 export function NewEvent({ user }) {
@@ -242,7 +214,7 @@ export function Event({ user }) {
   return (
     <div>
       <EventsHeader user={user} />
-      <ActiveVoteCard user={user} />
+      <ActiveVotesForUser user={user} />
     </div>
   );
 }

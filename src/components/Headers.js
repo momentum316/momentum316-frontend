@@ -90,7 +90,9 @@ export function GroupsHeader({ user }) {
           </Grid>
           <Grid item xs={4}>
             <IconButton onClick={handleClick}>
-              <MoreVertIcon fontSize="large" />
+              <Tooltip title="More Options">
+                <MoreVertIcon fontSize="large" />
+              </Tooltip>
             </IconButton>
           </Grid>
         </Grid>
@@ -110,11 +112,7 @@ export function GroupsHeader({ user }) {
           },
         }}
       >
-        <MenuList
-          autoFocusItem={open}
-          id="composition-menu"
-          aria-labelledby="composition-button"
-        >
+        <MenuList>
           <MenuItem onClick={() => navigate("/new/group")}>
             Invite Member/Create Group
           </MenuItem>
@@ -180,11 +178,7 @@ export function GroupMembersHeader({ user, groupTitle }) {
           },
         }}
       >
-        <MenuList
-          autoFocusItem={open}
-          id="composition-menu"
-          aria-labelledby="composition-button"
-        >
+        <MenuList>
           <MenuItem onClick={() => navigate("/new/group")}>
             Invite Member/Create Group
           </MenuItem>
@@ -215,7 +209,9 @@ export function EventsHeader({ user }) {
           </Grid>
           <Grid item xs={4}>
             <IconButton onClick={() => navigate("events/new")}>
-              <AddBoxIcon fontSize="large" />
+              <Tooltip title="Add New Event">
+                <AddBoxIcon fontSize="large" />
+              </Tooltip>
             </IconButton>
           </Grid>
         </Grid>

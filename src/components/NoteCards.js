@@ -29,7 +29,7 @@ import dayjs from "dayjs";
 export function LogoCard() {
   return (
     <div>
-      <Grid justifyContent='center' alignItems='center'>
+      <Grid justifyContent="center" alignItems="center">
         <Card>
           <img src={LogoImage} />
         </Card>
@@ -43,17 +43,17 @@ export function SmallLogo() {
   return (
     <div>
       <Box
-        component='img'
+        component="img"
         sx={{
           height: 120,
           width: 120,
           maxHeight: { xs: 150, md: 150 },
           maxWidth: { xs: 150, md: 150 },
         }}
-        alt='Small Logo'
+        alt="Small Logo"
         src={`${LogoImage}`}
       />
-      <Grid justifyContent='center' alignItems='center'>
+      <Grid justifyContent="center" alignItems="center">
         <Card></Card>
       </Grid>
     </div>
@@ -86,7 +86,7 @@ export function ActivityCard({
         />
         {isExpanded && (
           <CardContent>
-            <Typography variant='body2' color='textSecondary'>
+            <Typography variant="body2" color="textSecondary">
               {`Time: ${dayjs(startTime).format("hh:mm a")} - ${dayjs(
                 endTime
               ).format("hh:mm a")}`}
@@ -190,7 +190,7 @@ export function VoteCard({
     <div>
       <Grid container xs={12}>
         <Grid item xs={2}>
-          <Stack alignItems='center' justifyContent='center'>
+          <Stack alignItems="center" justifyContent="center">
             <KeyboardArrowUpIcon
               onClick={(e) => handleUp(e)}
               color={voteCount === 1 ? "warning" : ""}
@@ -222,8 +222,8 @@ export function GroupTabs() {
   let { groupId } = useParams();
   const navigate = useNavigate();
   return (
-    <div className='header-wrapper'>
-      <ButtonGroup fullWidth size='large' variant='outlined'>
+    <div className="header-wrapper">
+      <ButtonGroup fullWidth size="large" variant="outlined">
         <Button onClick={() => navigate(`/group/${groupId}/vote`)}>
           Voting
         </Button>
@@ -238,8 +238,8 @@ export function GroupTabs() {
   );
 }
 
-// ACTIVE VOTE CARDS
-export function ActiveVoteCard({
+// ACTIVE VOTE CARDS FOR USER
+export function ActiveVotesForUser({
   user,
   activity,
   description,
@@ -248,30 +248,58 @@ export function ActiveVoteCard({
   endTime,
 }) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [activeVote, setActiveVote] = useState(null);
+  const [time, setTime] = useState(dayjs().toISOString());
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BACKEND_URL}/${user.user.username}/home`, {
+        headers: {
+          Authorization: `token ${user.token}`,
+        },
+      })
+
+      .then((res) => {
+        // let votesInProgress = res.data.event_list.filter(
+        //   (event) => event.voting === true && event.vote_closing_time > time
+        // );
+        // setActiveVote(votesInProgress);
+        // console.log(votesInProgress);
+        console.log(res.data.group_list);
+        let groupList = res.data.group_list;
+        groupList.map((group) => {
+          let votesInProgress = group.event_list.filter(
+            (event) => event.voting === true && event.vote_closing_time > time
+          );
+          console.log(votesInProgress);
+        });
+      });
+  }, [user.user.username, user.token]);
   return (
     <div>
-      <Card elevation={3}>
-        <CardHeader
-          action={
-            <IconButton onClick={() => setIsExpanded(!isExpanded)}>
-              <ExpandMoreIcon />
-            </IconButton>
-          }
-          title={activity}
-          subheader={`${location}`}
-        />
-        {isExpanded && (
-          <Card>
-            <Typography variant='body2' color='textSecondary'>
-              {`Time: ${dayjs(startTime).format("hh:mm a")} - ${dayjs(
-                endTime
-              ).format("hh:mm a")}`}
-              <br />
-              {description}
-            </Typography>
-          </Card>
-        )}
-      </Card>
+      <Grid contatiner spacing={2}>
+        <Card elevation={3}>
+          <CardHeader
+            action={
+              <IconButton onClick={() => setIsExpanded(!isExpanded)}>
+                <ExpandMoreIcon />
+              </IconButton>
+            }
+            title={activity}
+            subheader={`${location}`}
+          />
+          {isExpanded && (
+            <Card>
+              <Typography variant="body2" color="textSecondary">
+                {`Time: ${dayjs(startTime).format("hh:mm a")} - ${dayjs(
+                  endTime
+                ).format("hh:mm a")}`}
+                <br />
+                {description}
+              </Typography>
+            </Card>
+          )}
+        </Card>
+      </Grid>
     </div>
   );
 }
