@@ -14,6 +14,7 @@ import {
   Menu,
   MenuList,
   MenuItem,
+  Divider,
 } from "@mui/material";
 import CameraRollIcon from "@mui/icons-material/CameraRoll";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
@@ -67,6 +68,14 @@ export function HomeHeader({ user }) {
 // GROUPS PAGE HEADER
 export function GroupsHeader({ user }) {
   const navigate = useNavigate();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   return (
     <div>
       <Box alignItems="center">
@@ -80,12 +89,41 @@ export function GroupsHeader({ user }) {
             </Card>
           </Grid>
           <Grid item xs={4}>
-            <IconButton onClick={() => navigate("/new/group")}>
+            <IconButton onClick={handleClick}>
               <MoreVertIcon fontSize="large" />
             </IconButton>
           </Grid>
         </Grid>
       </Box>
+      <Menu
+        anchorEl={anchorEl}
+        id="account-menu"
+        open={open}
+        onClose={handleClose}
+        onClick={handleClose}
+        PaperProps={{
+          elevation: 0,
+          sx: {
+            overflow: "visible",
+            filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+            mt: 1.5,
+          },
+        }}
+      >
+        <MenuList
+          autoFocusItem={open}
+          id="composition-menu"
+          aria-labelledby="composition-button"
+        >
+          <MenuItem onClick={() => navigate("/new/group")}>
+            Invite Member/Create Group
+          </MenuItem>
+          <Divider />
+          <MenuItem onClick={handleClose}>Leave Group</MenuItem>
+          <Divider />
+          <MenuItem onClick={handleClose}>Logout</MenuItem>
+        </MenuList>
+      </Menu>
     </div>
   );
 }
@@ -147,8 +185,12 @@ export function GroupMembersHeader({ user, groupTitle }) {
           id="composition-menu"
           aria-labelledby="composition-button"
         >
-          <MenuItem onClick={handleClose}>Profile</MenuItem>
-          <MenuItem onClick={handleClose}>My account</MenuItem>
+          <MenuItem onClick={() => navigate("/new/group")}>
+            Invite Member/Create Group
+          </MenuItem>
+          <Divider />
+          <MenuItem onClick={handleClose}>Leave Group</MenuItem>
+          <Divider />
           <MenuItem onClick={handleClose}>Logout</MenuItem>
         </MenuList>
       </Menu>
