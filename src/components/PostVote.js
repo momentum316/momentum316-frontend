@@ -52,6 +52,44 @@ export default function PostVoteEvent({ user }) {
       });
   }, [eventId, user.token]);
 
+  /* global google */
+  const [authToken, setAuthToken] = useState(null);
+  const client = google.accounts.oauth2.initTokenClient({
+    client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+    scope: "https://www.googleapis.com/auth/calendar",
+    callback: (response) => {
+      console.log(response);
+      setAuthToken(response);
+    },
+  });
+
+  const handleCalendar = () => {
+    client.requestAccessToken();
+    axios
+      .post(
+        `https://www.googleapis.com/calendar/v3/calendars/${user.user.email}/events`,
+        {
+          summary: `${event.title}`,
+          // location: `${event.activity_list[0].location}`,
+          // description: `${event.activity_list[0].description}`,
+          start: {
+            dateTime: event.date,
+            timeZone: "America/New_York",
+          },
+          end: {
+            dateTime: event.vote_closing_time,
+            timeZone: "America/New_York",
+          },
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${authToken.access_token}`,
+          },
+        }
+      )
+      .then((res) => console.log(res));
+  };
+
   return (
     event &&
     group && (
@@ -105,6 +143,9 @@ export default function PostVoteEvent({ user }) {
               <Avatar key={g} alt={g} src='/static/images/avatar/1.jpg' />
             ))}
           </AvatarGroup>
+          <Button onClick={() => handleCalendar()}>
+            Add to Google Calendar
+          </Button>
         </Box>
         {/* <FooterObject /> */}
       </div>
