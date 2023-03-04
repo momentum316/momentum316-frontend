@@ -1,4 +1,4 @@
-import { Grid, Button } from "@mui/material";
+import { Grid, Button, Card, CardHeader } from "@mui/material";
 import { GroupTabs } from "./NoteCards";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
@@ -101,7 +101,9 @@ export function Vote({ user }) {
       <>
         <Grid container spacing={2} justifyContent="center" alignItems="center">
           <Grid item xs={12}>
-            <h1>{group}</h1>
+            <Card>
+              <CardHeader title={group}></CardHeader>
+            </Card>
             <CountdownTimer targetDate={endTime} />
             <GroupTabs />
           </Grid>
