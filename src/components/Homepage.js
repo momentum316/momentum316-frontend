@@ -1,5 +1,5 @@
 import { FooterObject } from "./Footer";
-import { Grid, Paper, Typography, Card } from "@mui/material";
+import { Grid, Paper, Typography, Card, Divider } from "@mui/material";
 import { ActivityCard } from "./NoteCards";
 import { useState } from "react";
 import userEvent from "@testing-library/user-event";
@@ -18,13 +18,52 @@ export function Homepage({
     <div>
       <HomeHeader user={user} />
       <br />
-      <Grid container columnSpacing={{ xs: 2, sm: 2, md: 3 }}>
+      <Grid container spacing={2}>
+        <Grid item xs={2}>
+          <Typography variant="h5" gutterBottom>
+            Live Votes
+          </Typography>
+        </Grid>
         <Grid item xs={12}>
           <ActivityCard
             activity={activity}
             location={location}
             description={description}
           />
+        </Grid>
+        <Grid item xs={12}>
+          <ActivityCard
+            activity={activity}
+            location={location}
+            description={description}
+          />
+        </Grid>
+        <br />
+        <Grid item>
+          <br />
+          <Typography variant="h5" fullWidth gutterBottom>
+            Upcoming Events
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <ActivityCard
+            activity={activity}
+            location={location}
+            description={description}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <ActivityCard
+            activity={activity}
+            location={location}
+            description={description}
+          />
+        </Grid>
+        <Grid item>
+          <br />
+          <Typography variant="h5" fullWidth gutterBottom>
+            Your Groups
+          </Typography>
         </Grid>
       </Grid>
     </div>
