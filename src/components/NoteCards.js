@@ -59,6 +59,64 @@ export function SmallLogo() {
     </div>
   );
 }
+// EVENT ITEM CARD
+export function EventCard({
+  event,
+  description,
+  location,
+  startTime,
+  endTime,
+  groupId,
+  eventId,
+  group,
+}) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const navigate = useNavigate();
+  return (
+    <div>
+      <Grid container spacing={2} justifyContent="center" alignItems="center">
+        <Grid item xs={12}>
+          <Card elevation={3}>
+            <CardHeader
+              action={
+                <IconButton onClick={() => setIsExpanded(!isExpanded)}>
+                  <ExpandMoreIcon />
+                </IconButton>
+              }
+              avatar={
+                <Avatar
+                  key={groupId}
+                  onClick={() => navigate(`/group/${groupId}`)}
+                  alt={group}
+                  src="/static/images/avatar/1.jpg"
+                />
+              }
+              title={event}
+              subheader={group}
+            />
+            {isExpanded && (
+              <CardContent>
+                <Typography variant="body2" color="textSecondary">
+                  {`Time: ${dayjs(startTime).format("hh:mm a")} - ${dayjs(
+                    endTime
+                  ).format("hh:mm a")}`}
+                  <br />
+                  {description}
+                </Typography>
+                <Button
+                  onClick={() => navigate(`/event/${groupId}/${eventId}`)}
+                >
+                  Event Page
+                </Button>
+              </CardContent>
+            )}
+          </Card>
+          <Typography gutterBottom></Typography>
+        </Grid>
+      </Grid>
+    </div>
+  );
+}
 
 // ACTIVITY ITEM CARD
 export function ActivityCard({
@@ -238,7 +296,7 @@ export function GroupTabs() {
   );
 }
 
-// ACTIVE VOTE CARDS FOR USER
+// ACTIVE VOTE EVENTS FOR USER
 export function ActiveVotesForUser({
   user,
   activity,
@@ -249,6 +307,7 @@ export function ActiveVotesForUser({
 }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [activeVote, setActiveVote] = useState(null);
+  const [groups, setGroups] = useState(null);
   const [time, setTime] = useState(dayjs().toISOString());
   useEffect(() => {
     axios
@@ -265,41 +324,31 @@ export function ActiveVotesForUser({
         // setActiveVote(votesInProgress);
         // console.log(votesInProgress);
         console.log(res.data.group_list);
-        let groupList = res.data.group_list;
-        groupList.map((group) => {
+        setGroups(res.data.group_list);
+      });
+  }, [user.user.username, user.token]);
+  return (
+    groups && (
+      <div>
+        {groups.map((group) => {
           let votesInProgress = group.event_list.filter(
             (event) => event.voting === true && event.vote_closing_time > time
           );
           console.log(votesInProgress);
-        });
-      });
-  }, [user.user.username, user.token]);
-  return (
-    <div>
-      <Grid contatiner spacing={2}>
-        <Card elevation={3}>
-          <CardHeader
-            action={
-              <IconButton onClick={() => setIsExpanded(!isExpanded)}>
-                <ExpandMoreIcon />
-              </IconButton>
-            }
-            title={activity}
-            subheader={`${location}`}
-          />
-          {isExpanded && (
-            <Card>
-              <Typography variant="body2" color="textSecondary">
-                {`Time: ${dayjs(startTime).format("hh:mm a")} - ${dayjs(
-                  endTime
-                ).format("hh:mm a")}`}
-                <br />
-                {description}
-              </Typography>
-            </Card>
-          )}
-        </Card>
-      </Grid>
-    </div>
+          return (
+            votesInProgress.length > 0 &&
+            votesInProgress.map((e) => (
+              <EventCard
+                user={user}
+                event={e.title}
+                group={e.group}
+                startTime={e.date}
+                endTime={e.vote_closing_time}
+              />
+            ))
+          );
+        })}
+      </div>
+    )
   );
 }

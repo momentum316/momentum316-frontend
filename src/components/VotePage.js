@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import dayjs from "dayjs";
 import { CountdownTimer, useCountdown } from "./TimerSet";
-import { VoteCard } from "./NoteCards";
+import { VoteCard, EventCard } from "./NoteCards";
 
 // LIST OF ACTIVE VOTES PAGE
 export function VotePage({ user }) {
@@ -42,20 +42,14 @@ export function VotePage({ user }) {
         <Grid container spacing={2}>
           {activeVote.length > 0 ? (
             activeVote.map((v) => (
-              <Grid
-                item
-                xs={12}
-                sx={{
-                  height: 35,
-                  backgroundColor: "primary.main",
-                  "&:hover": {
-                    backgroundColor: "primary.main",
-                    opacity: [0.9, 0.8, 0.7],
-                  },
-                }}
-                onClick={() => navigate(`/group/${groupId}/vote/${v.id}`)}
-              >
-                {v.title}
+              <Grid item xs={12}>
+                <EventCard
+                  onClick={() => navigate(`/group/${groupId}/vote/${v.id}`)}
+                  user={user}
+                  event={v.title}
+                  group={v.group_title}
+                  groupId={v.group}
+                />
               </Grid>
             ))
           ) : (
