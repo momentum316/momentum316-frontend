@@ -27,41 +27,70 @@ import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 import { useState, useEffect } from "react";
 
 // HOMEPAGE HEADER
-export function HomeHeader({ user }) {
+export function HomeHeader({ user, setUser, setUserToken }) {
+  const navigate = useNavigate();
+  const [emptyToken, setEmptyToken] = useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const handleLogout = () => {
+    setUser(null);
+    setUserToken(null);
+    setEmptyToken(true);
+    navigate("/login");
+  };
   return (
     <div>
-      <Grid container spacing={6} justifyContent="center" alignItems="center">
-        <Grid item>
-          <IconButton>
-            <CameraRollIcon fontSize="large" />
-          </IconButton>
+      <Box>
+        <Grid container justifyContent="center" alignItems="center">
+          <Grid item xs={4}>
+            <IconButton>
+              <CameraRollIcon fontSize="large" />
+            </IconButton>
+          </Grid>
+          <Grid item xs={4}>
+            <Card elevation={0}>
+              <SmallLogo />
+            </Card>
+          </Grid>
+          <Grid item xs={4}>
+            <IconButton onClick={handleClick}>
+              <MoreVertIcon fontSize="large" />
+            </IconButton>
+          </Grid>
         </Grid>
-        <Grid item>
-          <Card elevation={0}>
-            {/* <LogoCard /> */}
-            <SmallLogo />
-          </Card>
-        </Grid>
-        <Grid item>
-          <IconButton onClick="expand">
-            <MoreVertIcon fontSize="large" />
-          </IconButton>
-        </Grid>
-      </Grid>
+      </Box>
+      <Menu
+        anchorEl={anchorEl}
+        id="account-menu"
+        open={open}
+        onClose={handleClose}
+        onClick={handleClose}
+        PaperProps={{
+          elevation: 0,
+          sx: {
+            overflow: "visible",
+            filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+            mt: 1.5,
+          },
+        }}
+      >
+        <MenuList>
+          <MenuItem onClick={() => navigate("/new/group")}>
+            Invite Member/Create Group
+          </MenuItem>
+          <Divider />
+          <MenuItem onClick={handleClose}>Leave Group</MenuItem>
+          <Divider />
+          <MenuItem onClick={() => handleLogout()}>Logout</MenuItem>
+        </MenuList>
+      </Menu>
     </div>
-
-    // <Card elevation={10}>
-    //   <CardHeader
-    //     title={
-    //       <Avatar
-    //         key={user.user.username}
-    //         alt={user.user.first_name}
-    //         src='/static/images/avatar/1.jpg'
-    //       />
-    //     }
-    //     subheader={user}
-    //   />
-    // </Card>
   );
 }
 
