@@ -21,7 +21,7 @@ import {
 import { Route, Routes, Link, useParams, useNavigate } from "react-router-dom";
 import ContentPasteIcon from "@mui/icons-material/ContentPaste";
 import { GroupTabs, SmallLogo, ActivityCard } from "./NoteCards";
-import { GroupsHeader } from "./Headers";
+import { GroupsHeader, EventsHeader } from "./Headers";
 import axios from "axios";
 import backend_url from "../render.json";
 
@@ -50,7 +50,7 @@ export function GroupPage({ user }) {
   return (
     groups && (
       <div>
-        <GroupsHeader user={user} />
+        <EventsHeader user={user} />
         <br />
         <div className="group-grid">
           <Grid
@@ -308,29 +308,36 @@ export function GroupEvents({ user }) {
   }, [groupId, user.token]);
 
   return (
-    events &&
-    (events.event_list.length > 0 ? (
-      <Grid container>
-        {events.event_list.map((e) => {
-          console.log(e.activity_list[0]);
-          return (
-            e.activity_list[0] && (
-              <Grid item xs={12}>
-                <ActivityCard
-                  activity={e.activity_list[0].title}
-                  location={e.activity_list[0].title}
-                  description={e.activity_list[0].title}
-                  groupId={groupId}
-                  eventId={events.id}
-                  onClick={() => navigate(`/event/${groupId}/${events.id}`)}
-                />
-              </Grid>
-            )
-          );
-        })}
+    events && (
+      <Grid container alignItems="center" justifyContent="center">
+        <Grid item xs={12}>
+          <EventsHeader user={user} />
+        </Grid>
+        <br />
+        <GroupTabs />
+        <br />
+        {events.event_list.length > 0 ? (
+          events.event_list.map((e) => {
+            console.log(e.activity_list[0]);
+            return (
+              e.activity_list[0] && (
+                <Grid item xs={12}>
+                  <ActivityCard
+                    activity={e.activity_list[0].title}
+                    location={e.activity_list[0].title}
+                    description={e.activity_list[0].title}
+                    groupId={groupId}
+                    eventId={events.id}
+                    onClick={() => navigate(`/event/${groupId}/${events.id}`)}
+                  />
+                </Grid>
+              )
+            );
+          })
+        ) : (
+          <p>No Scheduled Events!</p>
+        )}
       </Grid>
-    ) : (
-      <p>No Scheduled Events!</p>
-    ))
+    )
   );
 }

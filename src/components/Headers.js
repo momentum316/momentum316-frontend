@@ -82,7 +82,7 @@ export function HomeHeader({ user, setUser, setUserToken }) {
       >
         <MenuList>
           <MenuItem onClick={() => navigate("/new/group")}>
-            Invite Member/Create Group
+            Manage Groups
           </MenuItem>
           <Divider />
           <MenuItem onClick={handleClose}>Leave Group</MenuItem>
@@ -143,7 +143,7 @@ export function GroupsHeader({ user }) {
       >
         <MenuList>
           <MenuItem onClick={() => navigate("/new/group")}>
-            Invite Member/Create Group
+            Manage Groups
           </MenuItem>
           <Divider />
           <MenuItem onClick={handleClose}>Leave Group</MenuItem>
@@ -178,7 +178,7 @@ export function GroupMembersHeader({ user, groupTitle }) {
     <div>
       <Box alignItems="center">
         <Grid container alignItems="center" justifyContent="right">
-          <Grid item xs={4}>
+          <Grid item xs={6}>
             <Card elevation={0}>
               <CardHeader title={`${groupTitle}`} subheader="Members" />
             </Card>
@@ -209,7 +209,7 @@ export function GroupMembersHeader({ user, groupTitle }) {
       >
         <MenuList>
           <MenuItem onClick={() => navigate("/new/group")}>
-            Invite Member/Create Group
+            Manage Groups
           </MenuItem>
           <Divider />
           <MenuItem onClick={handleClose}>Leave Group</MenuItem>
