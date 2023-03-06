@@ -1,7 +1,14 @@
 import * as React from "react";
 import "../App.css";
 // General page use
-import { Stack, TextField, Button, Grid, Switch } from "@mui/material";
+import {
+  Stack,
+  TextField,
+  Button,
+  Grid,
+  Switch,
+  Typography,
+} from "@mui/material";
 // For Vote Set Switch
 import { FormControlLabel } from "@mui/material";
 import { useState, useEffect } from "react";
@@ -180,8 +187,26 @@ export function NewEvent({ user }) {
 export function Event({ user }) {
   return (
     <div>
-      <EventsHeader user={user} />
-      <ActiveVotesForUser user={user} />
+      <Grid container>
+        <Grid item xs={12}>
+          <EventsHeader user={user} />
+        </Grid>
+        <br />
+        <Grid item>
+          <Typography variant="h6" gutterBottom>
+            Live Votes
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <ActiveVotesForUser user={user} />
+        </Grid>
+        <br />
+        <Grid item>
+          <Typography variant="h6" gutterBottom>
+            Upcoming Events
+          </Typography>
+        </Grid>
+      </Grid>
     </div>
   );
 }
