@@ -12,6 +12,8 @@ import {
   Paper,
   Button,
   ButtonGroup,
+  List,
+  ListItem,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
@@ -356,6 +358,72 @@ export function ActiveVotesForUser({
         {groups.map((group) => {
           let votesInProgress = group.event_list.filter(
             (event) => event.voting === true && event.vote_closing_time > time
+          );
+          console.log(votesInProgress);
+          return (
+            votesInProgress.length > 0 &&
+            votesInProgress.map((e) => (
+              <EventCard
+                user={user}
+                event={e.title}
+                group={e.group_title}
+                groupId={e.group_id}
+                startTime={e.date}
+                endTime={e.vote_closing_time}
+                eventId={e.id}
+                decided={e.decided}
+              />
+            ))
+          );
+        })}
+      </div>
+    )
+  );
+}
+
+export function UpcomingEventsForUser({
+  user,
+  activity,
+  description,
+  location,
+  startTime,
+  endTime,
+}) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [activeVote, setActiveVote] = useState(null);
+  const [groups, setGroups] = useState(null);
+  const [time, setTime] = useState(dayjs().toISOString());
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BACKEND_URL}/${user.user.username}/home`, {
+        headers: {
+          Authorization: `token ${user.token}`,
+        },
+      })
+
+      .then((res) => {
+        // let votesInProgress = res.data.event_list.filter(
+        //   (event) => event.voting === true && event.vote_closing_time > time
+        // );
+        // setActiveVote(votesInProgress);
+        // console.log(votesInProgress);
+        console.log(res.data.group_list);
+        setGroups(res.data.group_list);
+        setLoading(false);
+      });
+  }, [user.user.username, user.token]);
+
+  if (loading === true) {
+    return <p>Loading</p>;
+  }
+
+  return (
+    groups && (
+      <div>
+        {groups.map((group) => {
+          let votesInProgress = group.event_list.filter(
+            (event) => event.decided === true
           );
           console.log(votesInProgress);
           return (

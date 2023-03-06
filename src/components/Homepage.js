@@ -5,7 +5,8 @@ import { useState } from "react";
 import userEvent from "@testing-library/user-event";
 import { HomepageCard } from "./NoteCards";
 import { HomeHeader } from "./Headers";
-import { ActiveVotesForUser } from "./NoteCards";
+import { ActiveVotesForUser, UpcomingEventsForUser } from "./NoteCards";
+import { FixedSizeList } from "react-window";
 
 export function Homepage({
   user,
@@ -25,32 +26,24 @@ export function Homepage({
             Live Votes
           </Typography>
         </Grid>
-        <Grid item xs={12}>
-          <List style={{ maxHeight: "66%", overflow: "auto" }}>
+
+        <Grid item xs={12} sx={{ maxHeight: 150 }}>
+          <List style={{ maxHeight: "100%", overflow: "auto" }}>
             <ActiveVotesForUser user={user} />
           </List>
         </Grid>
 
         <Grid item>
-          <br />
           <Typography variant='h5' fullWidth gutterBottom>
             Upcoming Events
           </Typography>
         </Grid>
-        <Grid item xs={12}>
-          <ActivityCard
-            activity={activity}
-            location={location}
-            description={description}
-          />
+        <Grid item xs={12} sx={{ maxHeight: 150 }}>
+          <List style={{ maxHeight: "100%", overflow: "auto" }}>
+            <UpcomingEventsForUser user={user} />
+          </List>
         </Grid>
-        <Grid item xs={12}>
-          <ActivityCard
-            activity={activity}
-            location={location}
-            description={description}
-          />
-        </Grid>
+
         <Grid item>
           <br />
           <Typography variant='h5' fullWidth gutterBottom>

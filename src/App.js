@@ -4,7 +4,13 @@ import "./App.css";
 import { NewEvent, Event } from "./components/NewEvent";
 import { NewActivity, AddActivity } from "./components/NewActivity";
 import { VotePage, Vote } from "./components/VotePage";
-import { GroupPage, Group, NewGroup, AddToGroup, GroupEvents } from "./components/Groups";
+import {
+  GroupPage,
+  Group,
+  NewGroup,
+  AddToGroup,
+  GroupEvents,
+} from "./components/Groups";
 import { useState } from "react";
 import { Route, Routes, Link, UseParams, useNavigate } from "react-router-dom";
 import PostVoteEvent from "./components/PostVote";
@@ -15,6 +21,7 @@ import { useRadioGroup } from "@mui/material";
 import { FooterObject } from "./components/Footer";
 import useLocalStorageState from "use-local-storage-state";
 import PrivateRoute from "./components/PrivateRoute";
+import { UpcomingEventsForUser } from "./components/NoteCards";
 
 function App() {
   const [userToken, setUserToken] = useState(null);
@@ -217,6 +224,18 @@ function App() {
               user={user}
             >
               <AddToGroup user={user} />
+            </PrivateRoute>
+          }
+        ></Route>
+        <Route
+          path='/upcoming'
+          element={
+            <PrivateRoute
+              setUserToken={setUserToken}
+              setUser={setUser}
+              user={user}
+            >
+              <UpcomingEventsForUser user={user} />
             </PrivateRoute>
           }
         ></Route>
