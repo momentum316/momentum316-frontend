@@ -1,5 +1,5 @@
 import { FooterObject } from "./Footer";
-import { Grid, Paper, Typography, Card, Divider } from "@mui/material";
+import { Grid, Paper, Typography, Card, Divider, List } from "@mui/material";
 import { ActivityCard } from "./NoteCards";
 import { useState } from "react";
 import userEvent from "@testing-library/user-event";
@@ -26,10 +26,11 @@ export function Homepage({
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <ActiveVotesForUser user={user} />
+          <List style={{ maxHeight: "66%", overflow: "auto" }}>
+            <ActiveVotesForUser user={user} />
+          </List>
         </Grid>
 
-        <br />
         <Grid item>
           <br />
           <Typography variant='h5' fullWidth gutterBottom>
