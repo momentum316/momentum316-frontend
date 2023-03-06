@@ -11,8 +11,8 @@ import { useNavigate, useParams } from "react-router-dom";
 export function FooterObject({ user }) {
   const navigate = useNavigate();
   return (
-    <div className="footer-wrapper">
-      <footer>
+    <div className="footer-wrapper" style={{ position: "fixed", bottom: 0 }}>
+      <footer className="footer-wrapper-content">
         <ButtonGroup
           fullWidth
           size="large"
