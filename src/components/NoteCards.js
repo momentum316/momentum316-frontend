@@ -325,6 +325,7 @@ export function ActiveVotesForUser({
   const [activeVote, setActiveVote] = useState(null);
   const [groups, setGroups] = useState(null);
   const [time, setTime] = useState(dayjs().toISOString());
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_BACKEND_URL}/${user.user.username}/home`, {
@@ -341,8 +342,14 @@ export function ActiveVotesForUser({
         // console.log(votesInProgress);
         console.log(res.data.group_list);
         setGroups(res.data.group_list);
+        setLoading(false);
       });
   }, [user.user.username, user.token]);
+
+  if (loading === true) {
+    return <p>Loading</p>;
+  }
+
   return (
     groups && (
       <div>
@@ -358,7 +365,7 @@ export function ActiveVotesForUser({
                 user={user}
                 event={e.title}
                 group={e.group_title}
-                groupId={e.group}
+                groupId={e.group_id}
                 startTime={e.date}
                 endTime={e.vote_closing_time}
                 eventId={e.id}
