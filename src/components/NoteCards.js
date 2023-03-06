@@ -29,7 +29,7 @@ import dayjs from "dayjs";
 export function LogoCard() {
   return (
     <div>
-      <Grid justifyContent="center" alignItems="center">
+      <Grid justifyContent='center' alignItems='center'>
         <Card>
           <img src={LogoImage} />
         </Card>
@@ -43,17 +43,17 @@ export function SmallLogo() {
   return (
     <div>
       <Box
-        component="img"
+        component='img'
         sx={{
           height: 120,
           width: 120,
           maxHeight: { xs: 150, md: 150 },
           maxWidth: { xs: 150, md: 150 },
         }}
-        alt="Small Logo"
+        alt='Small Logo'
         src={`${LogoImage}`}
       />
-      <Grid justifyContent="center" alignItems="center">
+      <Grid justifyContent='center' alignItems='center'>
         <Card></Card>
       </Grid>
     </div>
@@ -69,12 +69,13 @@ export function EventCard({
   groupId,
   eventId,
   group,
+  decided,
 }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const navigate = useNavigate();
   return (
     <div>
-      <Grid container spacing={2} justifyContent="center" alignItems="center">
+      <Grid container spacing={2} justifyContent='center' alignItems='center'>
         <Grid item xs={12}>
           <Card elevation={3}>
             <CardHeader
@@ -88,7 +89,7 @@ export function EventCard({
                   key={groupId}
                   onClick={() => navigate(`/group/${groupId}`)}
                   alt={group}
-                  src="/static/images/avatar/1.jpg"
+                  src='/static/images/avatar/1.jpg'
                 />
               }
               title={event}
@@ -96,18 +97,28 @@ export function EventCard({
             />
             {isExpanded && (
               <CardContent>
-                <Typography variant="body2" color="textSecondary">
+                <Typography variant='body2' color='textSecondary'>
                   {`Time: ${dayjs(startTime).format("hh:mm a")} - ${dayjs(
                     endTime
                   ).format("hh:mm a")}`}
                   <br />
                   {description}
                 </Typography>
-                <Button
-                  onClick={() => navigate(`/event/${groupId}/${eventId}`)}
-                >
-                  Event Page
-                </Button>
+                {eventId && decided === true ? (
+                  <Button
+                    onClick={() => navigate(`/event/${groupId}/${eventId}`)}
+                  >
+                    Event Page
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={() =>
+                      navigate(`/group/${groupId}/vote/${eventId}`)
+                    }
+                  >
+                    Vote Page
+                  </Button>
+                )}
               </CardContent>
             )}
           </Card>
@@ -127,6 +138,7 @@ export function ActivityCard({
   endTime,
   groupId,
   eventId,
+  decided,
 }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const navigate = useNavigate();
@@ -144,16 +156,18 @@ export function ActivityCard({
         />
         {isExpanded && (
           <CardContent>
-            <Typography variant="body2" color="textSecondary">
+            <Typography variant='body2' color='textSecondary'>
               {`Time: ${dayjs(startTime).format("hh:mm a")} - ${dayjs(
                 endTime
               ).format("hh:mm a")}`}
               <br />
               {description}
             </Typography>
-            <Button onClick={() => navigate(`/event/${groupId}/${eventId}`)}>
-              Event Page
-            </Button>
+            {decided === true && (
+              <Button onClick={() => navigate(`/event/${groupId}/${eventId}`)}>
+                Event Page
+              </Button>
+            )}
           </CardContent>
         )}
       </Card>
@@ -178,7 +192,9 @@ export function VoteCard({
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BACKEND_URL}/activity/${activityId}`)
+      .get(`${process.env.REACT_APP_BACKEND_URL}/activity/${activityId}`, {
+        headers: { authorization: `token ${user.token}` },
+      })
       .then((res) => {
         let voter = res.data.vote_list.filter(
           (voter) => voter.voter === user.user.username
@@ -246,9 +262,9 @@ export function VoteCard({
   };
   return (
     <div>
-      <Grid container xs={12}>
+      <Grid container>
         <Grid item xs={2}>
-          <Stack alignItems="center" justifyContent="center">
+          <Stack alignItems='center' justifyContent='center'>
             <KeyboardArrowUpIcon
               onClick={(e) => handleUp(e)}
               color={voteCount === 1 ? "warning" : ""}
@@ -280,8 +296,8 @@ export function GroupTabs() {
   let { groupId } = useParams();
   const navigate = useNavigate();
   return (
-    <div className="header-wrapper">
-      <ButtonGroup fullWidth size="large" variant="outlined">
+    <div className='header-wrapper'>
+      <ButtonGroup fullWidth size='large' variant='outlined'>
         <Button onClick={() => navigate(`/group/${groupId}/vote`)}>
           Voting
         </Button>
@@ -341,9 +357,12 @@ export function ActiveVotesForUser({
               <EventCard
                 user={user}
                 event={e.title}
-                group={e.group}
+                group={e.group_title}
+                groupId={e.group}
                 startTime={e.date}
                 endTime={e.vote_closing_time}
+                eventId={e.id}
+                decided={e.decided}
               />
             ))
           );
