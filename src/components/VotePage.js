@@ -44,11 +44,12 @@ export function VotePage({ user }) {
             activeVote.map((v) => (
               <Grid item xs={12}>
                 <EventCard
-                  onClick={() => navigate(`/group/${groupId}/vote/${v.id}`)}
+                  onClick={() => navigate(`/group/${v.group}/vote/${v.id}`)}
                   user={user}
                   event={v.title}
                   group={v.group_title}
                   groupId={v.group}
+                  eventId={v.id}
                 />
               </Grid>
             ))
@@ -85,7 +86,7 @@ export function Vote({ user }) {
       .then((res) => {
         // console.log(res.data.activity_list);
         setEvent(res.data.activity_list);
-        setGroup(res.data.group);
+        setGroup(res.data.group_title);
         setEndTime(res.data.vote_closing_time);
       });
   }, [eventId]);
@@ -93,7 +94,7 @@ export function Vote({ user }) {
   return (
     event && (
       <>
-        <Grid container spacing={2} justifyContent="center" alignItems="center">
+        <Grid container spacing={2} justifyContent='center' alignItems='center'>
           <Grid item xs={12}>
             <Card>
               <CardHeader title={group}></CardHeader>
@@ -117,7 +118,7 @@ export function Vote({ user }) {
             ))}
           </Grid>
           <Grid item>
-            <Button variant="contained" onClick={(e) => handleEvent(e)}>
+            <Button variant='contained' onClick={(e) => handleEvent(e)}>
               Add an Activity
             </Button>
           </Grid>

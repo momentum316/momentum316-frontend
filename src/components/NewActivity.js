@@ -43,12 +43,6 @@ export function NewActivity({ groupId, eventId, user }) {
     setEndValue(date);
   };
 
-  const handleTime = () => {
-    setStartValue(null);
-    setEndValue(null);
-    setShowDateTime(!showDateTime);
-  };
-
   const handleAdd = (e) => {
     axios
       .post(
@@ -69,7 +63,6 @@ export function NewActivity({ groupId, eventId, user }) {
       )
       .then((res) => navigate(`/group/${groupId}/vote/${eventId}`));
   };
-  const [showDateTime, setShowDateTime] = useState(false);
 
   return (
     <div className='App'>
@@ -82,35 +75,28 @@ export function NewActivity({ groupId, eventId, user }) {
           value={activityTitle}
           onChange={(e) => setActivityTitle(e.target.value)}
         ></TextField>
+
+        {/* Time Field dayjs needs to be finished*/}
         <Stack>
-          <FormControlLabel
-            value='end'
-            control={<Switch color='primary' onClick={() => handleTime()} />}
-            label='Set Time'
-          />
-          {/* Time Field dayjs needs to be finished*/}
-          {showDateTime && (
-            <>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <TimePicker
-                  label='Start Time'
-                  value={startValue}
-                  onChange={handleStart}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-              </LocalizationProvider>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <br />
-                <TimePicker
-                  label='End Time'
-                  value={endValue}
-                  onChange={handleEnd}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-              </LocalizationProvider>
-              <br />
-            </>
-          )}
+          <br />
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <TimePicker
+              label='Start Time'
+              value={startValue}
+              onChange={handleStart}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </LocalizationProvider>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <br />
+            <TimePicker
+              label='End Time'
+              value={endValue}
+              onChange={handleEnd}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </LocalizationProvider>
+          <br />
         </Stack>
 
         <br />

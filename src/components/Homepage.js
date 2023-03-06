@@ -5,6 +5,7 @@ import { useState } from "react";
 import userEvent from "@testing-library/user-event";
 import { HomepageCard } from "./NoteCards";
 import { HomeHeader } from "./Headers";
+import { ActiveVotesForUser } from "./NoteCards";
 
 export function Homepage({
   user,
@@ -20,28 +21,18 @@ export function Homepage({
       <br />
       <Grid container spacing={2}>
         <Grid item>
-          <Typography variant="h5" gutterBottom>
+          <Typography variant='h5' gutterBottom>
             Live Votes
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <ActivityCard
-            activity={activity}
-            location={location}
-            description={description}
-          />
+          <ActiveVotesForUser user={user} />
         </Grid>
-        <Grid item xs={12}>
-          <ActivityCard
-            activity={activity}
-            location={location}
-            description={description}
-          />
-        </Grid>
+
         <br />
         <Grid item>
           <br />
-          <Typography variant="h5" fullWidth gutterBottom>
+          <Typography variant='h5' fullWidth gutterBottom>
             Upcoming Events
           </Typography>
         </Grid>
@@ -61,7 +52,7 @@ export function Homepage({
         </Grid>
         <Grid item>
           <br />
-          <Typography variant="h5" fullWidth gutterBottom>
+          <Typography variant='h5' fullWidth gutterBottom>
             Your Groups
           </Typography>
         </Grid>

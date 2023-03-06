@@ -76,20 +76,22 @@ export function NewEvent({ user }) {
       )
       .then((res) => {
         console.log(res.data);
-        navigate(`/event/${group}/${res.data.id}`);
+        res.data.voting === false
+          ? navigate(`/event/${group}/${res.data.id}`)
+          : navigate(`/group/${group}/vote/${res.data.id}`);
       });
   };
 
   return (
     choices && (
-      <div className="App">
+      <div className='App'>
         <form onSubmit={handleSubmit}>
           <CreateEventHeader />
           <Grid container spacing={2} xs={12}>
             <Grid item xs={12}>
               <TextField
                 fullWidth
-                label="Event Name"
+                label='Event Name'
                 value={event}
                 required
                 onChange={(e) => setEvent(e.target.value)}
@@ -98,8 +100,8 @@ export function NewEvent({ user }) {
             <Grid item xs={6}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <MobileDatePicker
-                  label="Date"
-                  inputFormat="MM/DD/YYYY"
+                  label='Date'
+                  inputFormat='MM/DD/YYYY'
                   value={date}
                   onChange={handleChange}
                   required
@@ -109,18 +111,18 @@ export function NewEvent({ user }) {
             </Grid>
             <Grid item xs={6}>
               <FormControl sx={{ minWidth: 150, maxWidth: 150 }}>
-                <InputLabel id="demo-simple-select-helper-label">
+                <InputLabel id='demo-simple-select-helper-label'>
                   Group
                 </InputLabel>
                 <Select
-                  labelId="demo-simple-select-helper-label"
-                  id="demo-simple-select-helper"
+                  labelId='demo-simple-select-helper-label'
+                  id='demo-simple-select-helper'
                   value={group}
-                  label="Group"
+                  label='Group'
                   required
                   onChange={(e) => setGroup(e.target.value)}
                 >
-                  <MenuItem value="">
+                  <MenuItem value=''>
                     <em>Select a Group</em>
                   </MenuItem>
                   {choices.map((c) => (
@@ -135,25 +137,25 @@ export function NewEvent({ user }) {
 
           <Stack>
             <FormControlLabel
-              value="end"
+              value='end'
               control={
-                <Switch color="primary" onClick={() => setVote(!vote)} />
+                <Switch color='primary' onClick={() => setVote(!vote)} />
               }
-              label="Set Vote"
-              labelPlacement="end"
+              label='Set Vote'
+              labelPlacement='end'
             />{" "}
             {vote && (
               <>
                 <FormControlLabel
-                  value="end"
+                  value='end'
                   control={
                     <Switch
-                      color="primary"
+                      color='primary'
                       onClick={() => setActivity(!activity)}
                     />
                   }
-                  label="Add Activity"
-                  labelPlacement="end"
+                  label='Add Activity'
+                  labelPlacement='end'
                 />
                 {activity && <NewActivity />}
               </>
@@ -164,7 +166,7 @@ export function NewEvent({ user }) {
             <Button
               onClick={(e) => handleSubmit(e)}
               fullWidth
-              variant="contained"
+              variant='contained'
             >
               Submit Event
             </Button>
