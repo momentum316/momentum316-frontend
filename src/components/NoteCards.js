@@ -1,5 +1,5 @@
-import React from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import React from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import {
   Box,
   Grid,
@@ -16,18 +16,18 @@ import {
   ListItem,
   ImageList,
   ImageListItem,
-} from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { Stack } from "@mui/system";
-import LogoImage from "../images/LogoImage.jpg";
-import backend_url from "../render.json";
-import CameraRollIcon from "@mui/icons-material/CameraRoll";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import dayjs from "dayjs";
+} from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Stack } from '@mui/system';
+import LogoImage from '../images/LogoImage.jpg';
+import backend_url from '../render.json';
+import CameraRollIcon from '@mui/icons-material/CameraRoll';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import dayjs from 'dayjs';
 
 // LOGIN LOGO
 export function LogoCard() {
@@ -94,6 +94,7 @@ export function EventCard({
   startTime,
   endTime,
   groupId,
+  groupAvatar,
   eventId,
   group,
   decided,
@@ -116,7 +117,7 @@ export function EventCard({
                   key={groupId}
                   onClick={() => navigate(`/group/${groupId}`)}
                   alt={group}
-                  src="/static/images/avatar/1.jpg"
+                  src={groupAvatar}
                 />
               }
               title={event}
@@ -125,9 +126,9 @@ export function EventCard({
             {isExpanded && (
               <CardContent>
                 <Typography variant="body2" color="textSecondary">
-                  {`Time: ${dayjs(startTime).format("hh:mm a")} - ${dayjs(
+                  {`Time: ${dayjs(startTime).format('hh:mm a')} - ${dayjs(
                     endTime
-                  ).format("hh:mm a")}`}
+                  ).format('hh:mm a')}`}
                   <br />
                   {description}
                 </Typography>
@@ -184,9 +185,9 @@ export function ActivityCard({
         {isExpanded && (
           <CardContent>
             <Typography variant="body2" color="textSecondary">
-              {`Time: ${dayjs(startTime).format("hh:mm a")} - ${dayjs(
+              {`Time: ${dayjs(startTime).format('hh:mm a')} - ${dayjs(
                 endTime
-              ).format("hh:mm a")}`}
+              ).format('hh:mm a')}`}
               <br />
               {description}
             </Typography>
@@ -294,13 +295,13 @@ export function VoteCard({
           <Stack alignItems="center" justifyContent="center">
             <KeyboardArrowUpIcon
               onClick={(e) => handleUp(e)}
-              color={voteCount === 1 ? "warning" : ""}
+              color={voteCount === 1 ? 'warning' : ''}
             />
             {/* {voteCount} */}
             <br />
             <KeyboardArrowDownIcon
               onClick={(e) => handleDown(e)}
-              color={voteCount === -1 ? "warning" : ""}
+              color={voteCount === -1 ? 'warning' : ''}
             />
           </Stack>
         </Grid>
@@ -393,6 +394,7 @@ export function ActiveVotesForUser({
                 event={e.title}
                 group={e.group_title}
                 groupId={e.group_id}
+                groupAvatar={e.group_avatar}
                 startTime={e.date}
                 endTime={e.vote_closing_time}
                 eventId={e.id}
@@ -459,6 +461,7 @@ export function UpcomingEventsForUser({
                 event={e.title}
                 group={e.group_title}
                 groupId={e.group_id}
+                groupAvatar={e.group_avatar}
                 startTime={e.date}
                 endTime={e.vote_closing_time}
                 eventId={e.id}
@@ -505,10 +508,10 @@ export function UserGroups({ user }) {
             <Grid item xs={3}>
               <ImageList
                 sx={{
-                  gridAutoFlow: "column",
+                  gridAutoFlow: 'column',
                   gridTemplateColumns:
-                    "repeat(auto-fill,minmax(160px,1fr)) !important",
-                  gridAutoColumns: "minmax(160px, 1fr)",
+                    'repeat(auto-fill,minmax(160px,1fr)) !important',
+                  gridAutoColumns: 'minmax(160px, 1fr)',
                 }}
               >
                 <ImageListItem>
@@ -519,7 +522,7 @@ export function UserGroups({ user }) {
                           key={g.id}
                           onClick={() => navigate(`/group/${g.id}`)}
                           alt={g.title}
-                          src="/static/images/avatar/1.jpg"
+                          src={g.avatar}
                         />
                       }
                       subheader={g.title}
