@@ -1,6 +1,6 @@
 // HOMEPAGE HEADER W/ CAMERA, GREETING, OPTION LIST ICON
-import React from "react";
-import axios from "axios";
+import React from 'react';
+import axios from 'axios';
 import {
   IconButton,
   Box,
@@ -15,16 +15,16 @@ import {
   MenuList,
   MenuItem,
   Divider,
-} from "@mui/material";
-import CameraRollIcon from "@mui/icons-material/CameraRoll";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import AddIcon from "@mui/icons-material/Add";
-import { useNavigate, useParams } from "react-router-dom";
-import GroupAddIcon from "@mui/icons-material/GroupAdd";
-import AddBoxIcon from "@mui/icons-material/AddBox";
-import { SmallLogo, IconLogo } from "./NoteCards";
-import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
-import { useState, useEffect } from "react";
+} from '@mui/material';
+import CameraRollIcon from '@mui/icons-material/CameraRoll';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import AddIcon from '@mui/icons-material/Add';
+import { useNavigate, useParams } from 'react-router-dom';
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
+import AddBoxIcon from '@mui/icons-material/AddBox';
+import { SmallLogo, IconLogo } from './NoteCards';
+import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
+import { useState, useEffect } from 'react';
 
 // HOMEPAGE HEADER
 export function HomeHeader({ user, setUser, setUserToken }) {
@@ -42,7 +42,7 @@ export function HomeHeader({ user, setUser, setUserToken }) {
     setUser(null);
     setUserToken(null);
     setEmptyToken(true);
-    navigate("/login");
+    navigate('/login');
   };
   return (
     <div>
@@ -69,14 +69,14 @@ export function HomeHeader({ user, setUser, setUserToken }) {
         PaperProps={{
           elevation: 0,
           sx: {
-            overflow: "visible",
-            filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+            overflow: 'visible',
+            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
             mt: 1.5,
           },
         }}
       >
         <MenuList>
-          <MenuItem onClick={() => navigate("/new/group")}>
+          <MenuItem onClick={() => navigate('/new/group')}>
             Manage Groups
           </MenuItem>
           <Divider />
@@ -133,20 +133,20 @@ export function GroupsHeader({ user }) {
         PaperProps={{
           elevation: 0,
           sx: {
-            overflow: "visible",
-            filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+            overflow: 'visible',
+            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
             mt: 1.5,
           },
         }}
       >
         <MenuList>
-          <MenuItem onClick={() => navigate("/new/group")}>
+          <MenuItem onClick={() => navigate('/new/group')}>
             Manage Groups
           </MenuItem>
           <Divider />
           <MenuItem onClick={handleClose}>Leave Group</MenuItem>
           <Divider />
-          <MenuItem onClick={() => navigate("/logout")}>Logout</MenuItem>
+          <MenuItem onClick={() => navigate('/logout')}>Logout</MenuItem>
         </MenuList>
       </Menu>
     </div>
@@ -156,6 +156,7 @@ export function GroupsHeader({ user }) {
 // GROUP MEMBERS PAGE HEADER (WERE YOU CAN LEAVE GROUP)
 export function GroupMembersHeader({ user, groupTitle }) {
   const navigate = useNavigate();
+  const { groupId } = useParams();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -202,18 +203,20 @@ export function GroupMembersHeader({ user, groupTitle }) {
         PaperProps={{
           elevation: 0,
           sx: {
-            overflow: "visible",
-            filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+            overflow: 'visible',
+            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
             mt: 1.5,
           },
         }}
       >
         <MenuList>
-          <MenuItem onClick={() => navigate("/new/group")}>
+          <MenuItem onClick={() => navigate('/new/group')}>
             Manage Groups
           </MenuItem>
           <Divider />
-          <MenuItem onClick={handleClose}>Leave Group</MenuItem>
+          <MenuItem onClick={() => navigate(`/leave/${groupId}`)}>
+            Leave Group
+          </MenuItem>
           <Divider />
           <MenuItem onClick={handleClose}>Logout</MenuItem>
         </MenuList>
@@ -241,7 +244,7 @@ export function EventsHeader({ user }) {
             </Card>
           </Grid>
           <Grid item xs={2}>
-            <IconButton onClick={() => navigate("events/new")}>
+            <IconButton onClick={() => navigate('events/new')}>
               <Tooltip title="Add New Event">
                 <AddBoxIcon fontSize="large" />
               </Tooltip>
