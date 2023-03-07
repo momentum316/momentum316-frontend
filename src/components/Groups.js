@@ -117,26 +117,23 @@ export function Group({ user }) {
             spacing={3}
             columnSpacing={{ xs: 2, sm: 8, md: 4 }}
           >
-            {group.members.map((g) => {
-              console.log(g);
-              return (
-                <Grid item>
-                  <Card elevation={3}>
-                    <CardHeader
-                      title={
-                        <Avatar
-                          key={g}
-                          onClick={() => navigate(`/profile/${g}`)}
-                          alt={g}
-                          src={g.avatarURL}
-                        />
-                      }
-                      subheader={g}
-                    />
-                  </Card>
-                </Grid>
-              );
-            })}
+            {group.members.map((g) => (
+              <Grid item>
+                <Card elevation={3}>
+                  <CardHeader
+                    title={
+                      <Avatar
+                        key={g}
+                        onClick={() => navigate(`/profile/${g}`)}
+                        alt={g}
+                        src={g}
+                      />
+                    }
+                    subheader={g}
+                  />
+                </Card>
+              </Grid>
+            ))}
           </Grid>
         </div>
         {/* <FooterObject /> */}
