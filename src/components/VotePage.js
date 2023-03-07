@@ -51,20 +51,20 @@ export function VotePage({ user }) {
     activeVote && (
       <>
         {/* <ActivitySlide user={user} /> */}
-        <Box alignItems="center">
-          <Grid container alignItems="center" justifyContent="right">
+        <Box alignItems='center'>
+          <Grid container alignItems='center' justifyContent='right'>
             <Grid item xs={2}>
               <IconLogo />
             </Grid>
             <Grid item xs={8}>
               <Card elevation={0}>
-                <CardHeader title={`${group}`} subheader="Open Vote Events" />
+                <CardHeader title={`${group}`} subheader='Open Vote Events' />
               </Card>
             </Grid>
             <Grid item xs={2}>
-              <Tooltip title="More Options">
+              <Tooltip title='More Options'>
                 <IconButton>
-                  <MoreVertIcon fontSize="large" />
+                  <MoreVertIcon fontSize='large' />
                 </IconButton>
               </Tooltip>
             </Grid>
@@ -100,6 +100,7 @@ export function VotePage({ user }) {
 // VOTING PAGE
 export function Vote({ user }) {
   const { groupId, eventId } = useParams();
+  const [eventParent, setEventParent] = useState(null);
   const [event, setEvent] = useState(null);
   const [group, setGroup] = useState(null);
   const [endTime, setEndTime] = useState(null);
@@ -119,7 +120,8 @@ export function Vote({ user }) {
         },
       })
       .then((res) => {
-        // console.log(res.data.activity_list);
+        console.log(res.data);
+        setEventParent(res.data);
         setEvent(res.data.activity_list);
         setGroup(res.data.group_title);
         setEndTime(res.data.vote_closing_time);
@@ -129,11 +131,21 @@ export function Vote({ user }) {
   return (
     event && (
       <>
-        <Grid container spacing={2} justifyContent="center" alignItems="center">
+        <Grid container spacing={2} justifyContent='center' alignItems='center'>
+          <Grid
+            item
+            xs={12}
+            onClick={() =>
+              navigate(`/event/${eventParent.group_id}/${eventParent.id}`)
+            }
+          >
+            <ActivitySlide event={eventParent} />
+          </Grid>
           <Grid item xs={12}>
-            <ActivitySlide event={event} />
             <CountdownTimer targetDate={endTime} />
-            <GroupTabs />
+            <Grid item xs={12}>
+              <GroupTabs />
+            </Grid>
           </Grid>
           <Grid item xs={12}>
             {event.map((e) => (
@@ -151,7 +163,7 @@ export function Vote({ user }) {
             ))}
           </Grid>
           <Grid item>
-            <Button variant="contained" onClick={(e) => handleEvent(e)}>
+            <Button variant='contained' onClick={(e) => handleEvent(e)}>
               Add an Activity
             </Button>
           </Grid>
