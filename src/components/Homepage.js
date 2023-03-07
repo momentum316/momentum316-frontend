@@ -5,7 +5,11 @@ import { useState } from "react";
 import userEvent from "@testing-library/user-event";
 import { HomepageCard } from "./NoteCards";
 import { HomeHeader } from "./Headers";
-import { ActiveVotesForUser, UpcomingEventsForUser } from "./NoteCards";
+import {
+  ActiveVotesForUser,
+  UpcomingEventsForUser,
+  UserGroups,
+} from "./NoteCards";
 import { FixedSizeList } from "react-window";
 
 export function Homepage({
@@ -49,6 +53,20 @@ export function Homepage({
           <Typography variant='h5' fullWidth gutterBottom>
             Your Groups
           </Typography>
+        </Grid>
+
+        <Grid item xs={12} sx={{ maxHeight: 150 }}>
+          <List
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              direction: "row",
+              maxHeight: "100%",
+              overflow: "auto",
+            }}
+          >
+            <UserGroups user={user} />
+          </List>
         </Grid>
       </Grid>
     </div>

@@ -446,3 +446,54 @@ export function UpcomingEventsForUser({
     )
   );
 }
+
+export function UserGroups({ user }) {
+  const [groups, setGroups] = useState(null);
+  const navigate = useNavigate();
+  useEffect(() => {
+    axios
+      // need to change this to dynamic username once login page is ready
+      .get(
+        `${process.env.REACT_APP_BACKEND_URL}/${user.user.username}/groups`,
+        {
+          headers: {
+            Authorization: `token ${user.token}`,
+          },
+        }
+      )
+      .then((response) => setGroups(response.data));
+  }, [user.user.username, user.token]);
+
+  return (
+    groups && (
+      <>
+        <Grid
+          container
+          spacing={2}
+          direction='row'
+          columns={{ xs: 6, sm: 6, md: 12 }}
+          alignItems='center'
+          justify='center'
+        >
+          {groups.map((g) => (
+            <Grid item xs={3}>
+              <Card elevation={3}>
+                <CardHeader
+                  title={
+                    <Avatar
+                      key={g.id}
+                      onClick={() => navigate(`/group/${g.id}`)}
+                      alt={g.title}
+                      src='/static/images/avatar/1.jpg'
+                    />
+                  }
+                  subheader={g.title}
+                />
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </>
+    )
+  );
+}
