@@ -9,6 +9,9 @@ import {
   Divider,
   Typography,
   IconButton,
+  Card,
+  CardHeader,
+  CardContent,
 } from "@mui/material";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -21,26 +24,19 @@ export function ActivitySlide({ event }) {
   console.log(event);
   return (
     <>
-      <Box
-        sx={{
-          height: 80,
-          backgroundColor: "primary.main",
-          "&:hover": {
-            backgroundColor: "primary.dark",
-            opacity: [0.9, 0.8, 0.7],
-          },
-        }}
-      >
-        <Stack>
+      <Card elevation={3}>
+        <CardContent>
           <Typography fontSize="larger">{event.title}</Typography>
           <Typography fontSize="large">{formattedTime}</Typography>
           <Typography fontSize="large">{event.address}</Typography>
-        </Stack>
-      </Box>
+        </CardContent>
+      </Card>
     </>
   );
 }
 
+{
+}
 export function EventSlide() {
   return (
     <>
