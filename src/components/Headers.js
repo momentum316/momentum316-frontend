@@ -22,7 +22,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { useNavigate, useParams } from "react-router-dom";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import AddBoxIcon from "@mui/icons-material/AddBox";
-import { SmallLogo } from "./NoteCards";
+import { SmallLogo, IconLogo } from "./NoteCards";
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 import { useState, useEffect } from "react";
 
@@ -47,18 +47,13 @@ export function HomeHeader({ user, setUser, setUserToken }) {
   return (
     <div>
       <Box>
-        <Grid container justifyContent="center" alignItems="center">
-          <Grid item xs={4}>
-            <IconButton>
-              <CameraRollIcon fontSize="large" />
-            </IconButton>
-          </Grid>
-          <Grid item xs={4}>
+        <Grid container alignItems="center" justifyContent="right">
+          <Grid item xs={8}>
             <Card elevation={0}>
               <SmallLogo />
             </Card>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item justifyContent="right">
             <IconButton onClick={handleClick}>
               <MoreVertIcon fontSize="large" />
             </IconButton>
@@ -109,7 +104,10 @@ export function GroupsHeader({ user }) {
     <div>
       <Box alignItems="center">
         <Grid container alignItems="center" justifyContent="right">
-          <Grid item xs={4}>
+          <Grid item xs={2}>
+            <IconLogo />
+          </Grid>
+          <Grid item xs={8}>
             <Card elevation={0}>
               <CardHeader
                 title={`${user.user.first_name}'s`}
@@ -117,7 +115,7 @@ export function GroupsHeader({ user }) {
               />
             </Card>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={2}>
             <IconButton onClick={handleClick}>
               <Tooltip title="More Options">
                 <MoreVertIcon fontSize="large" />
@@ -178,12 +176,15 @@ export function GroupMembersHeader({ user, groupTitle }) {
     <div>
       <Box alignItems="center">
         <Grid container alignItems="center" justifyContent="right">
-          <Grid item xs={6}>
+          <Grid item xs={2}>
+            <IconLogo />
+          </Grid>
+          <Grid item xs={8}>
             <Card elevation={0}>
               <CardHeader title={`${groupTitle}`} subheader="Members" />
             </Card>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={2}>
             <Tooltip title="More Options">
               <IconButton onClick={handleClick}>
                 <MoreVertIcon fontSize="large" />
@@ -228,7 +229,10 @@ export function EventsHeader({ user }) {
     <div>
       <Box alignItems="center">
         <Grid container alignItems="center" justifyContent="right">
-          <Grid item xs={4}>
+          <Grid item xs={2}>
+            <IconLogo />
+          </Grid>
+          <Grid item xs={8}>
             <Card elevation={0}>
               <CardHeader
                 title={`${user.user.first_name}'s`}
@@ -236,7 +240,7 @@ export function EventsHeader({ user }) {
               />
             </Card>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={2}>
             <IconButton onClick={() => navigate("events/new")}>
               <Tooltip title="Add New Event">
                 <AddBoxIcon fontSize="large" />

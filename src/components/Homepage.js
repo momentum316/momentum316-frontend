@@ -26,9 +26,7 @@ export function Homepage({
       <br />
       <Grid container spacing={2}>
         <Grid item>
-          <Typography variant='h5' gutterBottom>
-            Live Votes
-          </Typography>
+          <Typography variant="h6">Live Votes</Typography>
         </Grid>
         <Grid item xs={12} sx={{ maxHeight: 160 }}>
           <List style={{ maxHeight: "100%", overflow: "auto" }}>
@@ -36,9 +34,7 @@ export function Homepage({
           </List>
         </Grid>
         <Grid item>
-          <Typography variant='h5' fullWidth gutterBottom>
-            Upcoming Events
-          </Typography>
+          <Typography variant="h6">Upcoming Events</Typography>
         </Grid>
         <Grid item xs={12} sx={{ maxHeight: 160 }}>
           <List style={{ maxHeight: "100%", overflow: "auto" }}>
@@ -46,14 +42,12 @@ export function Homepage({
           </List>
         </Grid>
         <Grid item>
-          <Typography variant='h5' fullWidth gutterBottom>
-            Your Groups
-          </Typography>
+          <Typography variant="h6">Your Groups</Typography>
         </Grid>
 
         <Grid item xs={12} sx={{ maxHeight: 110 }}>
           <List
-            className='home-groups'
+            className="home-groups"
             style={{
               display: "flex",
               flexDirection: "row",

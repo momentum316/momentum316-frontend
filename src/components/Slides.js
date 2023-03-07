@@ -21,22 +21,19 @@ import backend_url from "../render.json";
 
 export function ActivitySlide({ event }) {
   const formattedTime = dayjs(event.date).format("MMM | ddd DD | YYYY");
-  console.log(event);
   return (
     <>
       <Card elevation={3}>
         <CardContent>
           <Typography fontSize="larger">{event.title}</Typography>
           <Typography fontSize="large">{formattedTime}</Typography>
-          <Typography fontSize="large">{event.address}</Typography>
+          <Typography fontSize="large">{event.location}</Typography>
         </CardContent>
       </Card>
     </>
   );
 }
 
-{
-}
 export function EventSlide() {
   return (
     <>
