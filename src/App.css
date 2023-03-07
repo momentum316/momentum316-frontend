@@ -1,8 +1,12 @@
 .App {
   text-align: center;
   padding: 15px;
+  height: 100%;
+  min-height: calc(100vh - 40px);
 }
-
+.root {
+  height: 100%;
+}
 html,
 body {
   height: 100vh;
@@ -16,9 +20,10 @@ footer {
 .footer-wrapper {
   left: 0;
   right: 0;
-  bottom: 100;
-  /* position: relative; */
-  min-height: 100%;
+  bottom: 0;
+  position: sticky;
+  min-height: 40px;
+  max-height: 45px;
   justify-content: center;
   width: 100%;
   display: flex;
