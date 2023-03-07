@@ -100,55 +100,62 @@ export default function PostVoteEvent({ user }) {
         <IconButton onClick={() => navigate(`/group/${groupId}`)}>
           <Avatar
             alt={event.group_title}
-            src="/static/images/avatar/2.jpg"
-            sx={{ width: 90, height: 90 }}
+            src='/static/images/avatar/2.jpg'
+            sx={{ width: 80, height: 80 }}
           />
         </IconButton>
         {/* Make this a component */}
         <ActivitySlide event={event} />
         <Divider />
-        <Stack textAlign="left">
+        <Button onClick={() => handleCalendar()}>Add to Google Calendar</Button>
+        <Divider />
+        <Stack textAlign='left'>
           <h6>Address Line</h6>
         </Stack>
         <Container>
-          <Box sx={{ bgcolor: "#cfe8fc", height: "20vh" }}>
-            Location on Google Map
-          </Box>
+          {event.location !== null ? (
+            event.location
+          ) : (
+            <p>No Location specified. Ask the group!</p>
+          )}
+          {/* <Box sx={{ bgcolor: "#cfe8fc", height: "20vh" }}>
+            {event.location}
+          </Box> */}
         </Container>
         <br />
         <Divider />
-        <Stack textAlign="left">
+        <Stack textAlign='left'>
           <h6>Description</h6>
         </Stack>
         <Container>
-          <Box sx={{ bgcolor: "#cfe8fc", height: "15vh" }}>
-            {event.activity_list.length > 0 &&
-              event.activity_list[0].description}
-          </Box>
+          {/* <Box sx={{ bgcolor: "#cfe8fc", height: "15vh" }}> */}
+          {event.description !== null ? (
+            event.description
+          ) : (
+            <p>No more details here. Ask the group!</p>
+          )}
+          {/* </Box> */}
         </Container>
         <br />
         {/* <Stack textAlign="left">
         <h6>Group Membe</h6>
       </Stack> */}
         <Box
-          justifyContent="center"
-          alignContent="center"
+          justifyContent='center'
+          alignContent='center'
           sx={{ margin: 0.5, height: 20, paddingLeft: 1, bgcolor: "#0093c4" }}
         >
           <Stack
             sx={{ margin: 0.5, height: 8, paddingLeft: 1 }}
-            textAlign="left"
+            textAlign='left'
           >
             <h6>Group Members</h6>
           </Stack>
-          <AvatarGroup max={5} spacing="medium">
+          <AvatarGroup max={5} spacing='medium'>
             {group.members.map((g) => (
-              <Avatar key={g} alt={g} src="/static/images/avatar/1.jpg" />
+              <Avatar key={g} alt={g} src='/static/images/avatar/1.jpg' />
             ))}
           </AvatarGroup>
-          <Button onClick={() => handleCalendar()}>
-            Add to Google Calendar
-          </Button>
         </Box>
         {/* <FooterObject /> */}
       </div>

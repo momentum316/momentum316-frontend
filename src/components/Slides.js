@@ -23,23 +23,23 @@ export function ActivitySlide({ event }) {
   const formattedTime = dayjs(event.date).format("MMM | ddd DD | YYYY");
   return (
     <>
-      <Card elevation={3}>
-        <CardContent>
-          <Typography fontSize="larger">{event.title}</Typography>
-          <Typography fontSize="large">{formattedTime}</Typography>
-          <Typography fontSize="large">{event.location}</Typography>
+      <Card elevation={0}>
+        <CardContent align='center'>
+          <Typography variant='h5'>{event.group_title}</Typography>
+          <Typography variant='h6'>{event.title}</Typography>
+          <Typography fontSize='large'>{formattedTime}</Typography>
         </CardContent>
       </Card>
     </>
   );
 }
 
-export function EventSlide() {
+export function EventSlide({ event }) {
   return (
     <>
       <Box>
         <Stack container sx={{ height: 80, backgroundColor: "primary.light" }}>
-          <Typography fontSize="3vh">Event Name</Typography>
+          <Typography fontSize='3vh'>Event Name</Typography>
           <item>Date Decided</item>
           <item>Location</item>
         </Stack>
