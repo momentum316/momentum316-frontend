@@ -1,4 +1,12 @@
-import { Grid, Button, Card, CardHeader } from "@mui/material";
+import {
+  Grid,
+  Button,
+  Card,
+  CardHeader,
+  Box,
+  Tooltip,
+  IconButton,
+} from "@mui/material";
 import { GroupTabs } from "./NoteCards";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
@@ -6,13 +14,17 @@ import { useState, useEffect } from "react";
 import dayjs from "dayjs";
 import { CountdownTimer, useCountdown } from "./TimerSet";
 import { VoteCard, EventCard } from "./NoteCards";
+import React from "react";
+import { IconLogo } from "./NoteCards";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { ActivitySlide } from "./Slides";
 
 // LIST OF ACTIVE VOTES PAGE
 export function VotePage({ user }) {
   const navigate = useNavigate();
   const { groupId } = useParams();
   const [activeVote, setActiveVote] = useState(null);
-  const [activityList, setActivityList] = useState(null);
+  const [group, setGroup] = useState(null);
   const time = dayjs().toISOString();
 
   useEffect(() => {
@@ -24,6 +36,7 @@ export function VotePage({ user }) {
       })
 
       .then((res) => {
+        setGroup(res.data.title);
         let votesInProgress = res.data.event_list.filter(
           (event) => event.voting === true && event.vote_closing_time > time
         );
@@ -36,7 +49,26 @@ export function VotePage({ user }) {
   return (
     activeVote && (
       <>
-        <h1>Active Votes</h1>
+        {/* <ActivitySlide user={user} /> */}
+        <Box alignItems="center">
+          <Grid container alignItems="center" justifyContent="right">
+            <Grid item xs={2}>
+              <IconLogo />
+            </Grid>
+            <Grid item xs={8}>
+              <Card elevation={0}>
+                <CardHeader title={`${group}`} subheader="Open Vote Events" />
+              </Card>
+            </Grid>
+            <Grid item xs={2}>
+              <Tooltip title="More Options">
+                <IconButton>
+                  <MoreVertIcon fontSize="large" />
+                </IconButton>
+              </Tooltip>
+            </Grid>
+          </Grid>
+        </Box>
         <GroupTabs />
         <br />
         <Grid container spacing={2}>
@@ -44,11 +76,11 @@ export function VotePage({ user }) {
             activeVote.map((v) => (
               <Grid item xs={12}>
                 <EventCard
-                  onClick={() => navigate(`/group/${v.group}/vote/${v.id}`)}
+                  onClick={() => navigate(`/group/${v.group_id}/vote/${v.id}`)}
                   user={user}
                   event={v.title}
                   group={v.group_title}
-                  groupId={v.group}
+                  groupId={v.group_id}
                   eventId={v.id}
                 />
               </Grid>
@@ -96,9 +128,7 @@ export function Vote({ user }) {
       <>
         <Grid container spacing={2} justifyContent="center" alignItems="center">
           <Grid item xs={12}>
-            <Card>
-              <CardHeader title={group}></CardHeader>
-            </Card>
+            <ActivitySlide event={event} />
             <CountdownTimer targetDate={endTime} />
             <GroupTabs />
           </Grid>

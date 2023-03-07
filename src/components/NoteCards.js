@@ -63,6 +63,29 @@ export function SmallLogo() {
     </div>
   );
 }
+
+// THUMBNAIL LOGO
+export function IconLogo() {
+  return (
+    <div>
+      <Box
+        component="img"
+        sx={{
+          height: 60,
+          width: 60,
+          maxHeight: { xs: 150, md: 150 },
+          maxWidth: { xs: 150, md: 150 },
+        }}
+        alt="Small Logo"
+        src={`${LogoImage}`}
+      />
+      <Grid justifyContent="center" alignItems="center">
+        <Card></Card>
+      </Grid>
+    </div>
+  );
+}
+
 // EVENT ITEM CARD
 export function EventCard({
   event,
