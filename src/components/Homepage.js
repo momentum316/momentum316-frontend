@@ -6,7 +6,7 @@ import userEvent from "@testing-library/user-event";
 import { HomepageCard } from "./NoteCards";
 import { HomeHeader } from "./Headers";
 import { ActiveVotesForUser, UpcomingEventsForUser } from "./NoteCards";
-import { FixedSizeList } from "react-window";
+// import { FixedSizeList } from "react-window";
 
 export function Homepage({
   user,
@@ -22,19 +22,17 @@ export function Homepage({
       <br />
       <Grid container spacing={2}>
         <Grid item>
-          <Typography variant='h5' gutterBottom>
+          <Typography variant="h5" gutterBottom>
             Live Votes
           </Typography>
         </Grid>
-
         <Grid item xs={12} sx={{ maxHeight: 150 }}>
           <List style={{ maxHeight: "100%", overflow: "auto" }}>
             <ActiveVotesForUser user={user} />
           </List>
         </Grid>
-
         <Grid item>
-          <Typography variant='h5' fullWidth gutterBottom>
+          <Typography variant="h5" fullWidth gutterBottom>
             Upcoming Events
           </Typography>
         </Grid>
@@ -43,10 +41,8 @@ export function Homepage({
             <UpcomingEventsForUser user={user} />
           </List>
         </Grid>
-
         <Grid item>
-          <br />
-          <Typography variant='h5' fullWidth gutterBottom>
+          <Typography variant="h5" fullWidth gutterBottom>
             Your Groups
           </Typography>
         </Grid>
