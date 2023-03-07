@@ -87,3 +87,12 @@ footer {
   font-size: 0.75rem;
   line-height: 1rem;
 }
+
+.home-groups {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(6, calc(50% - 40px));
+  grid-template-rows: minmax(150px, 1fr);
+
+  overflow-x: scroll;
+}
