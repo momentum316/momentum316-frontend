@@ -130,8 +130,8 @@ export default function PostVoteEvent({ user }) {
             <Divider />
           </>
         )}
-        <Stack textAlign='left'>
-          <h6>Address Line</h6>
+        <Stack textAlign="left">
+          <h6>Location</h6>
         </Stack>
         <Container>
           {event.location !== null ? (
@@ -145,7 +145,7 @@ export default function PostVoteEvent({ user }) {
         </Container>
         <br />
         <Divider />
-        <Stack textAlign='left'>
+        <Stack textAlign="left">
           <h6>Description</h6>
         </Stack>
         <Container>
@@ -162,19 +162,19 @@ export default function PostVoteEvent({ user }) {
         <h6>Group Membe</h6>
       </Stack> */}
         <Box
-          justifyContent='center'
-          alignContent='center'
+          justifyContent="center"
+          alignContent="center"
           sx={{ margin: 0.5, height: 20, paddingLeft: 1, bgcolor: "#0093c4" }}
         >
           <Stack
             sx={{ margin: 0.5, height: 8, paddingLeft: 1 }}
-            textAlign='left'
+            textAlign="left"
           >
             <h6>Group Members</h6>
           </Stack>
-          <AvatarGroup max={5} spacing='medium'>
+          <AvatarGroup max={5} spacing="medium">
             {group.members.map((g) => (
-              <Avatar key={g} alt={g} src='/static/images/avatar/1.jpg' />
+              <Avatar key={g} alt={g} src="/static/images/avatar/1.jpg" />
             ))}
           </AvatarGroup>
         </Box>
