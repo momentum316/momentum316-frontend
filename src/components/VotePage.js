@@ -6,6 +6,7 @@ import {
   Box,
   Tooltip,
   IconButton,
+  Typography,
 } from "@mui/material";
 import { GroupTabs } from "./NoteCards";
 import axios from "axios";
@@ -86,7 +87,9 @@ export function VotePage({ user }) {
               </Grid>
             ))
           ) : (
-            <p>No Active Votes</p>
+            <Grid item>
+              <Typography variant="h5">No Active Votes</Typography>
+            </Grid>
           )}
         </Grid>
       </>

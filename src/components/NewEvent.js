@@ -26,7 +26,6 @@ import Select from "@mui/material/Select";
 import { NewActivity } from "./NewActivity";
 import { CreateEventHeader, EventsHeader } from "./Headers";
 import { ActiveVotesForUser, UpcomingEventsForUser } from "./NoteCards";
-import { VoterSlide } from "./Slides";
 
 // CREATE NEW EVENT PAGE
 export function NewEvent({ user }) {
