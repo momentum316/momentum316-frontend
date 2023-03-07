@@ -1,9 +1,9 @@
-import { Route, Routes, Link, useNavigate, useParams } from "react-router-dom";
-import { ActivitySlide } from "./Slides";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import backend_url from "../render.json";
-import dayjs from "dayjs";
+import { Route, Routes, Link, useNavigate, useParams } from 'react-router-dom';
+import { ActivitySlide } from './Slides';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import backend_url from '../render.json';
+import dayjs from 'dayjs';
 
 import {
   Avatar,
@@ -17,10 +17,10 @@ import {
   TextField,
   Divider,
   Container,
-} from "@mui/material";
-import { FooterObject } from "./Footer";
-import { bgcolor } from "@mui/system";
-import React from "react";
+} from '@mui/material';
+import { FooterObject } from './Footer';
+import { bgcolor } from '@mui/system';
+import React from 'react';
 
 // POST VOTE EVENT PAGE
 export default function PostVoteEvent({ user }) {
@@ -59,7 +59,7 @@ export default function PostVoteEvent({ user }) {
   const [authToken, setAuthToken] = useState(null);
   const client = google.accounts.oauth2.initTokenClient({
     client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
-    scope: "https://www.googleapis.com/auth/calendar",
+    scope: 'https://www.googleapis.com/auth/calendar',
     callback: (response) => {
       console.log(response);
       setAuthToken(response);
@@ -77,11 +77,11 @@ export default function PostVoteEvent({ user }) {
           // description: `${event.activity_list[0].description}`,
           start: {
             dateTime: event.date,
-            timeZone: "America/New_York",
+            timeZone: 'America/New_York',
           },
           end: {
             dateTime: event.vote_closing_time,
-            timeZone: "America/New_York",
+            timeZone: 'America/New_York',
           },
         },
         {
@@ -100,7 +100,7 @@ export default function PostVoteEvent({ user }) {
         <IconButton onClick={() => navigate(`/group/${groupId}`)}>
           <Avatar
             alt={event.group_title}
-            src='/static/images/avatar/2.jpg'
+            src={event.group_avatar}
             sx={{ width: 80, height: 80 }}
           />
         </IconButton>
@@ -109,7 +109,7 @@ export default function PostVoteEvent({ user }) {
         <Divider />
         <Button onClick={() => handleCalendar()}>Add to Google Calendar</Button>
         <Divider />
-        <Stack textAlign='left'>
+        <Stack textAlign="left">
           <h6>Address Line</h6>
         </Stack>
         <Container>
@@ -124,7 +124,7 @@ export default function PostVoteEvent({ user }) {
         </Container>
         <br />
         <Divider />
-        <Stack textAlign='left'>
+        <Stack textAlign="left">
           <h6>Description</h6>
         </Stack>
         <Container>
@@ -141,19 +141,19 @@ export default function PostVoteEvent({ user }) {
         <h6>Group Membe</h6>
       </Stack> */}
         <Box
-          justifyContent='center'
-          alignContent='center'
-          sx={{ margin: 0.5, height: 20, paddingLeft: 1, bgcolor: "#0093c4" }}
+          justifyContent="center"
+          alignContent="center"
+          sx={{ margin: 0.5, height: 20, paddingLeft: 1, bgcolor: '#0093c4' }}
         >
           <Stack
             sx={{ margin: 0.5, height: 8, paddingLeft: 1 }}
-            textAlign='left'
+            textAlign="left"
           >
             <h6>Group Members</h6>
           </Stack>
-          <AvatarGroup max={5} spacing='medium'>
+          <AvatarGroup max={5} spacing="medium">
             {group.members.map((g) => (
-              <Avatar key={g} alt={g} src='/static/images/avatar/1.jpg' />
+              <Avatar key={g} alt={g} src="/static/images/avatar/1.jpg" />
             ))}
           </AvatarGroup>
         </Box>
