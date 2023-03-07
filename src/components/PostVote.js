@@ -21,6 +21,7 @@ import {
 import { FooterObject } from "./Footer";
 import { bgcolor } from "@mui/system";
 import React from "react";
+import { CountdownTimer, useCountdown } from "./TimerSet";
 
 // POST VOTE EVENT PAGE
 export default function PostVoteEvent({ user }) {
@@ -28,6 +29,7 @@ export default function PostVoteEvent({ user }) {
   const { groupId, eventId } = useParams();
   const [event, setEvent] = useState(null);
   const [group, setGroup] = useState(null);
+  const time = dayjs().toISOString;
 
   useEffect(() => {
     axios
@@ -106,9 +108,28 @@ export default function PostVoteEvent({ user }) {
         </IconButton>
         {/* Make this a component */}
         <ActivitySlide event={event} />
-        <Divider />
-        <Button onClick={() => handleCalendar()}>Add to Google Calendar</Button>
-        <Divider />
+        {event.vote_closing_time < time ? (
+          <>
+            <CountdownTimer targetDate={event.vote_closing_time} />
+            <Divider />
+            <Button
+              onClick={() =>
+                navigate(`/group/${event.group_id}/vote/${event.id}`)
+              }
+            >
+              Back To Vote
+            </Button>
+            <Divider />
+          </>
+        ) : (
+          <>
+            <Divider />
+            <Button onClick={() => handleCalendar()}>
+              Add to Google Calendar
+            </Button>
+            <Divider />
+          </>
+        )}
         <Stack textAlign='left'>
           <h6>Address Line</h6>
         </Stack>

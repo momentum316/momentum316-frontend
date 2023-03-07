@@ -33,7 +33,7 @@ import dayjs from "dayjs";
 export function LogoCard() {
   return (
     <div>
-      <Grid justifyContent="center" alignItems="center">
+      <Grid justifyContent='center' alignItems='center'>
         <Card>
           <img src={LogoImage} />
         </Card>
@@ -47,17 +47,17 @@ export function SmallLogo() {
   return (
     <div>
       <Box
-        component="img"
+        component='img'
         sx={{
           height: 120,
           width: 120,
           maxHeight: { xs: 150, md: 150 },
           maxWidth: { xs: 150, md: 150 },
         }}
-        alt="Small Logo"
+        alt='Small Logo'
         src={`${LogoImage}`}
       />
-      <Grid justifyContent="center" alignItems="center">
+      <Grid justifyContent='center' alignItems='center'>
         <Card></Card>
       </Grid>
     </div>
@@ -69,17 +69,17 @@ export function IconLogo() {
   return (
     <div>
       <Box
-        component="img"
+        component='img'
         sx={{
           height: 60,
           width: 60,
           maxHeight: { xs: 150, md: 150 },
           maxWidth: { xs: 150, md: 150 },
         }}
-        alt="Small Logo"
+        alt='Small Logo'
         src={`${LogoImage}`}
       />
-      <Grid justifyContent="center" alignItems="center">
+      <Grid justifyContent='center' alignItems='center'>
         <Card></Card>
       </Grid>
     </div>
@@ -102,7 +102,7 @@ export function EventCard({
   const navigate = useNavigate();
   return (
     <div>
-      <Grid container spacing={2} justifyContent="center" alignItems="center">
+      <Grid container spacing={2} justifyContent='center' alignItems='center'>
         <Grid item xs={12}>
           <Card elevation={3}>
             <CardHeader
@@ -116,7 +116,7 @@ export function EventCard({
                   key={groupId}
                   onClick={() => navigate(`/group/${groupId}`)}
                   alt={group}
-                  src="/static/images/avatar/1.jpg"
+                  src='/static/images/avatar/1.jpg'
                 />
               }
               title={event}
@@ -124,7 +124,7 @@ export function EventCard({
             />
             {isExpanded && (
               <CardContent>
-                <Typography variant="body2" color="textSecondary">
+                <Typography variant='body2' color='textSecondary'>
                   {`Time: ${dayjs(startTime).format("hh:mm a")} - ${dayjs(
                     endTime
                   ).format("hh:mm a")}`}
@@ -183,7 +183,7 @@ export function ActivityCard({
         />
         {isExpanded && (
           <CardContent>
-            <Typography variant="body2" color="textSecondary">
+            <Typography variant='body2' color='textSecondary'>
               {`Time: ${dayjs(startTime).format("hh:mm a")} - ${dayjs(
                 endTime
               ).format("hh:mm a")}`}
@@ -291,7 +291,7 @@ export function VoteCard({
     <div>
       <Grid container>
         <Grid item xs={2}>
-          <Stack alignItems="center" justifyContent="center">
+          <Stack alignItems='center' justifyContent='center'>
             <KeyboardArrowUpIcon
               onClick={(e) => handleUp(e)}
               color={voteCount === 1 ? "warning" : ""}
@@ -323,8 +323,8 @@ export function GroupTabs() {
   let { groupId } = useParams();
   const navigate = useNavigate();
   return (
-    <div className="header-wrapper">
-      <ButtonGroup fullWidth size="large" variant="outlined">
+    <div className='header-wrapper'>
+      <ButtonGroup fullWidth size='large' variant='outlined'>
         <Button onClick={() => navigate(`/group/${groupId}/vote`)}>
           Voting
         </Button>
@@ -496,10 +496,10 @@ export function UserGroups({ user }) {
         <Grid
           container
           spacing={2}
-          direction="row"
+          direction='row'
           columns={{ xs: 6, sm: 6, md: 12 }}
-          alignItems="center"
-          justify="center"
+          alignItems='center'
+          justify='center'
         >
           {groups.map((g) => (
             <Grid item xs={3}>
@@ -519,7 +519,7 @@ export function UserGroups({ user }) {
                           key={g.id}
                           onClick={() => navigate(`/group/${g.id}`)}
                           alt={g.title}
-                          src="/static/images/avatar/1.jpg"
+                          src='/static/images/avatar/1.jpg'
                         />
                       }
                       subheader={g.title}
