@@ -28,15 +28,15 @@ function App() {
   const [user, setUser] = useLocalStorageState("CongregateToken", "");
 
   return (
-    <div className='App'>
+    <div className="App">
       <Routes>
         <Route
-          path='/login'
+          path="/login"
           element={<Login setUserToken={setUserToken} setUser={setUser} />}
         ></Route>
 
         <Route
-          path='/'
+          path="/"
           element={
             <PrivateRoute
               setUserToken={setUserToken}
@@ -48,7 +48,7 @@ function App() {
           }
         ></Route>
         <Route
-          path='/events/new'
+          path="/events/new"
           element={
             <PrivateRoute
               setUserToken={setUserToken}
@@ -60,7 +60,7 @@ function App() {
           }
         ></Route>
         <Route
-          path='/new/activity'
+          path="/new/activity"
           element={
             <PrivateRoute
               setUserToken={setUserToken}
@@ -72,7 +72,7 @@ function App() {
           }
         ></Route>
         <Route
-          path='/event/:groupId/:eventId'
+          path="/event/:groupId/:eventId"
           element={
             <PrivateRoute
               setUserToken={setUserToken}
@@ -84,7 +84,7 @@ function App() {
           }
         ></Route>
         <Route
-          path='/group'
+          path="/group"
           element={
             <PrivateRoute
               setUserToken={setUserToken}
@@ -96,7 +96,7 @@ function App() {
           }
         ></Route>
         <Route
-          path='/group/:groupId'
+          path="/group/:groupId"
           element={
             <PrivateRoute
               setUserToken={setUserToken}
@@ -108,7 +108,7 @@ function App() {
           }
         ></Route>
         <Route
-          path='/voting'
+          path="/voting"
           element={
             <PrivateRoute
               setUserToken={setUserToken}
@@ -120,7 +120,7 @@ function App() {
           }
         ></Route>
         <Route
-          path='/profile/:username'
+          path="/profile/:username"
           element={
             <PrivateRoute
               setUserToken={setUserToken}
@@ -132,7 +132,7 @@ function App() {
           }
         ></Route>
         <Route
-          path='/group/:groupId'
+          path="/group/:groupId"
           element={
             <PrivateRoute
               setUserToken={setUserToken}
@@ -144,7 +144,7 @@ function App() {
           }
         ></Route>
         <Route
-          path='/group/:groupId/vote'
+          path="/group/:groupId/vote"
           element={
             <PrivateRoute
               setUserToken={setUserToken}
@@ -156,7 +156,7 @@ function App() {
           }
         ></Route>
         <Route
-          path='/group/:groupId/discussion'
+          path="/group/:groupId/members"
           element={
             <PrivateRoute
               setUserToken={setUserToken}
@@ -168,7 +168,7 @@ function App() {
           }
         ></Route>
         <Route
-          path='/group/:groupId/events'
+          path="/group/:groupId/events"
           element={
             <PrivateRoute
               setUserToken={setUserToken}
@@ -180,7 +180,7 @@ function App() {
           }
         ></Route>
         <Route
-          path='/group/:groupId/vote/:eventId'
+          path="/group/:groupId/vote/:eventId"
           element={
             <PrivateRoute
               setUserToken={setUserToken}
@@ -192,7 +192,7 @@ function App() {
           }
         ></Route>
         <Route
-          path='/home/:username'
+          path="/home/:username"
           element={
             <PrivateRoute
               setUserToken={setUserToken}
@@ -204,7 +204,7 @@ function App() {
           }
         ></Route>
         <Route
-          path='/new/group'
+          path="/new/group"
           element={
             <PrivateRoute
               setUserToken={setUserToken}
@@ -216,7 +216,7 @@ function App() {
           }
         ></Route>
         <Route
-          path='/new/group/:groupId'
+          path="/new/group/:groupId"
           element={
             <PrivateRoute
               setUserToken={setUserToken}
@@ -228,7 +228,7 @@ function App() {
           }
         ></Route>
         <Route
-          path='/upcoming'
+          path="/upcoming"
           element={
             <PrivateRoute
               setUserToken={setUserToken}
@@ -240,7 +240,7 @@ function App() {
           }
         ></Route>
         <Route
-          path='/logout'
+          path="/logout"
           element={
             <PrivateRoute
               setUserToken={setUserToken}
@@ -252,7 +252,7 @@ function App() {
           }
         ></Route>
         <Route
-          path='/add/:groupId/:eventId'
+          path="/add/:groupId/:eventId"
           element={
             <PrivateRoute
               setUserToken={setUserToken}

@@ -94,7 +94,7 @@ export function Vote({ user }) {
   return (
     event && (
       <>
-        <Grid container spacing={2} justifyContent='center' alignItems='center'>
+        <Grid container spacing={2} justifyContent="center" alignItems="center">
           <Grid item xs={12}>
             <Card>
               <CardHeader title={group}></CardHeader>
@@ -118,7 +118,7 @@ export function Vote({ user }) {
             ))}
           </Grid>
           <Grid item>
-            <Button variant='contained' onClick={(e) => handleEvent(e)}>
+            <Button variant="contained" onClick={(e) => handleEvent(e)}>
               Add an Activity
             </Button>
           </Grid>
