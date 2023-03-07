@@ -28,244 +28,245 @@ function App() {
   const [user, setUser] = useLocalStorageState("CongregateToken", "");
 
   return (
-    <div className="App">
-      <Routes>
-        <Route
-          path="/login"
-          element={<Login setUserToken={setUserToken} setUser={setUser} />}
-        ></Route>
-
-        <Route
-          path="/"
-          element={
-            <PrivateRoute
-              setUserToken={setUserToken}
-              setUser={setUser}
-              user={user}
-            >
-              <Event user={user} />
-            </PrivateRoute>
-          }
-        ></Route>
-        <Route
-          path="/events/new"
-          element={
-            <PrivateRoute
-              setUserToken={setUserToken}
-              setUser={setUser}
-              user={user}
-            >
-              <NewEvent user={user} />
-            </PrivateRoute>
-          }
-        ></Route>
-        <Route
-          path="/new/activity"
-          element={
-            <PrivateRoute
-              setUserToken={setUserToken}
-              setUser={setUser}
-              user={user}
-            >
-              <NewActivity user={user} />
-            </PrivateRoute>
-          }
-        ></Route>
-        <Route
-          path="/event/:groupId/:eventId"
-          element={
-            <PrivateRoute
-              setUserToken={setUserToken}
-              setUser={setUser}
-              user={user}
-            >
-              <PostVoteEvent user={user} />
-            </PrivateRoute>
-          }
-        ></Route>
-        <Route
-          path="/group"
-          element={
-            <PrivateRoute
-              setUserToken={setUserToken}
-              setUser={setUser}
-              user={user}
-            >
-              <GroupPage user={user} />
-            </PrivateRoute>
-          }
-        ></Route>
-        <Route
-          path="/group/:groupId"
-          element={
-            <PrivateRoute
-              setUserToken={setUserToken}
-              setUser={setUser}
-              user={user}
-            >
-              <Group user={user} />
-            </PrivateRoute>
-          }
-        ></Route>
-        <Route
-          path="/voting"
-          element={
-            <PrivateRoute
-              setUserToken={setUserToken}
-              setUser={setUser}
-              user={user}
-            >
-              <VotePage user={user} />
-            </PrivateRoute>
-          }
-        ></Route>
-        <Route
-          path="/profile/:username"
-          element={
-            <PrivateRoute
-              setUserToken={setUserToken}
-              setUser={setUser}
-              user={user}
-            >
-              <Profile user={user} />
-            </PrivateRoute>
-          }
-        ></Route>
-        <Route
-          path="/group/:groupId"
-          element={
-            <PrivateRoute
-              setUserToken={setUserToken}
-              setUser={setUser}
-              user={user}
-            >
-              <Group user={user} />
-            </PrivateRoute>
-          }
-        ></Route>
-        <Route
-          path="/group/:groupId/vote"
-          element={
-            <PrivateRoute
-              setUserToken={setUserToken}
-              setUser={setUser}
-              user={user}
-            >
-              <VotePage user={user} />
-            </PrivateRoute>
-          }
-        ></Route>
-        <Route
-          path="/group/:groupId/members"
-          element={
-            <PrivateRoute
-              setUserToken={setUserToken}
-              setUser={setUser}
-              user={user}
-            >
-              <Group user={user} />
-            </PrivateRoute>
-          }
-        ></Route>
-        <Route
-          path="/group/:groupId/events"
-          element={
-            <PrivateRoute
-              setUserToken={setUserToken}
-              setUser={setUser}
-              user={user}
-            >
-              <GroupEvents user={user} />
-            </PrivateRoute>
-          }
-        ></Route>
-        <Route
-          path="/group/:groupId/vote/:eventId"
-          element={
-            <PrivateRoute
-              setUserToken={setUserToken}
-              setUser={setUser}
-              user={user}
-            >
-              <Vote user={user} />
-            </PrivateRoute>
-          }
-        ></Route>
-        <Route
-          path="/home/:username"
-          element={
-            <PrivateRoute
-              setUserToken={setUserToken}
-              setUser={setUser}
-              user={user}
-            >
-              <Homepage user={user} />
-            </PrivateRoute>
-          }
-        ></Route>
-        <Route
-          path="/new/group"
-          element={
-            <PrivateRoute
-              setUserToken={setUserToken}
-              setUser={setUser}
-              user={user}
-            >
-              <NewGroup user={user} />
-            </PrivateRoute>
-          }
-        ></Route>
-        <Route
-          path="/new/group/:groupId"
-          element={
-            <PrivateRoute
-              setUserToken={setUserToken}
-              setUser={setUser}
-              user={user}
-            >
-              <AddToGroup user={user} />
-            </PrivateRoute>
-          }
-        ></Route>
-        <Route
-          path="/upcoming"
-          element={
-            <PrivateRoute
-              setUserToken={setUserToken}
-              setUser={setUser}
-              user={user}
-            >
-              <UpcomingEventsForUser user={user} />
-            </PrivateRoute>
-          }
-        ></Route>
-        <Route
-          path="/logout"
-          element={
-            <PrivateRoute
-              setUserToken={setUserToken}
-              setUser={setUser}
-              user={user}
-            >
-              <Logout setUserToken={setUserToken} setUser={setUser} />
-            </PrivateRoute>
-          }
-        ></Route>
-        <Route
-          path="/add/:groupId/:eventId"
-          element={
-            <PrivateRoute
-              setUserToken={setUserToken}
-              setUser={setUser}
-              user={user}
-            >
-              <AddActivity user={user} />
-            </PrivateRoute>
-          }
-        ></Route>
-      </Routes>
+    <>
+      <div className='App'>
+        <Routes>
+          <Route
+            path='/login'
+            element={<Login setUserToken={setUserToken} setUser={setUser} />}
+          ></Route>
+          <Route
+            path='/'
+            element={
+              <PrivateRoute
+                setUserToken={setUserToken}
+                setUser={setUser}
+                user={user}
+              >
+                <Event user={user} />
+              </PrivateRoute>
+            }
+          ></Route>
+          <Route
+            path='/events/new'
+            element={
+              <PrivateRoute
+                setUserToken={setUserToken}
+                setUser={setUser}
+                user={user}
+              >
+                <NewEvent user={user} />
+              </PrivateRoute>
+            }
+          ></Route>
+          <Route
+            path='/new/activity'
+            element={
+              <PrivateRoute
+                setUserToken={setUserToken}
+                setUser={setUser}
+                user={user}
+              >
+                <NewActivity user={user} />
+              </PrivateRoute>
+            }
+          ></Route>
+          <Route
+            path='/event/:groupId/:eventId'
+            element={
+              <PrivateRoute
+                setUserToken={setUserToken}
+                setUser={setUser}
+                user={user}
+              >
+                <PostVoteEvent user={user} />
+              </PrivateRoute>
+            }
+          ></Route>
+          <Route
+            path='/group'
+            element={
+              <PrivateRoute
+                setUserToken={setUserToken}
+                setUser={setUser}
+                user={user}
+              >
+                <GroupPage user={user} />
+              </PrivateRoute>
+            }
+          ></Route>
+          <Route
+            path='/group/:groupId'
+            element={
+              <PrivateRoute
+                setUserToken={setUserToken}
+                setUser={setUser}
+                user={user}
+              >
+                <Group user={user} />
+              </PrivateRoute>
+            }
+          ></Route>
+          <Route
+            path='/voting'
+            element={
+              <PrivateRoute
+                setUserToken={setUserToken}
+                setUser={setUser}
+                user={user}
+              >
+                <VotePage user={user} />
+              </PrivateRoute>
+            }
+          ></Route>
+          <Route
+            path='/profile/:username'
+            element={
+              <PrivateRoute
+                setUserToken={setUserToken}
+                setUser={setUser}
+                user={user}
+              >
+                <Profile user={user} />
+              </PrivateRoute>
+            }
+          ></Route>
+          <Route
+            path='/group/:groupId'
+            element={
+              <PrivateRoute
+                setUserToken={setUserToken}
+                setUser={setUser}
+                user={user}
+              >
+                <Group user={user} />
+              </PrivateRoute>
+            }
+          ></Route>
+          <Route
+            path='/group/:groupId/vote'
+            element={
+              <PrivateRoute
+                setUserToken={setUserToken}
+                setUser={setUser}
+                user={user}
+              >
+                <VotePage user={user} />
+              </PrivateRoute>
+            }
+          ></Route>
+          <Route
+            path='/group/:groupId/members'
+            element={
+              <PrivateRoute
+                setUserToken={setUserToken}
+                setUser={setUser}
+                user={user}
+              >
+                <Group user={user} />
+              </PrivateRoute>
+            }
+          ></Route>
+          <Route
+            path='/group/:groupId/events'
+            element={
+              <PrivateRoute
+                setUserToken={setUserToken}
+                setUser={setUser}
+                user={user}
+              >
+                <GroupEvents user={user} />
+              </PrivateRoute>
+            }
+          ></Route>
+          <Route
+            path='/group/:groupId/vote/:eventId'
+            element={
+              <PrivateRoute
+                setUserToken={setUserToken}
+                setUser={setUser}
+                user={user}
+              >
+                <Vote user={user} />
+              </PrivateRoute>
+            }
+          ></Route>
+          <Route
+            path='/home/:username'
+            element={
+              <PrivateRoute
+                setUserToken={setUserToken}
+                setUser={setUser}
+                user={user}
+              >
+                <Homepage user={user} />
+              </PrivateRoute>
+            }
+          ></Route>
+          <Route
+            path='/new/group'
+            element={
+              <PrivateRoute
+                setUserToken={setUserToken}
+                setUser={setUser}
+                user={user}
+              >
+                <NewGroup user={user} />
+              </PrivateRoute>
+            }
+          ></Route>
+          <Route
+            path='/new/group/:groupId'
+            element={
+              <PrivateRoute
+                setUserToken={setUserToken}
+                setUser={setUser}
+                user={user}
+              >
+                <AddToGroup user={user} />
+              </PrivateRoute>
+            }
+          ></Route>
+          <Route
+            path='/upcoming'
+            element={
+              <PrivateRoute
+                setUserToken={setUserToken}
+                setUser={setUser}
+                user={user}
+              >
+                <UpcomingEventsForUser user={user} />
+              </PrivateRoute>
+            }
+          ></Route>
+          <Route
+            path='/logout'
+            element={
+              <PrivateRoute
+                setUserToken={setUserToken}
+                setUser={setUser}
+                user={user}
+              >
+                <Logout setUserToken={setUserToken} setUser={setUser} />
+              </PrivateRoute>
+            }
+          ></Route>
+          <Route
+            path='/add/:groupId/:eventId'
+            element={
+              <PrivateRoute
+                setUserToken={setUserToken}
+                setUser={setUser}
+                user={user}
+              >
+                <AddActivity user={user} />
+              </PrivateRoute>
+            }
+          ></Route>
+        </Routes>
+      </div>
       {user && <FooterObject user={user} />}
-    </div>
+    </>
   );
 }
 export default App;
