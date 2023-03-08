@@ -1,33 +1,24 @@
 import {
   Avatar,
-  AvatarGroup,
   Grid,
   Button,
-  ButtonGroup,
   Card,
   CardHeader,
-  Container,
   TextField,
   FormControl,
   InputLabel,
   MenuItem,
   Select,
-  Stack,
-  InputAdornment,
   IconButton,
-  Input,
   Tooltip,
   Typography,
 } from "@mui/material";
-import { Route, Routes, Link, useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import ContentPasteIcon from "@mui/icons-material/ContentPaste";
 import { GroupTabs, SmallLogo, ActivityCard } from "./NoteCards";
 import { GroupsHeader, EventsHeader } from "./Headers";
 import axios from "axios";
-import backend_url from "../render.json";
-
 import { useState, useEffect } from "react";
-import { CopyAll } from "@mui/icons-material";
 import { GroupMembersHeader } from "./Headers";
 
 // LIST OF USER'S GROUPS
@@ -305,7 +296,6 @@ export function GroupEvents({ user }) {
         },
       })
       .then((res) => {
-        console.log(res.data);
         setEvents(res.data);
       });
   }, [groupId, user.token]);
