@@ -53,7 +53,6 @@ export default function PostVoteEvent({ user }) {
         },
       })
       .then((res) => {
-        console.log(res.data.date);
         setEvent(res.data);
       });
   }, [eventId, user.token]);
@@ -108,9 +107,10 @@ export default function PostVoteEvent({ user }) {
           />
         </IconButton>
         {/* Make this a component */}
-        <ActivitySlide event={event} />
-        {time < event.vote_closing_time && event.voting === true ? (
+
+        {event.decided === false ? (
           <>
+            <ActivitySlide event={event} />
             <CountdownTimer targetDate={event.vote_closing_time} />
             <Divider />
             <Button
@@ -122,8 +122,18 @@ export default function PostVoteEvent({ user }) {
             </Button>
             <Divider />
           </>
+        ) : event.voting === false ? (
+          <>
+            <ActivitySlide event={event} />
+            <Divider />
+            <Button onClick={() => handleCalendar()}>
+              Add to Google Calendar
+            </Button>
+            <Divider />
+          </>
         ) : (
           <>
+            <ActivitySlide event={event.activity_list[0]} />
             <Divider />
             <Button onClick={() => handleCalendar()}>
               Add to Google Calendar
@@ -134,30 +144,54 @@ export default function PostVoteEvent({ user }) {
         <Stack textAlign='left'>
           <h6>Location</h6>
         </Stack>
-        <Container>
-          {event.location !== null ? (
-            event.location
-          ) : (
-            <p>No Location specified. Ask the group!</p>
-          )}
-          {/* <Box sx={{ bgcolor: "#cfe8fc", height: "20vh" }}>
-            {event.location}
-          </Box> */}
-        </Container>
-        <br />
-        <Divider />
-        <Stack textAlign='left'>
-          <h6>Description</h6>
-        </Stack>
-        <Container>
-          {/* <Box sx={{ bgcolor: "#cfe8fc", height: "15vh" }}> */}
-          {event.description !== null ? (
-            event.description
-          ) : (
-            <p>No more details here. Ask the group!</p>
-          )}
-          {/* </Box> */}
-        </Container>
+        {event.decided === false ? (
+          <>
+            <Container>
+              {event.location !== null ? (
+                event.location
+              ) : (
+                <p>No Location specified. Ask the group!</p>
+              )}
+            </Container>
+            <br />
+            <Divider />
+            <Stack textAlign='left'>
+              <h6>Description</h6>
+            </Stack>
+            <Container>
+              {event.description !== null ? (
+                event.description
+              ) : (
+                <p>No more details here. Ask the group!</p>
+              )}
+            </Container>
+          </>
+        ) : event.voting === false ? (
+          <>
+            <Container>{event.location}</Container>
+            <br />
+            <Divider />
+            <Stack textAlign='left'>
+              <h6>Description</h6>
+            </Stack>
+            <Container>{event.description}</Container>
+          </>
+        ) : (
+          <>
+            <Container>
+              {event.activity_list[0] && event.activity_list[0].location}
+            </Container>
+            <br />
+            <Divider />
+            <Stack textAlign='left'>
+              <h6>Description</h6>
+            </Stack>
+            <Container>
+              {event.activity_list[0] && event.activity_list[0].description}
+            </Container>
+          </>
+        )}
+
         <br />
         {/* <Stack textAlign="left">
         <h6>Group Membe</h6>

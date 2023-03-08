@@ -8,18 +8,18 @@ import {
   IconButton,
   Typography,
   Avatar,
-} from '@mui/material';
-import { GroupTabs } from './NoteCards';
-import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import dayjs from 'dayjs';
-import { CountdownTimer, useCountdown } from './TimerSet';
-import { VoteCard, EventCard } from './NoteCards';
-import React from 'react';
-import { IconLogo } from './NoteCards';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { ActivitySlide } from './Slides';
+} from "@mui/material";
+import { GroupTabs } from "./NoteCards";
+import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import dayjs from "dayjs";
+import { CountdownTimer, useCountdown } from "./TimerSet";
+import { VoteCard, EventCard } from "./NoteCards";
+import React from "react";
+import { IconLogo } from "./NoteCards";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { ActivitySlide } from "./Slides";
 
 // LIST OF ACTIVE VOTES PAGE
 export function VotePage({ user }) {
@@ -52,20 +52,20 @@ export function VotePage({ user }) {
     activeVote && (
       <>
         {/* <ActivitySlide user={user} /> */}
-        <Box alignItems="center">
-          <Grid container alignItems="center" justifyContent="right">
+        <Box alignItems='center'>
+          <Grid container alignItems='center' justifyContent='right'>
             <Grid item xs={2}>
               <IconLogo />
             </Grid>
             <Grid item xs={8}>
               <Card elevation={0}>
-                <CardHeader title={`${group}`} subheader="Open Vote Events" />
+                <CardHeader title={`${group}`} subheader='Open Vote Events' />
               </Card>
             </Grid>
             <Grid item xs={2}>
-              <Tooltip title="More Options">
+              <Tooltip title='More Options'>
                 <IconButton>
-                  <MoreVertIcon fontSize="large" />
+                  <MoreVertIcon fontSize='large' />
                 </IconButton>
               </Tooltip>
             </Grid>
@@ -89,7 +89,7 @@ export function VotePage({ user }) {
             ))
           ) : (
             <Grid item>
-              <Typography variant="h5">No Active Votes</Typography>
+              <Typography variant='h5'>No Active Votes</Typography>
             </Grid>
           )}
         </Grid>
@@ -126,7 +126,6 @@ export function Vote({ user }) {
         }
       )
       .then((res) => {
-        console.log(res);
         navigate(`/group/${groupId}/vote/${eventId}`);
       });
   };
@@ -139,7 +138,6 @@ export function Vote({ user }) {
         },
       })
       .then((res) => {
-        console.log(res.data);
         setEventParent(res.data);
         setEvent(res.data.activity_list);
         setGroup(res.data.group_title);
@@ -165,7 +163,7 @@ export function Vote({ user }) {
         >
           <ActivitySlide event={eventParent} />
         </Box>
-        <Grid container spacing={2} justifyContent="center" alignItems="center">
+        <Grid container spacing={2} justifyContent='center' alignItems='center'>
           <Grid item xs={12}>
             <GroupTabs />
           </Grid>
@@ -190,15 +188,20 @@ export function Vote({ user }) {
           </Grid>
           <Grid item>
             {!eventVoter && (
-              <Button variant="contained" onClick={(e) => handleEvent(e)}>
+              <Button variant='contained' onClick={(e) => handleEvent(e)}>
                 Add an Activity
               </Button>
             )}
             {!eventVoter && (
-              <Button variant="contained" onClick={(e) => handleVoteSubmit(e)}>
+              <Button variant='contained' onClick={(e) => handleVoteSubmit(e)}>
                 Submit Your Votes
               </Button>
             )}
+          </Grid>
+          <Grid item>
+            <Button variant='contained' onClick={(e) => handleVoteSubmit(e)}>
+              Finish Voting
+            </Button>
           </Grid>
         </Grid>
       </>
