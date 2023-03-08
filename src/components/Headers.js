@@ -47,22 +47,22 @@ export function HomeHeader({ user, setUser, setUserToken }) {
   return (
     <div>
       <Box>
-        <Grid container alignItems="center" justifyContent="right">
+        <Grid container alignItems='center' justifyContent='right'>
           <Grid item xs={9}>
             <Card elevation={0}>
               <SmallLogo />
             </Card>
           </Grid>
-          <Grid item justifyContent="right">
+          <Grid item justifyContent='right'>
             <IconButton onClick={handleClick}>
-              <MoreVertIcon fontSize="large" />
+              <MoreVertIcon fontSize='large' />
             </IconButton>
           </Grid>
         </Grid>
       </Box>
       <Menu
         anchorEl={anchorEl}
-        id="account-menu"
+        id='account-menu'
         open={open}
         onClose={handleClose}
         onClick={handleClose}
@@ -100,8 +100,8 @@ export function GroupsHeader({ user }) {
   };
   return (
     <div>
-      <Box alignItems="center">
-        <Grid container alignItems="center" justifyContent="right">
+      <Box alignItems='center'>
+        <Grid container alignItems='center' justifyContent='right'>
           <Grid item xs={2}>
             <IconLogo />
           </Grid>
@@ -109,14 +109,14 @@ export function GroupsHeader({ user }) {
             <Card elevation={0}>
               <CardHeader
                 title={`${user.user.first_name}'s`}
-                subheader="Groups"
+                subheader='Groups'
               />
             </Card>
           </Grid>
           <Grid item xs={2}>
             <IconButton onClick={handleClick}>
-              <Tooltip title="More Options">
-                <MoreVertIcon fontSize="large" />
+              <Tooltip title='More Options'>
+                <MoreVertIcon fontSize='large' />
               </Tooltip>
             </IconButton>
           </Grid>
@@ -124,7 +124,7 @@ export function GroupsHeader({ user }) {
       </Box>
       <Menu
         anchorEl={anchorEl}
-        id="account-menu"
+        id='account-menu'
         open={open}
         onClose={handleClose}
         onClick={handleClose}
@@ -141,8 +141,7 @@ export function GroupsHeader({ user }) {
           <MenuItem onClick={() => navigate("/new/group")}>
             Manage Groups
           </MenuItem>
-          <Divider />
-          <MenuItem onClick={handleClose}>Leave Group</MenuItem>
+
           <Divider />
           <MenuItem onClick={() => navigate("/logout")}>Logout</MenuItem>
         </MenuList>
@@ -173,20 +172,20 @@ export function GroupMembersHeader({ user, groupTitle }) {
 
   return (
     <div>
-      <Box alignItems="center">
-        <Grid container alignItems="center" justifyContent="right">
+      <Box alignItems='center'>
+        <Grid container alignItems='center' justifyContent='right'>
           <Grid item xs={2}>
             <IconLogo />
           </Grid>
           <Grid item xs={8}>
             <Card elevation={0}>
-              <CardHeader title={`${groupTitle}`} subheader="Members" />
+              <CardHeader title={`${groupTitle}`} subheader='Members' />
             </Card>
           </Grid>
           <Grid item xs={2}>
-            <Tooltip title="More Options">
+            <Tooltip title='More Options'>
               <IconButton onClick={handleClick}>
-                <MoreVertIcon fontSize="large" />
+                <MoreVertIcon fontSize='large' />
               </IconButton>
             </Tooltip>
           </Grid>
@@ -194,7 +193,7 @@ export function GroupMembersHeader({ user, groupTitle }) {
       </Box>
       <Menu
         anchorEl={anchorEl}
-        id="account-menu"
+        id='account-menu'
         open={open}
         onClose={handleClose}
         onClick={handleClose}
@@ -228,8 +227,8 @@ export function EventsHeader({ user }) {
   const navigate = useNavigate();
   return (
     <div>
-      <Box alignItems="center">
-        <Grid container alignItems="center" justifyContent="right">
+      <Box alignItems='center'>
+        <Grid container alignItems='center' justifyContent='right'>
           <Grid item xs={2}>
             <IconLogo />
           </Grid>
@@ -237,14 +236,14 @@ export function EventsHeader({ user }) {
             <Card elevation={0}>
               <CardHeader
                 title={`${user.user.first_name}'s`}
-                subheader="Events"
+                subheader='Events'
               />
             </Card>
           </Grid>
           <Grid item xs={2}>
             <IconButton onClick={() => navigate("events/new")}>
-              <Tooltip title="Add New Event">
-                <AddBoxIcon fontSize="large" />
+              <Tooltip title='Add New Event'>
+                <AddBoxIcon fontSize='large' />
               </Tooltip>
             </IconButton>
           </Grid>
@@ -259,8 +258,8 @@ export function GroupEventsHeader({ user }) {
   const navigate = useNavigate();
   return (
     <div>
-      <Box alignItems="center">
-        <Grid container alignItems="center" justifyContent="right">
+      <Box alignItems='center'>
+        <Grid container alignItems='center' justifyContent='right'>
           <Grid item xs={2}>
             <IconLogo />
           </Grid>
@@ -268,14 +267,14 @@ export function GroupEventsHeader({ user }) {
             <Card elevation={0}>
               <CardHeader
                 title={`${user.user.first_name}'s`}
-                subheader="Events"
+                subheader='Events'
               />
             </Card>
           </Grid>
           <Grid item xs={2}>
             <IconButton onClick={() => navigate("../../events/new")}>
-              <Tooltip title="Add New Event">
-                <AddBoxIcon fontSize="large" />
+              <Tooltip title='Add New Event'>
+                <AddBoxIcon fontSize='large' />
               </Tooltip>
             </IconButton>
           </Grid>
@@ -290,10 +289,10 @@ export function CreateEventHeader({ user }) {
   const [groups, setGroups] = useState(null);
   return (
     <Box>
-      <Grid container justifyContent="center" alignItems="center">
+      <Grid container justifyContent='center' alignItems='center'>
         <Grid item>
           <Card elevation={0}>
-            <CardHeader title="Create New Event" />
+            <CardHeader title='Create New Event' />
           </Card>
         </Grid>
       </Grid>
