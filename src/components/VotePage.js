@@ -189,12 +189,12 @@ export function Vote({ user }) {
             ))}
           </Grid>
           <Grid item>
-            {eventVoter && (
+            {!eventVoter && (
               <Button variant="contained" onClick={(e) => handleEvent(e)}>
                 Add an Activity
               </Button>
             )}
-            {eventVoter && (
+            {!eventVoter && (
               <Button variant="contained" onClick={(e) => handleVoteSubmit(e)}>
                 Submit Your Votes
               </Button>
