@@ -8,18 +8,18 @@ import {
   IconButton,
   Typography,
   Avatar,
-} from "@mui/material";
-import { GroupTabs } from "./NoteCards";
-import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
-import dayjs from "dayjs";
-import { CountdownTimer, useCountdown } from "./TimerSet";
-import { VoteCard, EventCard } from "./NoteCards";
-import React from "react";
-import { IconLogo } from "./NoteCards";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { ActivitySlide } from "./Slides";
+} from '@mui/material';
+import { GroupTabs } from './NoteCards';
+import axios from 'axios';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import dayjs from 'dayjs';
+import { CountdownTimer, useCountdown } from './TimerSet';
+import { VoteCard, EventCard } from './NoteCards';
+import React from 'react';
+import { IconLogo } from './NoteCards';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { ActivitySlide } from './Slides';
 
 // LIST OF ACTIVE VOTES PAGE
 export function VotePage({ user }) {
@@ -105,12 +105,30 @@ export function Vote({ user }) {
   const [event, setEvent] = useState(null);
   const [group, setGroup] = useState(null);
   const [endTime, setEndTime] = useState(null);
+  const [eventVoter, setEventVoter] = useState(null);
   const countdown = useCountdown(endTime);
 
   const navigate = useNavigate();
 
   const handleEvent = (e) => {
     navigate(`/add/${groupId}/${eventId}`);
+  };
+
+  const handleVoteSubmit = (e) => {
+    axios
+      .post(
+        `${process.env.REACT_APP_BACKEND_URL}/submit-vote/`,
+        { username: user.user.username, event_id: eventId },
+        {
+          headers: {
+            Authorization: `token ${user.token}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        navigate(`/group/${groupId}/vote/${eventId}`);
+      });
   };
 
   useEffect(() => {
@@ -126,6 +144,7 @@ export function Vote({ user }) {
         setEvent(res.data.activity_list);
         setGroup(res.data.group_title);
         setEndTime(res.data.vote_closing_time);
+        setEventVoter(res.data.event_voter.includes(user.user.username));
       });
   }, [eventId]);
 
@@ -165,13 +184,21 @@ export function Vote({ user }) {
                 user={user}
                 startTime={e.start_time}
                 endTime={e.end_time}
+                eventVoter={eventVoter}
               />
             ))}
           </Grid>
           <Grid item>
-            <Button variant="contained" onClick={(e) => handleEvent(e)}>
-              Add an Activity
-            </Button>
+            {eventVoter && (
+              <Button variant="contained" onClick={(e) => handleEvent(e)}>
+                Add an Activity
+              </Button>
+            )}
+            {eventVoter && (
+              <Button variant="contained" onClick={(e) => handleVoteSubmit(e)}>
+                Submit Your Votes
+              </Button>
+            )}
           </Grid>
         </Grid>
       </>
