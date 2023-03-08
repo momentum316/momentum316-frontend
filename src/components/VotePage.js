@@ -52,20 +52,20 @@ export function VotePage({ user }) {
     activeVote && (
       <>
         {/* <ActivitySlide user={user} /> */}
-        <Box alignItems="center">
-          <Grid container alignItems="center" justifyContent="right">
+        <Box alignItems='center'>
+          <Grid container alignItems='center' justifyContent='right'>
             <Grid item xs={2}>
               <IconLogo />
             </Grid>
             <Grid item xs={8}>
               <Card elevation={0}>
-                <CardHeader title={`${group}`} subheader="Open Vote Events" />
+                <CardHeader title={`${group}`} subheader='Open Vote Events' />
               </Card>
             </Grid>
             <Grid item xs={2}>
-              <Tooltip title="More Options">
+              <Tooltip title='More Options'>
                 <IconButton>
-                  <MoreVertIcon fontSize="large" />
+                  <MoreVertIcon fontSize='large' />
                 </IconButton>
               </Tooltip>
             </Grid>
@@ -89,7 +89,7 @@ export function VotePage({ user }) {
             ))
           ) : (
             <Grid item>
-              <Typography variant="h5">No Active Votes</Typography>
+              <Typography variant='h5'>No Active Votes</Typography>
             </Grid>
           )}
         </Grid>
@@ -113,6 +113,9 @@ export function Vote({ user }) {
     navigate(`/add/${groupId}/${eventId}`);
   };
 
+  const handleFinish = (e) => {
+    navigate(`/submit/vote/${eventParent.id}`);
+  };
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_BACKEND_URL}/event/${eventId}`, {
@@ -146,7 +149,7 @@ export function Vote({ user }) {
         >
           <ActivitySlide event={eventParent} />
         </Box>
-        <Grid container spacing={2} justifyContent="center" alignItems="center">
+        <Grid container spacing={2} justifyContent='center' alignItems='center'>
           <Grid item xs={12}>
             <GroupTabs />
           </Grid>
@@ -169,8 +172,13 @@ export function Vote({ user }) {
             ))}
           </Grid>
           <Grid item>
-            <Button variant="contained" onClick={(e) => handleEvent(e)}>
+            <Button variant='contained' onClick={(e) => handleEvent(e)}>
               Add an Activity
+            </Button>
+          </Grid>
+          <Grid item>
+            <Button variant='contained' onClick={(e) => handleFinish(e)}>
+              Finish Voting
             </Button>
           </Grid>
         </Grid>
