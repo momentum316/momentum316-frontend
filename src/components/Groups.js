@@ -47,14 +47,14 @@ export function GroupPage({ user }) {
       <div>
         <GroupsHeader user={user} />
         <br />
-        <div className="group-grid">
+        <div className='group-grid'>
           <Grid
             container
             spacing={2}
-            direction="columns"
+            direction='columns'
             columns={{ xs: 6, sm: 6, md: 12 }}
-            alignItems="center"
-            justify="center"
+            alignItems='center'
+            justify='center'
           >
             {groups.map((g) => (
               <Grid item xs={3}>
@@ -104,25 +104,24 @@ export function Group({ user }) {
         <GroupMembersHeader user={user} groupTitle={group.title} />
         <GroupTabs />
         <br />
-        <div className="group-grid">
+        <div className='group-grid'>
           <Grid
             container
-            direction="columns"
-            spacing={3}
-            columnSpacing={{ xs: 2, sm: 8, md: 4 }}
+            spacing={2}
+            direction='columns'
+            columns={{ xs: 6, sm: 6, md: 12 }}
+            alignItems='center'
+            justify='center'
           >
             {group.members.map((g) => (
-              <Grid item>
-                <Card elevation={3}>
+              <Grid item xs={3}>
+                <Card
+                  elevation={3}
+                  sx={{ width: 160, height: 100 }}
+                  onClick={() => navigate(`/profile/${g}`)}
+                >
                   <CardHeader
-                    title={
-                      <Avatar
-                        key={g}
-                        onClick={() => navigate(`/profile/${g}`)}
-                        alt={g}
-                        src={g}
-                      />
-                    }
+                    title={<Avatar key={g} alt={g} src={g} />}
                     subheader={g}
                   />
                 </Card>
@@ -194,14 +193,14 @@ export function NewGroup({ user }) {
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <FormControl sx={{ minWidth: 150 }}>
-              <InputLabel id="demo-simple-select-helper-label" alt="Group name">
+              <InputLabel id='demo-simple-select-helper-label' alt='Group name'>
                 Group
               </InputLabel>
               <Select
-                labelId="demo-simple-select-helper-label"
-                id="demo-simple-select-helper"
+                labelId='demo-simple-select-helper-label'
+                id='demo-simple-select-helper'
                 value={groups}
-                label="Group"
+                label='Group'
                 required
                 onChange={(e) => handleChange(e)}
               >
@@ -216,8 +215,8 @@ export function NewGroup({ user }) {
             <>
               <Grid item xs={12}>
                 <TextField
-                  id="groupName"
-                  label="Group Name"
+                  id='groupName'
+                  label='Group Name'
                   fullWidth
                   value={groupName}
                   onChange={(e) => setGroupName(e.target.value)}
@@ -227,7 +226,7 @@ export function NewGroup({ user }) {
                 <Button
                   onClick={() => handleSubmit(groupName)}
                   fullWidth
-                  variant="contained"
+                  variant='contained'
                 >
                   Create Group
                 </Button>
@@ -238,15 +237,15 @@ export function NewGroup({ user }) {
               <br />
               <Grid item xs={10}>
                 <TextField
-                  id="groupName"
-                  label="Group Link"
+                  id='groupName'
+                  label='Group Link'
                   fullWidth
                   value={groupLink}
                 ></TextField>
               </Grid>
               <Grid item xs={2}>
                 <IconButton>
-                  <Tooltip title="Copy to Clipboard">
+                  <Tooltip title='Copy to Clipboard'>
                     <ContentPasteIcon
                       onClick={() => navigator.clipboard.writeText(groupLink)}
                     ></ContentPasteIcon>
@@ -305,7 +304,7 @@ export function GroupEvents({ user }) {
 
   return (
     events && (
-      <Grid container spacing={2} alignItems="center" justifyContent="left">
+      <Grid container spacing={2} alignItems='center' justifyContent='left'>
         <Grid item xs={12}>
           <GroupEventsHeader user={user} />
         </Grid>
@@ -333,7 +332,7 @@ export function GroupEvents({ user }) {
           })
         ) : (
           <Grid item>
-            <Typography align="left" variant="h5">
+            <Typography align='left' variant='h5'>
               No Scheduled Events
             </Typography>
           </Grid>
@@ -368,19 +367,19 @@ export function LeaveGroup({ user }) {
   return (
     <div>
       <br />
-      <Grid container spacing={2} justifyContent="center" alignItems="center">
+      <Grid container spacing={2} justifyContent='center' alignItems='center'>
         <Grid item>
-          <Typography variant="h4" gutterBottom>
+          <Typography variant='h4' gutterBottom>
             Are you sure you want to leave this group?
           </Typography>
         </Grid>
         <Grid item>
-          <Button variant="contained" onClick={(e) => handleLeave(e)}>
+          <Button variant='contained' onClick={(e) => handleLeave(e)}>
             YES
           </Button>
         </Grid>
         <Grid item>
-          <Button variant="contained" onClick={() => navigate(-1)}>
+          <Button variant='contained' onClick={() => navigate(-1)}>
             NO
           </Button>
         </Grid>
