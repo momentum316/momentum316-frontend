@@ -1,5 +1,5 @@
-import React from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import React from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import {
   Box,
   Grid,
@@ -16,24 +16,24 @@ import {
   ListItem,
   ImageList,
   ImageListItem,
-} from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { Stack } from "@mui/system";
-import LogoImage from "../images/LogoImage.jpg";
-import backend_url from "../render.json";
-import CameraRollIcon from "@mui/icons-material/CameraRoll";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import dayjs from "dayjs";
+} from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Stack } from '@mui/system';
+import LogoImage from '../images/LogoImage.jpg';
+import backend_url from '../render.json';
+import CameraRollIcon from '@mui/icons-material/CameraRoll';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import dayjs from 'dayjs';
 
 // LOGIN LOGO
 export function LogoCard() {
   return (
     <div>
-      <Grid justifyContent='center' alignItems='center'>
+      <Grid justifyContent="center" alignItems="center">
         <Card>
           <img src={LogoImage} />
         </Card>
@@ -47,17 +47,17 @@ export function SmallLogo() {
   return (
     <div>
       <Box
-        component='img'
+        component="img"
         sx={{
           height: 120,
           width: 120,
           maxHeight: { xs: 150, md: 150 },
           maxWidth: { xs: 150, md: 150 },
         }}
-        alt='Small Logo'
+        alt="Small Logo"
         src={`${LogoImage}`}
       />
-      <Grid justifyContent='center' alignItems='center'>
+      <Grid justifyContent="center" alignItems="center">
         <Card></Card>
       </Grid>
     </div>
@@ -69,17 +69,17 @@ export function IconLogo() {
   return (
     <div>
       <Box
-        component='img'
+        component="img"
         sx={{
           height: 60,
           width: 60,
           maxHeight: { xs: 150, md: 150 },
           maxWidth: { xs: 150, md: 150 },
         }}
-        alt='Small Logo'
+        alt="Small Logo"
         src={`${LogoImage}`}
       />
-      <Grid justifyContent='center' alignItems='center'>
+      <Grid justifyContent="center" alignItems="center">
         <Card></Card>
       </Grid>
     </div>
@@ -103,7 +103,7 @@ export function EventCard({
   const navigate = useNavigate();
   return (
     <div>
-      <Grid container spacing={2} justifyContent='center' alignItems='center'>
+      <Grid container spacing={2} justifyContent="center" alignItems="center">
         <Grid item xs={12}>
           <Card elevation={3}>
             <CardHeader
@@ -125,10 +125,10 @@ export function EventCard({
             />
             {isExpanded && (
               <CardContent>
-                <Typography variant='body2' color='textSecondary'>
-                  {`Time: ${dayjs(startTime).format("hh:mm a")} - ${dayjs(
+                <Typography variant="body2" color="textSecondary">
+                  {`Time: ${dayjs(startTime).format('hh:mm a')} - ${dayjs(
                     endTime
-                  ).format("hh:mm a")}`}
+                  ).format('hh:mm a')}`}
                   <br />
                   {description}
                 </Typography>
@@ -184,10 +184,10 @@ export function ActivityCard({
         />
         {isExpanded && (
           <CardContent>
-            <Typography variant='body2' color='textSecondary'>
-              {`Time: ${dayjs(startTime).format("hh:mm a")} - ${dayjs(
+            <Typography variant="body2" color="textSecondary">
+              {`Time: ${dayjs(startTime).format('hh:mm a')} - ${dayjs(
                 endTime
-              ).format("hh:mm a")}`}
+              ).format('hh:mm a')}`}
               <br />
               {description}
             </Typography>
@@ -214,6 +214,7 @@ export function VoteCard({
   user,
   startTime,
   endTime,
+  eventVoter,
 }) {
   const [voteCount, setVote] = useState(0);
   const [voteId, setVoteId] = useState(null);
@@ -233,77 +234,82 @@ export function VoteCard({
   }, [activityId]);
 
   const handleUp = (e) => {
+    if (eventVoter !== false) {
+      axios
+        .patch(
+          `${process.env.REACT_APP_BACKEND_URL}/vote/${voteId}`,
+          { vote: 1 },
+          {
+            headers: {
+              authorization: `token ${user.token}`,
+            },
+          }
+        )
+        .then((res) => {
+          setVote(res.data.vote);
+        });
+    }
     if (voteCount === 1) {
       handleZero();
       return;
     }
-
-    axios
-      .patch(
-        `${process.env.REACT_APP_BACKEND_URL}/vote/${voteId}`,
-        { vote: 1 },
-        {
-          headers: {
-            authorization: `token ${user.token}`,
-          },
-        }
-      )
-      .then((res) => {
-        setVote(res.data.vote);
-      });
   };
 
   const handleDown = (e) => {
+    if (eventVoter !== false) {
+      axios
+        .patch(
+          `${process.env.REACT_APP_BACKEND_URL}/vote/${voteId}`,
+          { vote: -1 },
+          {
+            headers: {
+              authorization: `token ${user.token}`,
+            },
+          }
+        )
+        .then((res) => {
+          setVote(res.data.vote);
+        });
+    }
     if (voteCount === -1) {
       handleZero();
       return;
     }
-
-    axios
-      .patch(
-        `${process.env.REACT_APP_BACKEND_URL}/vote/${voteId}`,
-        { vote: -1 },
-        {
-          headers: {
-            authorization: `token ${user.token}`,
-          },
-        }
-      )
-      .then((res) => {
-        setVote(res.data.vote);
-      });
   };
+
   const handleZero = (e) => {
-    axios
-      .patch(
-        `${process.env.REACT_APP_BACKEND_URL}/vote/${voteId}`,
-        { vote: 0 },
-        {
-          headers: {
-            authorization: `token ${user.token}`,
-          },
-        }
-      )
-      .then((res) => {
-        setVote(res.data.vote);
-      });
+    if (eventVoter !== false) {
+      axios
+        .patch(
+          `${process.env.REACT_APP_BACKEND_URL}/vote/${voteId}`,
+          { vote: 0 },
+          {
+            headers: {
+              authorization: `token ${user.token}`,
+            },
+          }
+        )
+        .then((res) => {
+          setVote(res.data.vote);
+        });
+    }
   };
   return (
     <div>
       <Grid container spacing={1.5}>
         <Grid item xs={2}>
-          <Stack alignItems='center' justifyContent='center'>
+          <Stack alignItems="center" justifyContent="center">
             <KeyboardArrowUpIcon
-              fontSize='large'
               onClick={(e) => handleUp(e)}
-              color={voteCount === 1 ? "warning" : ""}
+              fontSize="large"
+              color={voteCount === 1 ? 'warning' : ''}
             />
             {/* {voteCount} */}
             <br />
             <KeyboardArrowDownIcon
-              fontSize='large'
+              fontSize="large"
               onClick={(e) => handleDown(e)}
-              color={voteCount === -1 ? "warning" : ""}
+              color={voteCount === -1 ? 'warning' : ''}
             />
           </Stack>
         </Grid>
@@ -326,8 +332,8 @@ export function GroupTabs() {
   let { groupId } = useParams();
   const navigate = useNavigate();
   return (
-    <div className='header-wrapper'>
-      <ButtonGroup fullWidth size='large' variant='outlined'>
+    <div className="header-wrapper">
+      <ButtonGroup fullWidth size="large" variant="outlined">
         <Button onClick={() => navigate(`/group/${groupId}/vote`)}>
           Voting
         </Button>
@@ -490,19 +496,19 @@ export function UserGroups({ user }) {
         <Grid
           container
           spacing={2}
-          direction='row'
+          direction="row"
           columns={{ xs: 6, sm: 6, md: 12 }}
-          alignItems='center'
-          justify='center'
+          alignItems="center"
+          justify="center"
         >
           {groups.map((g) => (
             <Grid item xs={3}>
               <ImageList
                 sx={{
-                  gridAutoFlow: "column",
+                  gridAutoFlow: 'column',
                   gridTemplateColumns:
-                    "repeat(auto-fill,minmax(160px,1fr)) !important",
-                  gridAutoColumns: "minmax(160px, 1fr)",
+                    'repeat(auto-fill,minmax(160px,1fr)) !important',
+                  gridAutoColumns: 'minmax(160px, 1fr)',
                 }}
               >
                 <ImageListItem>
