@@ -26,7 +26,7 @@ export function Homepage({
       <br />
       <Grid container spacing={2}>
         <Grid item>
-          <Typography variant='h6'>Live Votes</Typography>
+          <Typography variant='h5'>Live Votes</Typography>
         </Grid>
         <Grid item xs={12} sx={{ maxHeight: 240 }}>
           <List style={{ maxHeight: "100%", overflow: "auto" }}>
@@ -35,7 +35,7 @@ export function Homepage({
         </Grid>
 
         <Grid item>
-          <Typography variant='h6' sx={{ pt: 5 }}>
+          <Typography variant='h5' fullWidth>
             Upcoming Events
           </Typography>
         </Grid>

@@ -81,7 +81,6 @@ export function NewEvent({ user }) {
         }
       )
       .then((res) => {
-        console.log(res.data);
         res.data.voting === false
           ? navigate(`/event/${group}/${res.data.id}`)
           : navigate(`/group/${group}/vote/${res.data.id}`);

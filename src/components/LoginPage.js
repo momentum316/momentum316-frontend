@@ -9,6 +9,8 @@ import {
   CardHeader,
   CardMedia,
   Grid,
+  Typography,
+  Button,
 } from "@mui/material";
 import { LogoCard } from "./NoteCards";
 
@@ -63,13 +65,13 @@ export function Login({ setUser, setUserToken }) {
 
   return (
     <div>
-      <Stack direction='column' justifyContent='center' alignItems='center'>
+      <Stack direction="column" justifyContent="center" alignItems="center">
         <LogoCard />
         <br />
         <GoogleLogin
           onSuccess={handleCredentialResponse}
           onError={errorMessage}
-          size='large'
+          size="large"
         />
       </Stack>
     </div>
@@ -84,12 +86,24 @@ export function Logout({ setUser, setUserToken }) {
     setUser(null);
     setUserToken(null);
     setEmptyToken(true);
-    navigate("/");
+    navigate("/logout");
   };
 
   return (
     <div>
-      <button onClick={() => handleLogout()}>Logout</button>
+      <br />
+      <Grid container spacing={2} justifyContent="center" alignItems="center">
+        <Grid item>
+          <Typography variant="h4" gutterBottom>
+            Are you sure you want to logout?
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Button variant="contained" onClick={() => handleLogout()}>
+            Logout
+          </Button>
+        </Grid>
+      </Grid>
     </div>
   );
 }

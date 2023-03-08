@@ -290,16 +290,18 @@ export function VoteCard({
   };
   return (
     <div>
-      <Grid container>
+      <Grid container spacing={1.5}>
         <Grid item xs={2}>
           <Stack alignItems='center' justifyContent='center'>
             <KeyboardArrowUpIcon
+              fontSize='large'
               onClick={(e) => handleUp(e)}
               color={voteCount === 1 ? "warning" : ""}
             />
             {/* {voteCount} */}
             <br />
             <KeyboardArrowDownIcon
+              fontSize='large'
               onClick={(e) => handleDown(e)}
               color={voteCount === -1 ? "warning" : ""}
             />

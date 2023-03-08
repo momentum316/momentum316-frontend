@@ -48,7 +48,7 @@ export function HomeHeader({ user, setUser, setUserToken }) {
     <div>
       <Box>
         <Grid container alignItems='center' justifyContent='right'>
-          <Grid item xs={8}>
+          <Grid item xs={8.3}>
             <Card elevation={0}>
               <SmallLogo />
             </Card>
@@ -243,6 +243,37 @@ export function EventsHeader({ user }) {
           </Grid>
           <Grid item xs={2}>
             <IconButton onClick={() => navigate("events/new")}>
+              <Tooltip title='Add New Event'>
+                <AddBoxIcon fontSize='large' />
+              </Tooltip>
+            </IconButton>
+          </Grid>
+        </Grid>
+      </Box>
+    </div>
+  );
+}
+
+// GROUP EVENT LIST HEADER
+export function GroupEventsHeader({ user }) {
+  const navigate = useNavigate();
+  return (
+    <div>
+      <Box alignItems='center'>
+        <Grid container alignItems='center' justifyContent='right'>
+          <Grid item xs={2}>
+            <IconLogo />
+          </Grid>
+          <Grid item xs={8}>
+            <Card elevation={0}>
+              <CardHeader
+                title={`${user.user.first_name}'s`}
+                subheader='Events'
+              />
+            </Card>
+          </Grid>
+          <Grid item xs={2}>
+            <IconButton onClick={() => navigate("../../events/new")}>
               <Tooltip title='Add New Event'>
                 <AddBoxIcon fontSize='large' />
               </Tooltip>

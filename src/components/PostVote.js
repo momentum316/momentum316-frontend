@@ -132,7 +132,7 @@ export default function PostVoteEvent({ user }) {
           </>
         )}
         <Stack textAlign='left'>
-          <h6>Address Line</h6>
+          <h6>Location</h6>
         </Stack>
         <Container>
           {event.location !== null ? (

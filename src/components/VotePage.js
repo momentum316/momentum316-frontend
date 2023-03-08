@@ -7,6 +7,7 @@ import {
   Tooltip,
   IconButton,
   Typography,
+  Avatar,
 } from "@mui/material";
 import { GroupTabs } from "./NoteCards";
 import axios from "axios";
@@ -51,20 +52,20 @@ export function VotePage({ user }) {
     activeVote && (
       <>
         {/* <ActivitySlide user={user} /> */}
-        <Box alignItems='center'>
-          <Grid container alignItems='center' justifyContent='right'>
+        <Box alignItems="center">
+          <Grid container alignItems="center" justifyContent="right">
             <Grid item xs={2}>
               <IconLogo />
             </Grid>
             <Grid item xs={8}>
               <Card elevation={0}>
-                <CardHeader title={`${group}`} subheader='Open Vote Events' />
+                <CardHeader title={`${group}`} subheader="Open Vote Events" />
               </Card>
             </Grid>
             <Grid item xs={2}>
-              <Tooltip title='More Options'>
+              <Tooltip title="More Options">
                 <IconButton>
-                  <MoreVertIcon fontSize='large' />
+                  <MoreVertIcon fontSize="large" />
                 </IconButton>
               </Tooltip>
             </Grid>
@@ -131,21 +132,26 @@ export function Vote({ user }) {
   return (
     event && (
       <>
-        <Grid container spacing={2} justifyContent='center' alignItems='center'>
-          <Grid
-            item
-            xs={12}
-            onClick={() =>
-              navigate(`/event/${eventParent.group_id}/${eventParent.id}`)
-            }
-          >
-            <ActivitySlide event={eventParent} />
+        <IconButton onClick={() => navigate(`/group/${groupId}`)}>
+          <Avatar
+            alt={eventParent.group_title}
+            src={eventParent.group_avatar}
+            sx={{ width: 80, height: 80 }}
+          />
+        </IconButton>
+        <Box
+          onClick={() =>
+            navigate(`/event/${eventParent.group_id}/${eventParent.id}`)
+          }
+        >
+          <ActivitySlide event={eventParent} />
+        </Box>
+        <Grid container spacing={2} justifyContent="center" alignItems="center">
+          <Grid item xs={12}>
+            <GroupTabs />
           </Grid>
           <Grid item xs={12}>
             <CountdownTimer targetDate={endTime} />
-            <Grid item xs={12}>
-              <GroupTabs />
-            </Grid>
           </Grid>
           <Grid item xs={12}>
             {event.map((e) => (
@@ -163,7 +169,7 @@ export function Vote({ user }) {
             ))}
           </Grid>
           <Grid item>
-            <Button variant='contained' onClick={(e) => handleEvent(e)}>
+            <Button variant="contained" onClick={(e) => handleEvent(e)}>
               Add an Activity
             </Button>
           </Grid>
