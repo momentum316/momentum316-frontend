@@ -26,10 +26,11 @@ import { CountdownTimer, useCountdown } from "./TimerSet";
 // POST VOTE EVENT PAGE
 export default function PostVoteEvent({ user }) {
   const navigate = useNavigate();
+  const now = dayjs();
   const { groupId, eventId } = useParams();
   const [event, setEvent] = useState(null);
   const [group, setGroup] = useState(null);
-  const time = dayjs().toISOString;
+  const [time, setTime] = useState(now.toISOString());
 
   useEffect(() => {
     axios
@@ -108,7 +109,7 @@ export default function PostVoteEvent({ user }) {
         </IconButton>
         {/* Make this a component */}
         <ActivitySlide event={event} />
-        {event.vote_closing_time < time ? (
+        {time < event.vote_closing_time && event.voting === true ? (
           <>
             <CountdownTimer targetDate={event.vote_closing_time} />
             <Divider />

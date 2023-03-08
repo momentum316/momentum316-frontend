@@ -1,6 +1,6 @@
 // HOMEPAGE HEADER W/ CAMERA, GREETING, OPTION LIST ICON
-import React from 'react';
-import axios from 'axios';
+import React from "react";
+import axios from "axios";
 import {
   IconButton,
   Box,
@@ -15,16 +15,16 @@ import {
   MenuList,
   MenuItem,
   Divider,
-} from '@mui/material';
-import CameraRollIcon from '@mui/icons-material/CameraRoll';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import AddIcon from '@mui/icons-material/Add';
-import { useNavigate, useParams } from 'react-router-dom';
-import GroupAddIcon from '@mui/icons-material/GroupAdd';
-import AddBoxIcon from '@mui/icons-material/AddBox';
-import { SmallLogo, IconLogo } from './NoteCards';
-import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
-import { useState, useEffect } from 'react';
+} from "@mui/material";
+import CameraRollIcon from "@mui/icons-material/CameraRoll";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import AddIcon from "@mui/icons-material/Add";
+import { useNavigate, useParams } from "react-router-dom";
+import GroupAddIcon from "@mui/icons-material/GroupAdd";
+import AddBoxIcon from "@mui/icons-material/AddBox";
+import { SmallLogo, IconLogo } from "./NoteCards";
+import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
+import { useState, useEffect } from "react";
 
 // HOMEPAGE HEADER
 export function HomeHeader({ user, setUser, setUserToken }) {
@@ -42,45 +42,43 @@ export function HomeHeader({ user, setUser, setUserToken }) {
     setUser(null);
     setUserToken(null);
     setEmptyToken(true);
-    navigate('/login');
+    navigate("/login");
   };
   return (
     <div>
       <Box>
-        <Grid container alignItems="center" justifyContent="right">
+        <Grid container alignItems='center' justifyContent='right'>
           <Grid item xs={8}>
             <Card elevation={0}>
               <SmallLogo />
             </Card>
           </Grid>
-          <Grid item justifyContent="right">
+          <Grid item justifyContent='right'>
             <IconButton onClick={handleClick}>
-              <MoreVertIcon fontSize="large" />
+              <MoreVertIcon fontSize='large' />
             </IconButton>
           </Grid>
         </Grid>
       </Box>
       <Menu
         anchorEl={anchorEl}
-        id="account-menu"
+        id='account-menu'
         open={open}
         onClose={handleClose}
         onClick={handleClose}
         PaperProps={{
           elevation: 0,
           sx: {
-            overflow: 'visible',
-            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+            overflow: "visible",
+            filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
             mt: 1.5,
           },
         }}
       >
         <MenuList>
-          <MenuItem onClick={() => navigate('/new/group')}>
+          <MenuItem onClick={() => navigate("/new/group")}>
             Manage Groups
           </MenuItem>
-          <Divider />
-          <MenuItem onClick={handleClose}>Leave Group</MenuItem>
           <Divider />
           <MenuItem onClick={() => handleLogout()}>Logout</MenuItem>
         </MenuList>
@@ -102,8 +100,8 @@ export function GroupsHeader({ user }) {
   };
   return (
     <div>
-      <Box alignItems="center">
-        <Grid container alignItems="center" justifyContent="right">
+      <Box alignItems='center'>
+        <Grid container alignItems='center' justifyContent='right'>
           <Grid item xs={2}>
             <IconLogo />
           </Grid>
@@ -111,14 +109,14 @@ export function GroupsHeader({ user }) {
             <Card elevation={0}>
               <CardHeader
                 title={`${user.user.first_name}'s`}
-                subheader="Groups"
+                subheader='Groups'
               />
             </Card>
           </Grid>
           <Grid item xs={2}>
             <IconButton onClick={handleClick}>
-              <Tooltip title="More Options">
-                <MoreVertIcon fontSize="large" />
+              <Tooltip title='More Options'>
+                <MoreVertIcon fontSize='large' />
               </Tooltip>
             </IconButton>
           </Grid>
@@ -126,27 +124,27 @@ export function GroupsHeader({ user }) {
       </Box>
       <Menu
         anchorEl={anchorEl}
-        id="account-menu"
+        id='account-menu'
         open={open}
         onClose={handleClose}
         onClick={handleClose}
         PaperProps={{
           elevation: 0,
           sx: {
-            overflow: 'visible',
-            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+            overflow: "visible",
+            filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
             mt: 1.5,
           },
         }}
       >
         <MenuList>
-          <MenuItem onClick={() => navigate('/new/group')}>
+          <MenuItem onClick={() => navigate("/new/group")}>
             Manage Groups
           </MenuItem>
           <Divider />
           <MenuItem onClick={handleClose}>Leave Group</MenuItem>
           <Divider />
-          <MenuItem onClick={() => navigate('/logout')}>Logout</MenuItem>
+          <MenuItem onClick={() => navigate("/logout")}>Logout</MenuItem>
         </MenuList>
       </Menu>
     </div>
@@ -175,20 +173,20 @@ export function GroupMembersHeader({ user, groupTitle }) {
 
   return (
     <div>
-      <Box alignItems="center">
-        <Grid container alignItems="center" justifyContent="right">
+      <Box alignItems='center'>
+        <Grid container alignItems='center' justifyContent='right'>
           <Grid item xs={2}>
             <IconLogo />
           </Grid>
           <Grid item xs={8}>
             <Card elevation={0}>
-              <CardHeader title={`${groupTitle}`} subheader="Members" />
+              <CardHeader title={`${groupTitle}`} subheader='Members' />
             </Card>
           </Grid>
           <Grid item xs={2}>
-            <Tooltip title="More Options">
+            <Tooltip title='More Options'>
               <IconButton onClick={handleClick}>
-                <MoreVertIcon fontSize="large" />
+                <MoreVertIcon fontSize='large' />
               </IconButton>
             </Tooltip>
           </Grid>
@@ -196,21 +194,21 @@ export function GroupMembersHeader({ user, groupTitle }) {
       </Box>
       <Menu
         anchorEl={anchorEl}
-        id="account-menu"
+        id='account-menu'
         open={open}
         onClose={handleClose}
         onClick={handleClose}
         PaperProps={{
           elevation: 0,
           sx: {
-            overflow: 'visible',
-            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+            overflow: "visible",
+            filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
             mt: 1.5,
           },
         }}
       >
         <MenuList>
-          <MenuItem onClick={() => navigate('/new/group')}>
+          <MenuItem onClick={() => navigate("/new/group")}>
             Manage Groups
           </MenuItem>
           <Divider />
@@ -230,8 +228,8 @@ export function EventsHeader({ user }) {
   const navigate = useNavigate();
   return (
     <div>
-      <Box alignItems="center">
-        <Grid container alignItems="center" justifyContent="right">
+      <Box alignItems='center'>
+        <Grid container alignItems='center' justifyContent='right'>
           <Grid item xs={2}>
             <IconLogo />
           </Grid>
@@ -239,14 +237,14 @@ export function EventsHeader({ user }) {
             <Card elevation={0}>
               <CardHeader
                 title={`${user.user.first_name}'s`}
-                subheader="Events"
+                subheader='Events'
               />
             </Card>
           </Grid>
           <Grid item xs={2}>
-            <IconButton onClick={() => navigate('events/new')}>
-              <Tooltip title="Add New Event">
-                <AddBoxIcon fontSize="large" />
+            <IconButton onClick={() => navigate("events/new")}>
+              <Tooltip title='Add New Event'>
+                <AddBoxIcon fontSize='large' />
               </Tooltip>
             </IconButton>
           </Grid>
@@ -261,10 +259,10 @@ export function CreateEventHeader({ user }) {
   const [groups, setGroups] = useState(null);
   return (
     <Box>
-      <Grid container justifyContent="center" alignItems="center">
+      <Grid container justifyContent='center' alignItems='center'>
         <Grid item>
           <Card elevation={0}>
-            <CardHeader title="Create New Event" />
+            <CardHeader title='Create New Event' />
           </Card>
         </Grid>
       </Grid>

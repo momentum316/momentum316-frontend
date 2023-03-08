@@ -26,37 +26,22 @@ export function Homepage({
       <br />
       <Grid container spacing={2}>
         <Grid item>
-          <Typography variant="h6">Live Votes</Typography>
+          <Typography variant='h6'>Live Votes</Typography>
         </Grid>
-        <Grid item xs={12} sx={{ maxHeight: 160 }}>
+        <Grid item xs={12} sx={{ maxHeight: 240 }}>
           <List style={{ maxHeight: "100%", overflow: "auto" }}>
             <ActiveVotesForUser user={user} />
           </List>
         </Grid>
+
         <Grid item>
-          <Typography variant="h6">Upcoming Events</Typography>
+          <Typography variant='h6' sx={{ pt: 5 }}>
+            Upcoming Events
+          </Typography>
         </Grid>
-        <Grid item xs={12} sx={{ maxHeight: 160 }}>
+        <Grid item xs={12} sx={{ maxHeight: 240 }}>
           <List style={{ maxHeight: "100%", overflow: "auto" }}>
             <UpcomingEventsForUser user={user} />
-          </List>
-        </Grid>
-        <Grid item>
-          <Typography variant="h6">Your Groups</Typography>
-        </Grid>
-
-        <Grid item xs={12} sx={{ maxHeight: 110 }}>
-          <List
-            className="home-groups"
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              direction: "row",
-              maxHeight: "100%",
-              overflow: "auto",
-            }}
-          >
-            <UserGroups user={user} />
           </List>
         </Grid>
       </Grid>

@@ -1,5 +1,5 @@
-import React from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import {
   Box,
   Grid,
@@ -16,18 +16,18 @@ import {
   ListItem,
   ImageList,
   ImageListItem,
-} from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Stack } from '@mui/system';
-import LogoImage from '../images/LogoImage.jpg';
-import backend_url from '../render.json';
-import CameraRollIcon from '@mui/icons-material/CameraRoll';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import dayjs from 'dayjs';
+} from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { Stack } from "@mui/system";
+import LogoImage from "../images/LogoImage.jpg";
+import backend_url from "../render.json";
+import CameraRollIcon from "@mui/icons-material/CameraRoll";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import dayjs from "dayjs";
 
 // LOGIN LOGO
 export function LogoCard() {
@@ -117,9 +117,7 @@ export function EventCard({
                   key={groupId}
                   onClick={() => navigate(`/group/${groupId}`)}
                   alt={group}
-
                   src={groupAvatar}
-
                 />
               }
               title={event}
@@ -127,12 +125,10 @@ export function EventCard({
             />
             {isExpanded && (
               <CardContent>
-
-                <Typography variant="body2" color="textSecondary">
-                  {`Time: ${dayjs(startTime).format('hh:mm a')} - ${dayjs(
-
+                <Typography variant='body2' color='textSecondary'>
+                  {`Time: ${dayjs(startTime).format("hh:mm a")} - ${dayjs(
                     endTime
-                  ).format('hh:mm a')}`}
+                  ).format("hh:mm a")}`}
                   <br />
                   {description}
                 </Typography>
@@ -188,11 +184,10 @@ export function ActivityCard({
         />
         {isExpanded && (
           <CardContent>
-            <Typography variant="body2" color="textSecondary">
-              {`Time: ${dayjs(startTime).format('hh:mm a')} - ${dayjs(
-
+            <Typography variant='body2' color='textSecondary'>
+              {`Time: ${dayjs(startTime).format("hh:mm a")} - ${dayjs(
                 endTime
-              ).format('hh:mm a')}`}
+              ).format("hh:mm a")}`}
               <br />
               {description}
             </Typography>
@@ -300,13 +295,13 @@ export function VoteCard({
           <Stack alignItems='center' justifyContent='center'>
             <KeyboardArrowUpIcon
               onClick={(e) => handleUp(e)}
-              color={voteCount === 1 ? 'warning' : ''}
+              color={voteCount === 1 ? "warning" : ""}
             />
             {/* {voteCount} */}
             <br />
             <KeyboardArrowDownIcon
               onClick={(e) => handleDown(e)}
-              color={voteCount === -1 ? 'warning' : ''}
+              color={voteCount === -1 ? "warning" : ""}
             />
           </Stack>
         </Grid>
@@ -368,12 +363,6 @@ export function ActiveVotesForUser({
       })
 
       .then((res) => {
-        // let votesInProgress = res.data.event_list.filter(
-        //   (event) => event.voting === true && event.vote_closing_time > time
-        // );
-        // setActiveVote(votesInProgress);
-        // console.log(votesInProgress);
-        console.log(res.data.group_list);
         setGroups(res.data.group_list);
         setLoading(false);
       });
@@ -390,7 +379,7 @@ export function ActiveVotesForUser({
           let votesInProgress = group.event_list.filter(
             (event) => event.voting === true && event.vote_closing_time > time
           );
-          console.log(votesInProgress);
+
           return (
             votesInProgress.length > 0 &&
             votesInProgress.map((e) => (
@@ -422,7 +411,7 @@ export function UpcomingEventsForUser({
   endTime,
 }) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [activeVote, setActiveVote] = useState(null);
+  const [upcomingEvent, setUpcomingEvent] = useState(null);
   const [groups, setGroups] = useState(null);
   const [time, setTime] = useState(dayjs().toISOString());
   const [loading, setLoading] = useState(true);
@@ -435,13 +424,8 @@ export function UpcomingEventsForUser({
       })
 
       .then((res) => {
-        // let votesInProgress = res.data.event_list.filter(
-        //   (event) => event.voting === true && event.vote_closing_time > time
-        // );
-        // setActiveVote(votesInProgress);
-        // console.log(votesInProgress);
-        console.log(res.data.group_list);
         setGroups(res.data.group_list);
+
         setLoading(false);
       });
   }, [user.user.username, user.token]);
@@ -454,13 +438,13 @@ export function UpcomingEventsForUser({
     groups && (
       <div>
         {groups.map((group) => {
-          let votesInProgress = group.event_list.filter(
-            (event) => event.decided === true
+          let upcomingEvents = group.event_list.filter(
+            (event) => event.decided === true && event && time < event.date
           );
-          console.log(votesInProgress);
+
           return (
-            votesInProgress.length > 0 &&
-            votesInProgress.map((e) => (
+            upcomingEvents.length > 0 &&
+            upcomingEvents.map((e) => (
               <EventCard
                 user={user}
                 event={e.title}
@@ -513,10 +497,10 @@ export function UserGroups({ user }) {
             <Grid item xs={3}>
               <ImageList
                 sx={{
-                  gridAutoFlow: 'column',
+                  gridAutoFlow: "column",
                   gridTemplateColumns:
-                    'repeat(auto-fill,minmax(160px,1fr)) !important',
-                  gridAutoColumns: 'minmax(160px, 1fr)',
+                    "repeat(auto-fill,minmax(160px,1fr)) !important",
+                  gridAutoColumns: "minmax(160px, 1fr)",
                 }}
               >
                 <ImageListItem>
@@ -527,9 +511,7 @@ export function UserGroups({ user }) {
                           key={g.id}
                           onClick={() => navigate(`/group/${g.id}`)}
                           alt={g.title}
-
                           src={g.avatar}
-
                         />
                       }
                       subheader={g.title}
