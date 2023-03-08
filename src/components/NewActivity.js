@@ -1,7 +1,7 @@
 import * as React from "react";
 import "../App.css";
 // General page use
-import { Stack, TextField, Button } from "@mui/material";
+import { Stack, TextField, Button, Card, CardHeader } from "@mui/material";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 // Footer Nav Bar
 import { Container } from "@mui/material";
@@ -61,6 +61,13 @@ export function NewActivity({
 
   return (
     <div>
+      <Card elevation={0}>
+        <CardHeader
+          variant="h5"
+          align="center"
+          title="Add Activity to Event"
+        ></CardHeader>
+      </Card>
       <br />
       <TextField
         id="activity-title"
