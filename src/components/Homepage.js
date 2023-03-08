@@ -43,7 +43,7 @@ export function Homepage({
             <UpcomingEventsForUser user={user} />
           </List>
         </Grid>
-        <Grid item>
+        {/* <Grid item>
           <Typography variant="h5" fullWidth>
             Your Groups
           </Typography>
@@ -62,7 +62,7 @@ export function Homepage({
           >
             <UserGroups user={user} />
           </List>
-        </Grid>
+        </Grid> */}
       </Grid>
     </div>
   );
