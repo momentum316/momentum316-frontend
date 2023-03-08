@@ -29,9 +29,11 @@ import { ActiveVotesForUser, UpcomingEventsForUser } from "./NoteCards";
 
 // CREATE NEW EVENT PAGE
 export function NewEvent({ user }) {
+  const [description, setDescription] = useState("");
+  const [location, setLocation] = useState("");
   const navigate = useNavigate();
   const [event, setEvent] = useState("");
-  const [date, setDate] = useState(dayjs().format("YYYY-MM-DD"));
+  const [date, setDate] = useState(dayjs().toISOString());
   const [group, setGroup] = useState("");
   const [choices, setChoices] = useState(null);
   const [endTime, setEndTime] = useState(dayjs().add(1, "day").toISOString());
@@ -39,15 +41,19 @@ export function NewEvent({ user }) {
   const [createdEvent, setCreatedEvent] = useState("");
   const [vote, setVote] = useState(false);
   const [activity, setActivity] = useState(false);
+  const [activityTitleFromEvent, setActivityTitleFromEvent] = useState("");
+  const [activityLocation, setActivityLocation] = useState("");
+  const [activityDescription, setActivityDescription] = useState("");
+
+  const [eventId, setEventId] = useState(null);
 
   const handleChange = (newValue) => {
     var d = new Date(newValue);
     var e = new Date(newValue);
-    var date = dayjs(d).format("YYYY-MM-DD");
+    var date = dayjs(d).toISOString();
     setDate(date);
     let end = dayjs(e);
     setEndTime(end.add(1, "day").toISOString());
-    console.log(date);
   };
 
   //  GRAB GROUP NAMES FOR DROPDOWN MENU ON NEW EVENT
@@ -61,7 +67,7 @@ export function NewEvent({ user }) {
       .then((res) => setChoices(res.data.group_list));
   }, [user.user.username, user.token]);
 
-  // SUBMITS EVENT
+  // SUBMITS EVENT AND ACTIVITY DETAILS
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
@@ -73,6 +79,8 @@ export function NewEvent({ user }) {
           voting: vote,
           date: `${date}`,
           vote_closing_time: `${endTime}`,
+          description: `${description}`,
+          location: `${location}`,
         },
         {
           headers: {
@@ -81,9 +89,29 @@ export function NewEvent({ user }) {
         }
       )
       .then((res) => {
-        res.data.voting === false
-          ? navigate(`/event/${group}/${res.data.id}`)
-          : navigate(`/group/${group}/vote/${res.data.id}`);
+        let eventID = res.data.id;
+        if (res.data.voting === false) {
+          navigate(`/event/${group}/${res.data.id}`);
+        } else if (activityTitleFromEvent) {
+          axios
+            .post(
+              `${process.env.REACT_APP_BACKEND_URL}/new/activity/`,
+              {
+                title: activityTitleFromEvent,
+                event_id: eventID,
+                description: activityDescription,
+                location: activityLocation,
+                start_time: date,
+                end_time: endTime,
+              },
+              {
+                headers: {
+                  Authorization: `token ${user.token}`,
+                },
+              }
+            )
+            .then((res) => navigate(`/group/${group}/vote/${eventID}`));
+        }
       });
   };
 
@@ -136,6 +164,26 @@ export function NewEvent({ user }) {
                 </Select>
               </FormControl>
             </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                id="location-box"
+                label="Location"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+              ></TextField>
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                id="description-box"
+                label="Description"
+                multiline
+                rows={4}
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </Grid>
             <br />
           </Grid>
           <br />
@@ -162,15 +210,23 @@ export function NewEvent({ user }) {
                   label="Add Activity"
                   labelPlacement="end"
                 />
-                {activity && <NewActivity />}
+                {/* Start Activity Section */}
+                {activity && (
+                  <NewActivity
+                    setActivityTitleFromEvent={setActivityTitleFromEvent}
+                    setActivityDescription={setActivityDescription}
+                    setActivityLocation={setActivityLocation}
+                    eventId={eventId}
+                  />
+                )}
               </>
             )}
           </Stack>
           <br />
           <Stack>
             <Button
-              onClick={(e) => handleSubmit(e)}
               fullWidth
+              onClick={(e) => handleSubmit(e)}
               variant="contained"
             >
               Submit Event

@@ -13,7 +13,14 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import axios from "axios";
 
-export function NewActivity({ groupId, eventId, user }) {
+export function NewActivity({
+  groupId,
+  eventId,
+  user,
+  setActivityTitleFromEvent,
+  setActivityLocation,
+  setActivityDescription,
+}) {
   const navigate = useNavigate();
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
@@ -60,7 +67,10 @@ export function NewActivity({ groupId, eventId, user }) {
         label="Activity Title"
         fullWidth
         value={activityTitle}
-        onChange={(e) => setActivityTitle(e.target.value)}
+        onChange={(e) => {
+          setActivityTitle(e.target.value);
+          setActivityTitleFromEvent(e.target.value);
+        }}
       ></TextField>
       <Stack>
         <br />
@@ -89,7 +99,10 @@ export function NewActivity({ groupId, eventId, user }) {
           fullWidth
           label="Location"
           value={location}
-          onChange={(e) => setLocation(e.target.value)}
+          onChange={(e) => {
+            setLocation(e.target.value);
+            setActivityLocation(e.target.value);
+          }}
         />
         <TextField
           id="description-box"
@@ -98,7 +111,10 @@ export function NewActivity({ groupId, eventId, user }) {
           rows={4}
           fullWidth
           value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          onChange={(e) => {
+            setDescription(e.target.value);
+            setActivityDescription(e.target.value);
+          }}
         />
       </Stack>
       {/* CANCEL BUTTON (clear fields or back to event?)*/}
