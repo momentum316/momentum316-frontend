@@ -234,7 +234,7 @@ export function VoteCard({
   }, [activityId]);
 
   const handleUp = (e) => {
-    if (eventVoter !== false) {
+    if (eventVoter === false) {
       axios
         .patch(
           `${process.env.REACT_APP_BACKEND_URL}/vote/${voteId}`,
@@ -256,7 +256,7 @@ export function VoteCard({
   };
 
   const handleDown = (e) => {
-    if (eventVoter !== false) {
+    if (eventVoter === false) {
       axios
         .patch(
           `${process.env.REACT_APP_BACKEND_URL}/vote/${voteId}`,
@@ -278,7 +278,7 @@ export function VoteCard({
   };
 
   const handleZero = (e) => {
-    if (eventVoter !== false) {
+    if (eventVoter === false) {
       axios
         .patch(
           `${process.env.REACT_APP_BACKEND_URL}/vote/${voteId}`,
