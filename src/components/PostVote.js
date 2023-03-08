@@ -108,7 +108,7 @@ export default function PostVoteEvent({ user }) {
         </IconButton>
         {/* Make this a component */}
         <ActivitySlide event={event} />
-        {event.vote_closing_time < time ? (
+        {event.vote_closing_time < time && event.voting === true ? (
           <>
             <CountdownTimer targetDate={event.vote_closing_time} />
             <Divider />

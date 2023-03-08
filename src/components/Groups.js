@@ -1,34 +1,28 @@
 import {
   Avatar,
-  AvatarGroup,
   Grid,
   Button,
-  ButtonGroup,
   Card,
   CardHeader,
-  Container,
   TextField,
   FormControl,
   InputLabel,
   MenuItem,
   Select,
-  Stack,
-  InputAdornment,
   IconButton,
-  Input,
   Tooltip,
   Typography,
-} from '@mui/material';
-import { Route, Routes, Link, useParams, useNavigate } from 'react-router-dom';
-import ContentPasteIcon from '@mui/icons-material/ContentPaste';
-import { GroupTabs, SmallLogo, ActivityCard } from './NoteCards';
-import { GroupsHeader, GroupEventsHeader } from './Headers';
-import axios from 'axios';
-import backend_url from '../render.json';
+} from "@mui/material";
+import { Route, Routes, Link, useParams, useNavigate } from "react-router-dom";
+import ContentPasteIcon from "@mui/icons-material/ContentPaste";
+import { GroupTabs, SmallLogo, ActivityCard } from "./NoteCards";
+import { GroupsHeader, GroupEventsHeader } from "./Headers";
+import axios from "axios";
+import backend_url from "../render.json";
 
-import { useState, useEffect } from 'react';
-import { CopyAll } from '@mui/icons-material';
-import { GroupMembersHeader } from './Headers';
+import { useState, useEffect } from "react";
+import { CopyAll } from "@mui/icons-material";
+import { GroupMembersHeader } from "./Headers";
 
 // LIST OF USER'S GROUPS
 export function GroupPage({ user }) {
@@ -144,7 +138,7 @@ export function Group({ user }) {
 
 // CREATE NEW GROUP OR COPY LINK TO GROUP INVITE PAGE
 export function NewGroup({ user }) {
-  let NewGroup = 'create';
+  let NewGroup = "create";
   const [groups, setGroups] = useState(NewGroup);
   const [choices, setChoices] = useState(null);
   const [groupName, setGroupName] = useState(null);
@@ -182,7 +176,7 @@ export function NewGroup({ user }) {
       )
       .then((res) => {
         console.log(res);
-        navigate('/group');
+        navigate("/group");
       });
   };
 
@@ -305,7 +299,6 @@ export function GroupEvents({ user }) {
         },
       })
       .then((res) => {
-        console.log(res.data);
         setEvents(res.data);
       });
   }, [groupId, user.token]);
@@ -369,7 +362,7 @@ export function LeaveGroup({ user }) {
       )
       .then((res) => {
         console.log(res);
-        navigate('/group');
+        navigate("/group");
       });
   };
   return (
